@@ -1,6 +1,6 @@
 .venv/
 .vscode/
-webscrapping\__pycache__
+webscrapping\__pycache__\
 algorithm/NLP/processed_data_set_demo.csv
 dataset\romanian_political_articles.csv
 dataset\romanian_political_articles2.csv
