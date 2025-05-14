@@ -1,0 +1,32 @@
+Bootstrap: docker
+From: nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
+
+%environment
+    export VENV_PATH="/venv"
+    export REQ_PATH="/requirements.txt"
+    export NB_PATH="/notebook.ipynb"
+    source "$VENV_PATH/bin/activate"
+
+%post
+    export VENV_PATH="/venv"
+    export REQ_PATH="/requirements.txt"
+    export NB_PATH="/notebook.ipynb"
+
+    apt-get update && apt-get install -y \
+        python3 python3-pip python3-venv curl git && \
+        rm -rf /var/lib/apt/lists/*
+
+    python3 -m venv "$VENV_PATH"
+    . "$VENV_PATH/bin/activate"
+    pip install --upgrade pip
+    pip install -r "$REQ_PATH"
+
+    jupyter nbconvert --to notebook --inplace --execute "$NB_PATH"
+
+%files
+    ../requirements.txt /requirements.txt
+    ../algorithm/NLP/media_bias_nlp.ipynb /notebook.ipynb
+    ../dataset/romanian_political_articles_v1 /workspace/dataset/romanian_political_articles_v1.csv
+
+%runscript
+    exec jupyter nbconvert --to notebook --inplace --execute "$NB_PATH"
