@@ -26,7 +26,7 @@ From: nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 %files
     ../requirements.txt /requirements.txt
     ../algorithm/NLP/media_bias_nlp.ipynb /notebook.ipynb
-    ../dataset/romanian_political_articles_v1 /workspace/dataset/romanian_political_articles_v1.csv
+    ../dataset/romanian_political_articles_v1.csv /workspace/dataset/romanian_political_articles_v1.csv
 
 %runscript
     exec jupyter nbconvert --to notebook --inplace --execute "$NB_PATH"
