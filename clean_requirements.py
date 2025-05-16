@@ -11,8 +11,5 @@ with raw_file.open("r", encoding="utf-8-sig") as f, output_file.open("w", encodi
             continue
         if "@" in line:
             out.write(line)
-        elif "==" in line:
-            name, version = line.strip().split("==")
-            out.write(f"{name}>={version}\n")
         else:
             out.write(line)
