@@ -2,20 +2,33 @@ Bootstrap: docker
 From: nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
 %post
+    export DEBIAN_FRONTEND=noninteractive
+
+    # Install system deps
     apt-get update && apt-get install -y \
         software-properties-common \
         curl git build-essential \
         python3.11 python3.11-venv python3.11-distutils python3.11-dev \
-        wget && \
+        wget ca-certificates \
+        libaio-dev libgomp1 && \
         rm -rf /var/lib/apt/lists/*
 
+    # Python and pip
     ln -s /usr/bin/python3.11 /usr/local/bin/python
     curl -sS https://bootstrap.pypa.io/get-pip.py | python
 
+    # Create venv
     python -m venv /venv
     . /venv/bin/activate
 
+    # Install torch for CUDA 12.1
     pip install --upgrade pip
+    pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+
+    # Install vLLM + extras
+    pip install "vllm[triton]" transformers accelerate
+
+    # Install notebook requirements
     pip install -r /requirements.txt
     pip install nbconvert
 
@@ -32,4 +45,6 @@ From: nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
     source /venv/bin/activate
 
 %runscript
-    echo "Container built. Run manually with jupyter nbconvert or python."
+    echo "Container ready. You can now:"
+    echo "1. Run notebooks (nbconvert or Jupyter)"
+    echo "2. Start vLLM with: python3 -m vllm.entrypoints.openai.api_server --model /models/llama2-70b-gptq --quantization gptq"
