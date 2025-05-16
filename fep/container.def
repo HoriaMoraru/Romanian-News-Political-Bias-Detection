@@ -28,23 +28,18 @@ From: nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
     # Install vLLM + extras
     pip install "vllm[triton]" transformers accelerate
 
-    # Install notebook requirements
-    pip install -r /requirements.txt
-    pip install nbconvert
+    # Install requirements
+    pip install -r workspace/requirements.txt
 
 %files
-    ../requirements.txt /requirements.txt
-    ../algorithm/NLP/media_bias_nlp.ipynb /notebook.ipynb
-    ../dataset/romanian_political_articles_v1.csv /workspace/dataset/romanian_political_articles_v1.csv
+    ../ /workspace/
+
 
 %environment
     export VENV_PATH="/venv"
-    export REQ_PATH="/requirements.txt"
-    export NB_PATH="/notebook.ipynb"
+    export REQ_PATH="workspace/requirements.txt"
     export PATH="/venv/bin:$PATH"
-    source /venv/bin/activate
 
 %runscript
     echo "Container ready. You can now:"
-    echo "1. Run notebooks (nbconvert or Jupyter)"
-    echo "2. Start vLLM with: python3 -m vllm.entrypoints.openai.api_server --model /models/llama2-70b-gptq --quantization gptq"
+    echo "1. Start vLLM with: python3 -m vllm.entrypoints.openai.api_server --model /models/llama2-70b-gptq --quantization gptq"
