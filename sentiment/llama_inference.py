@@ -67,13 +67,13 @@ def safe_eval_entities(entities_str):
 
 logging.info("Extracting stance for entities...")
 tqdm.pandas(desc="Processing rows...")
-df['stances'] = df.progress_apply(
-    lambda row: analyze_stance(row['maintext'], safe_eval_entities(row['entities'])), axis=1
-)
+# df['stance'] = df.progress_apply(
+#     lambda row: analyze_stance(row['maintext'], safe_eval_entities(row['ner'])), axis=1
+# )
 
 row = df.iloc[0]
 text = row["maintext"]
-entities = safe_eval_entities(row["entities"])
+entities = safe_eval_entities(row["ner"])
 
 print("Entities:", entities)
 stances = analyze_stance(text, entities)
