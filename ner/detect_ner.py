@@ -8,7 +8,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, AutoCon
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 logging.info("Loading dataset...")
-input_path = "workspace/dataset/romanian_political_articles_v1.csv"
+input_path = "../dataset/romanian_political_articles_v1.csv"
 df =pd.read_csv(input_path)
 df = df.dropna(subset=["maintext", "source_domain"])
 
@@ -128,7 +128,7 @@ def extract_named_entities(text):
 logging.info("Extracting named entities...")
 df['ner'] = df['cleantext'].progress_apply(extract_named_entities)
 
-output_path = "workspace/dataset/romanian_political_articles_v1_ner.csv"
+output_path = "../dataset/romanian_political_articles_v1_ner.csv"
 df.to_csv(output_path, index=False)
 logging.info(f"Saved NER output to {output_path}")
 

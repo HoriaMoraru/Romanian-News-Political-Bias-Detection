@@ -3,4 +3,5 @@
 webscrapping\__pycache__\
 dataset\romanian_political_articles.csv
 dataset\romanian_political_articles2.csv
-fep/notebook_sandbox/
+fep/sandbox/
+/logs
