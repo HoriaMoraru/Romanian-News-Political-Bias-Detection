@@ -1,6 +1,7 @@
 import pandas as pd
-import openai
+from openai import OpenAI
 import re
+from typing import List
 import logging
 import time
 import ast
@@ -8,8 +9,11 @@ from tqdm import tqdm
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-openai.api_key = "EMPTY"  # Required by vLLM but unused
-openai.api_base = "http://localhost:8000/v1"
+logging.info("Loading OpenAI client...")
+client = OpenAI(
+    api_key="EMPTY",  # Required by OpenAI client, even if unused
+    base_url="http://localhost:8000/v1"
+)
 
 logging.info("Loading dataset...")
 df = pd.read_csv("dataset/romanian_political_articles_v1_ner.csv")
@@ -29,7 +33,7 @@ def query_llm(prompt, max_retries=3):
 
     for _ in range(max_retries):
         try:
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model=MODEL,
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant that analyzes news articles and detects stances towards entities."},
@@ -39,18 +43,17 @@ def query_llm(prompt, max_retries=3):
                 max_tokens=10,
             )
 
-            match = re.search(r"\b(pozitiv|negativ|neutru)\b",
-                              response["choices"][0]["message"]["content"].strip(),
-                              re.IGNORECASE)
+            message = response.choices[0].message.content.strip()
+            match = re.search(r"\b(pozitiv|negativ|neutru)\b", message, re.IGNORECASE)
             stance = match.group(1).upper() if match else "UNKNOWN"
             return stance
         except Exception as e:
-            logging.warning("Error querying llm for sentiment:", e)
+            logging.warning(f"Error querying llm for sentiment: {e}")
             time.sleep(1)
 
     return "ERROR"
 
-def analyze_stance(text: str, entities: list[str]) -> list:
+def analyze_stance(text: str, entities: List[str]) -> List[tuple]:
     results = []
     for entity in entities:
         prompt = build_prompt(text, entity)
