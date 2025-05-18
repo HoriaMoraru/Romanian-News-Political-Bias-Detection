@@ -28,7 +28,7 @@ def build_prompt(sentence: str, entity: str) -> str:
 
 MODEL = "/models/llama2-70b-gptq"
 TEMPERATURE = 0.0
-MAX_TOKENS = 2
+MAX_TOKENS = 20
 
 def query_llm(prompt, max_retries=3):
 
@@ -44,6 +44,8 @@ def query_llm(prompt, max_retries=3):
                 max_tokens=MAX_TOKENS,
             )
 
+            print("Full response object:")
+            print(response)
             message = response.choices[0].message.content.strip()
             logging.info(f"LLM response: {message}")
             match = re.search(r"\b(pozitiv|negativ|neutru)\b", message, re.IGNORECASE)
