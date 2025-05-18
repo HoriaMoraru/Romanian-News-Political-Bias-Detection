@@ -45,6 +45,7 @@ def query_llm(prompt, max_retries=3):
             )
 
             message = response.choices[0].message.content.strip()
+            logging.info(f"LLM response: {message}")
             match = re.search(r"\b(pozitiv|negativ|neutru)\b", message, re.IGNORECASE)
             stance = match.group(1).upper() if match else "UNKNOWN"
             return stance
