@@ -82,10 +82,7 @@ if __name__ == "__main__":
     )
 
     logging.info("Loading dataset...")
-    df = pd.read_csv("dataset/romanian_political_articles_v1_ner.csv")
-
-    logging.info("Shuffling dataset...")
-    df = df.sample(frac=1, random_state=42).reset_index(drop=True)
+    df = pd.read_csv("dataset/romanian_political_articles_shuffled.csv")
 
     logging.info("Splitting dataset into quarters...")
     total = len(df)
