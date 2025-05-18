@@ -34,19 +34,13 @@ def query_llm(prompt, max_retries=3):
 
     for _ in range(max_retries):
         try:
-            response = client.chat.completions.create(
+            response = client.completions.create(
                 model=MODEL,
-                messages=[
-                    {"role": "system", "content": "Ești un asistent care clasifică atitudinea față de entități în articole politice."},
-                    {"role": "user", "content": prompt}
-                ],
+                prompt=prompt,
                 temperature=TEMPERATURE,
                 max_tokens=MAX_TOKENS,
             )
-
-            print("Full response object:")
-            print(response)
-            message = response.choices[0].message.content.strip()
+            message = response.choices[0].text.strip()
             logging.info(f"LLM response: {message}")
             match = re.search(r"\b(pozitiv|negativ|neutru)\b", message, re.IGNORECASE)
             stance = match.group(1).upper() if match else "UNKNOWN"
