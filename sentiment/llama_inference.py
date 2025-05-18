@@ -28,6 +28,7 @@ def build_prompt(sentence: str, entity: str) -> str:
 
 MODEL = "/models/llama2-70b-gptq"
 TEMPERATURE = 0.0
+MAX_TOKENS = 2
 
 def query_llm(prompt, max_retries=3):
 
@@ -36,14 +37,14 @@ def query_llm(prompt, max_retries=3):
             response = client.chat.completions.create(
                 model=MODEL,
                 messages=[
-                    {"role": "system", "content": "You are a helpful assistant that analyzes news articles and detects stances towards entities."},
+                    {"role": "system", "content": "Ești un asistent care clasifică atitudinea față de entități în articole politice."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=TEMPERATURE,
-                max_tokens=10,
+                max_tokens=MAX_TOKENS,
             )
 
-            message = response.choices[0].message.content.strip()
+            message = response.choices[0].text.strip()
             match = re.search(r"\b(pozitiv|negativ|neutru)\b", message, re.IGNORECASE)
             stance = match.group(1).upper() if match else "UNKNOWN"
             return stance
