@@ -41,7 +41,6 @@ def query_llm(prompt, max_retries=3):
                 max_tokens=MAX_TOKENS,
             )
             message = response.choices[0].text.strip()
-            logging.info(f"LLM response: {message}")
             match = re.search(r"\b(pozitiv|negativ|neutru)\b", message, re.IGNORECASE)
             stance = match.group(1).upper() if match else "UNKNOWN"
             return stance
@@ -68,17 +67,9 @@ def safe_eval_entities(entities_str):
 
 logging.info("Extracting stance for entities...")
 tqdm.pandas(desc="Processing rows...")
-# df['stance'] = df.progress_apply(
-#     lambda row: analyze_stance(row['maintext'], safe_eval_entities(row['ner'])), axis=1
-# )
+df['stance'] = df.progress_apply(
+    lambda row: analyze_stance(row['maintext'], safe_eval_entities(row['ner'])), axis=1
+)
 
-row = df.iloc[0]
-text = row["maintext"]
-entities = safe_eval_entities(row["ner"])
-
-print("Entities:", entities)
-stances = analyze_stance(text, entities)
-print("Stances:", stances)
-
-# df.to_csv("dataset/romanian_political_articles_v1_ner_sentiment.csv", index=False)
-# logging.info("Stance extraction completed and saved to csv.")
+df.to_csv("dataset/romanian_political_articles_v1_ner_sentiment.csv", index=False)
+logging.info("Stance extraction completed and saved to csv.")
