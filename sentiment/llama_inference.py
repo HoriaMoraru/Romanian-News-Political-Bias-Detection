@@ -26,7 +26,7 @@ def build_prompt(sentence: str, entity: str) -> str:
         f"Răspuns:"
     )
 
-MODEL = "llama2-70b-gptq"
+MODEL = "/models/llama2-70b-gptq"
 TEMPERATURE = 0.0
 
 def query_llm(prompt, max_retries=3):
