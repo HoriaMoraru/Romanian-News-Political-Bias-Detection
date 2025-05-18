@@ -8,6 +8,7 @@ import ast
 from tqdm import tqdm
 import nltk
 nltk.download('punkt', quiet=True)
+nltk.download('punkt_tab')
 from nltk.tokenize import sent_tokenize
 import sys
 
