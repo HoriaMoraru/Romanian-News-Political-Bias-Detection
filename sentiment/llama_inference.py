@@ -16,15 +16,30 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 MODEL = "/models/llama2-70b-gptq"
 TEMPERATURE = 0.0
-MAX_TOKENS = 20
+MAX_TOKENS = 10
 
 def build_prompt(sentence: str, entity: str) -> str:
-    return (
-        f"Analizează următoarea propoziție și clasifică atitudinea față de entitatea „{entity}”.\n"
-        f"Răspunsul trebuie să fie un singur cuvânt, exact unul dintre: pozitiv, negativ sau neutru.\n\n"
-        f"Propoziție: {sentence}\n"
-        f"Răspuns:"
+    examples = (
+        "Propoziție: Klaus Iohannis a participat la o conferință în Bruxelles.\n"
+        "Etichetă: neutru\n\n"
+        "Propoziție: USR a fost felicitat pentru inițiativa educațională.\n"
+        "Etichetă: pozitiv\n\n"
+        "Propoziție: PSD a fost acuzat de obstrucționarea votului în diaspora.\n"
+        "Etichetă: negativ\n\n"
     )
+
+    instruction = (
+        f"Clasifică atitudinea exprimată față de entitatea „{entity}” în propoziția următoare.\n"
+        f"Eticheta trebuie să fie exact una dintre:\n"
+        f"- pozitiv: propoziția exprimă susținere, laudă sau apreciere\n"
+        f"- negativ: propoziția exprimă critică, acuzație sau opoziție\n"
+        f"- neutru: propoziția este informativă, descrie fapte sau nu exprimă o opinie clară\n\n"
+        f"Important: dacă propoziția doar prezintă informații sau nu este clară, răspunde cu *neutru*.\n"
+        f"Răspunsul trebuie să fie DOAR un singur cuvânt: pozitiv, negativ sau neutru.\n\n"
+    )
+
+    target = f"Propoziție: {sentence}\nEtichetă:"
+    return examples + instruction + target
 
 def query_llm(prompt, client, max_retries=3):
 
