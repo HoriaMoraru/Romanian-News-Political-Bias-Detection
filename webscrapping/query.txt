@@ -1,1 +1,49 @@
-site:https://www.euronews.ro inurl:https://www.euronews.ro********** inurl:stiri inurl:politica inurl:ion inurl:ilie inurl:bolojan inurl:candidatul inurl:nicusor inurl:vrea inurl:alegeri inurl:crin inurl:antonescu inurl:ponta inurl:lasconi inurl:dan inurl:cerut inurl:adrian inurl:george inurl:simion inurl:florin inurl:oamenii inurl:alegerile inurl:putea inurl:bec inurl:calin inurl:georgescu inurl:decizia inurl:exista inurl:trump inurl:reactie inurl:romania inurl:usr inurl:predoiu inurl:romaniei inurl:liderul inurl:mesaj inurl:sua inurl:ucraina inurl:fostul inurl:presedinte inurl:partidului inurl:aur inurl:politice inurl:becali inurl:adresa inurl:moment inurl:bine inurl:trebuie inurl:candidatii inurl:doua inurl:ciolos inurl:consilier inurl:candidatura inurl:sosoaca inurl:presedintele inurl:partid inurl:nicolae inurl:ciuca inurl:romaneasca inurl:nevoie inurl:vot inurl:ziua inurl:catalin inurl:spune inurl:arata inurl:data inurl:alegerilor inurl:intra inurl:putem inurl:externa inurl:gigi inurl:astazi inurl:deputat inurl:ani inurl:claudiu inurl:tarziu inurl:marcel inurl:ciolacu inurl:premierul inurl:cristian inurl:turul inurl:guvern inurl:politic inurl:pana inurl:elena inurl:privind inurl:oameni inurl:plus inurl:independent inurl:guvernul inurl:mihai inurl:lista inurl:psd inurl:primit inurl:decizie inurl:faca inurl:campanie inurl:traian inurl:basescu inurl:anularea inurl:roman inurl:anunta inurl:victor inurl:impotriva inurl:partea inurl:pnl inurl:bucuresti inurl:campania inurl:prezidentiala inurl:romanilor inurl:nato inurl:mesajul inurl:sedinta inurl:tara inurl:intrebat inurl:luat inurl:oficial inurl:cazul inurl:prezidentiale inurl:candidat inurl:romanii inurl:klaus inurl:iohannis inurl:continua inurl:retrage inurl:cursa inurl:dreapta inurl:conducerea inurl:ales inurl:atac inurl:facut inurl:functia inurl:mare inurl:sondaj inurl:locul inurl:dragnea inurl:cotroceni inurl:reactia inurl:elenei inurl:primarul inurl:capitalei inurl:romani inurl:vota inurl:moldova inurl:ministru inurl:primaria inurl:demisia inurl:nicio inurl:tiktok inurl:europa inurl:viitorul inurl:ajuns inurl:ccr inurl:interimar inurl:sustine inurl:guvernului inurl:surse inurl:stat inurl:lider inurl:coalitie inurl:legea inurl:diana inurl:mircea inurl:geoana inurl:acum inurl:parlament inurl:euro inurl:donald inurl:presedintelui inurl:partidul inurl:acuza inurl:guvernare inurl:coalitia inurl:orban inurl:depus inurl:liderii inurl:premier inurl:candideze inurl:udrea inurl:electorala inurl:ministrul inurl:pro inurl:alianta inurl:udmr inurl:european inurl:candida inurl:kelemen inurl:hunor inurl:parlamentare inurl:electoral inurl:consiliul inurl:pdl inurl:intern inurl:sefia inurl:votat inurl:iliescu inurl:rusia inurl:firea inurl:pmp:-inurl:/pagina -inurl:/page -inurl:/cookie -inurl:/confidentialitate
+site:https://agerpres.ro/ -site:https://agerpres.ro/english/ ( "politica" OR intitle:politica OR inurl:politica OR
+ "guvern" OR intitle:guvern OR inurl:guvern OR
+  "parlament" OR intitle:parlament OR inurl:parlament OR
+   "presedinte" OR intitle:presedinte OR inurl:presedinte OR
+    "ministru" OR intitle:ministru OR inurl:ministru OR
+     "partid" OR intitle:partid OR inurl:partid OR
+      "senat" OR intitle:senat OR inurl:senat OR
+       "PSD" OR intitle:PSD OR inurl:PSD OR
+        "PNL" OR intitle:PNL OR inurl:PNL OR
+         "UDMR" OR intitle:UDMR OR inurl:UDMR OR
+          "AUR" OR intitle:AUR OR inurl:AUR OR
+           "Gavrila" OR intitle:Gavrila OR inurl:Gavrila OR
+            "Ciolacu" OR intitle:Ciolacu OR inurl:Ciolacu OR
+             "Nicusor Dan" OR intitle:"Nicusor Dan" OR inurl:"Nicusor Dan" OR
+              "Lasconi" OR intitle:Lasconi OR inurl:Lasconi OR
+               "Calin Georgescu" OR intitle:"Calin Georgescu" OR inurl:"Calin Georgescu"
+                OR "George Simion" OR intitle:"George Simion" OR inurl:"George Simion"
+                 OR "Ciuca" OR intitle:Ciuca OR inurl:Ciuca OR
+                  "vot" OR intitle:vot OR inurl:vot OR
+                   "alegeri" OR intitle:alegeri OR inurl:alegeri OR
+                    "sondaj" OR intitle:sondaj OR inurl:sondaj OR
+                     "electoral" OR intitle:electoral OR inurl:electoral OR
+                      "turul doi" OR intitle:"turul doi" OR inurl:"turul doi" OR
+                       "AEP" OR intitle:AEP OR inurl:AEP OR
+                        "Sosoaca" OR intitle:Sosoaca OR inurl:Sosoaca OR
+                         "SOS" OR intitle:SOS OR inurl:SOS OR
+                          "USR" OR intitle:USR OR inurl:USR OR
+                           "justitie" OR intitle:justitie OR inurl:justitie OR
+                            "coruptie" OR intitle:coruptie OR inurl:coruptie OR
+                             "sanitate" OR intitle:sanitate OR inurl:sanitate OR
+                              "UE" OR intitle:UE OR inurl:UE OR
+                               "NATO" OR intitle:NATO OR inurl:NATO OR
+                                "waiver" OR intitle:waiver OR inurl:waiver OR
+                                 "Schengen" OR intitle:Schengen OR inurl:Schengen OR
+                                 "Soros" OR intitle:Soros OR inurl:Soros)
+                                 -inurl:pagina
+                                 -inurl:page
+                                 -inurl:cookie
+                                 -inurl:confidentialitate
+                                 -inurl:video
+                                 -inurl:tag/
+                                 -inurl:category/
+                                 -inurl:contact/
+                                 -inurl:despre/
+                                 -inurl:autor/
+                                 -inurl:categorie/
+                                 -inurl:author/
+        after:2023 before:2026
+

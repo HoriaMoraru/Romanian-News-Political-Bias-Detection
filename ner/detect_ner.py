@@ -1,6 +1,7 @@
 import pandas as pd
 import re
 import logging
+import html
 from tqdm import tqdm
 import spacy
 from transformers import AutoTokenizer, AutoModelForTokenClassification, AutoConfig, pipeline
@@ -8,7 +9,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, AutoCon
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 logging.info("Loading dataset...")
-input_path = "../dataset/romanian_political_articles_v1.csv"
+input_path = "../dataset/romanian_political_articles_v2_shuffled.csv"
 df =pd.read_csv(input_path)
 df = df.dropna(subset=["maintext", "source_domain"])
 
@@ -16,7 +17,31 @@ logging.info("Loading Romanian Spacy model...")
 nlp_ro = spacy.load("ro_core_news_sm")
 
 def remove_quotes(text):
-    return re.sub(r'[\'"„”][^\'"„”]{1,300}?[\'"„”]', '', text)
+    text = html.unescape(text)
+
+    quote_patterns = [
+        r'„.*?”',
+        r'“.*?”',
+        r'"[^"]*?"',
+        r'\'[^\']*?\'',
+        r'«.*?»',
+    ]
+    for pattern in quote_patterns:
+        text = re.sub(pattern, '', text)
+    return text
+
+def remove_hyperlinks(text: str) -> str:
+    url_pattern = r'(https?://\S+|www\.\S+)'
+    return re.sub(url_pattern, '', text)
+
+def remove_file_references(text: str) -> str:
+    file_extensions = (
+        r'\b\S+\.('
+        r'pdf|png|jpg|jpeg|gif|svg|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z|'
+        r'mp4|mp3|txt|exe'
+        r')\b'
+    )
+    return re.sub(file_extensions, '', text, flags=re.IGNORECASE)
 
 def remove_html(text):
     return re.sub(r"<.*?>", "", text)
@@ -43,6 +68,10 @@ def preprocess_text(text : str):
     text = preprocess_for_romanian_models(text)
 
     text = remove_html(text)
+
+    text = remove_hyperlinks(text)
+
+    text = remove_file_references(text)
 
     text = remove_quotes(text)
 
@@ -128,7 +157,7 @@ def extract_named_entities(text):
 logging.info("Extracting named entities...")
 df['ner'] = df['cleantext'].progress_apply(extract_named_entities)
 
-output_path = "../dataset/romanian_political_articles_v1_ner.csv"
+output_path = "../dataset/romanian_political_articles_v2_ner.csv"
 df.to_csv(output_path, index=False)
 logging.info(f"Saved NER output to {output_path}")
 

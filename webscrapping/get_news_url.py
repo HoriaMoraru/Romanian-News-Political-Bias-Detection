@@ -1,8 +1,11 @@
 from serpapi import GoogleSearch
 
 API_KEY = "bf6519e83a7841c6c927e454a592499d59ae0e34db2473eca9b4055453fea92f"
-QUERY = "site:https://www.antidotul.ro/politic-stiri-politice/ inurl:/politic-stiri-politice/********** -inurl:/pagina -inurl:/page -inurl:/cookie -inurl:/confidentialitate"
-OUTPUT_FILE = "sites.txt"
+QUERY_FILE = "query.txt"
+OUTPUT_FILE = "sites_v2.txt"
+
+with open(QUERY_FILE, "r", encoding="utf-8") as f:
+    QUERY = f.read().strip()
 
 urls = []
 

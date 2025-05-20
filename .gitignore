@@ -1,7 +1,6 @@
 .venv/
 .vscode/
-webscrapping\__pycache__\
-dataset\romanian_political_articles.csv
-dataset\romanian_political_articles2.csv
+/webscrapping\__pycache__\
+/dataset/python/__pycache__/
 fep/sandbox/
 /logs

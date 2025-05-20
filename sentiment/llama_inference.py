@@ -21,10 +21,13 @@ MAX_TOKENS = 10
 def build_prompt(sentence: str, entity: str) -> str:
     examples = (
         "Propoziție: Klaus Iohannis a participat la o conferință în Bruxelles.\n"
+        "Entitate: Klaus Iohannis\n"
         "Etichetă: neutru\n\n"
         "Propoziție: USR a fost felicitat pentru inițiativa educațională.\n"
+        "Entitate: USR\n"
         "Etichetă: pozitiv\n\n"
         "Propoziție: PSD a fost acuzat de obstrucționarea votului în diaspora.\n"
+        "Entitate: PSD\n"
         "Etichetă: negativ\n\n"
     )
 
@@ -97,7 +100,7 @@ if __name__ == "__main__":
     )
 
     logging.info("Loading dataset...")
-    df = pd.read_csv("dataset/romanian_political_articles_shuffled.csv")
+    df = pd.read_csv("dataset/romanian_political_articles_v2_ner.csv")
 
     logging.info("Splitting dataset into quarters...")
     total = len(df)
@@ -112,6 +115,6 @@ if __name__ == "__main__":
         lambda row: analyze_stance(row['maintext'], safe_eval_entities(row['ner']), client), axis=1
     )
 
-    output_file = f"dataset/romanian_political_articles_v1_ner_sentiment_part{split_part}.csv"
+    output_file = f"dataset/romanian_political_articles_v2_ner_sentiment_part{split_part}.csv"
     df.to_csv(output_file, index=False)
     logging.info("Stance extraction completed and saved to csv.")
