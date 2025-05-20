@@ -9,7 +9,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, AutoCon
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 logging.info("Loading dataset...")
-input_path = "../dataset/romanian_political_articles_v2_shuffled.csv"
+input_path = "dataset/romanian_political_articles_v2_shuffled.csv"
 df =pd.read_csv(input_path)
 df = df.dropna(subset=["maintext", "source_domain"])
 
@@ -88,7 +88,8 @@ def preprocess_text(text : str):
 logging.info("Preprocessing text...")
 tqdm.pandas()
 df['cleantext'] = df['maintext'].progress_apply(preprocess_text)
-df = df[df['cleantext'].str.split().str.len() > 100]
+df = df[df['cleantext'].str.split().str.len() > 30]
+logging.info(f"Filtered dataset size: {len(df)}")
 
 logging.info("Loading NER pipeline...")
 def get_romanian_ner_nlp_pipeline():
@@ -157,7 +158,7 @@ def extract_named_entities(text):
 logging.info("Extracting named entities...")
 df['ner'] = df['cleantext'].progress_apply(extract_named_entities)
 
-output_path = "../dataset/romanian_political_articles_v2_ner.csv"
+output_path = "dataset/romanian_political_articles_v2_ner.csv"
 df.to_csv(output_path, index=False)
 logging.info(f"Saved NER output to {output_path}")
 
