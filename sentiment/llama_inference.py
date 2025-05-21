@@ -115,6 +115,6 @@ if __name__ == "__main__":
         lambda row: analyze_stance(row['maintext'], safe_eval_entities(row['ner']), client), axis=1
     )
 
-    output_file = f"dataset/romanian_political_articles_v2_ner_sentiment_part{split_part}.csv"
+    output_file = f"dataset/romanian_political_articles_v2_sentiment_part{split_part}.csv"
     df.to_csv(output_file, index=False)
     logging.info("Stance extraction completed and saved to csv.")
