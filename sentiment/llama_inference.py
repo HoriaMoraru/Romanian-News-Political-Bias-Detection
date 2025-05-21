@@ -11,12 +11,14 @@ nltk.download('punkt', quiet=True)
 nltk.download('punkt_tab', quiet=True)
 from nltk.tokenize import sent_tokenize
 import sys
+from transformers import LlamaTokenizer
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 MODEL = "/models/llama2-70b-gptq"
 TEMPERATURE = 0.0
 MAX_TOKENS = 10
+MAX_CONTEXT_TOKENS = 4096
 
 def build_prompt(sentence: str, entity: str) -> str:
     examples = (
@@ -64,7 +66,21 @@ def query_llm(prompt, client, max_retries=3):
 
     return "ERROR"
 
-def analyze_stance(text: str, entities: List[str], client) -> List[tuple]:
+def count_tokens(text, tokenizer):
+    return len(tokenizer.encode(text, add_special_tokens=False))
+
+def truncate_context_to_fit(sentences, entity, tokenizer, max_tokens=4000):
+    selected = []
+    for sent in sentences:
+        selected.append(sent)
+        tentative_context = " ".join(selected)
+        prompt = build_prompt(tentative_context, entity)
+        if count_tokens(prompt, tokenizer) > max_tokens:
+            selected.pop()
+            break
+    return " ".join(selected)
+
+def analyze_stance(text: str, entities: List[str], client, tokenizer) -> List[tuple]:
     results = []
     sentences = sent_tokenize(text)
 
@@ -73,10 +89,15 @@ def analyze_stance(text: str, entities: List[str], client) -> List[tuple]:
         if not relevant_sentences:
             results.append((entity, "NO_ENTITY"))
             continue
-        entity_context = " ".join(relevant_sentences)
+
+        entity_context = truncate_context_to_fit(relevant_sentences,
+                                                 entity,
+                                                 tokenizer,
+                                                 MAX_CONTEXT_TOKENS - MAX_TOKENS)
         prompt = build_prompt(entity_context, entity)
         stance = query_llm(prompt, client)
-        results.append((entity, stance))
+        results.append({"entity": entity, "stance": stance})
+
     return results
 
 def safe_eval_entities(entities_str):
@@ -109,10 +130,13 @@ if __name__ == "__main__":
     end = start + quarter_size if split_part < 4 else total
     df = df.iloc[start:end]
 
+    logging.info("Getting tokenizer...")
+    tokenizer = LlamaTokenizer.from_pretrained("/models/llama2-70b-gptq")
+
     logging.info("Processing rows...")
     tqdm.pandas(desc=f"[Part {split_part}] Rows {start}–{end}")
     df['stance'] = df.progress_apply(
-        lambda row: analyze_stance(row['cleantext'], safe_eval_entities(row['ner']), client), axis=1
+        lambda row: analyze_stance(row['cleantext'], safe_eval_entities(row['ner']), client, tokenizer), axis=1
     )
 
     output_file = f"dataset/romanian_political_articles_v2_sentiment_part{split_part}.csv"
