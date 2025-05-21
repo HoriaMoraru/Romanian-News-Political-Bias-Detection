@@ -110,11 +110,12 @@ if __name__ == "__main__":
     df = df.iloc[start:end]
 
     logging.info("Processing rows...")
-    tqdm.pandas(desc=f"Processing quarter {split_part} (rows {start} to {end})...")
+    tqdm.pandas(desc=f"[Part {split_part}] Rows {start}–{end}")
     df['stance'] = df.progress_apply(
-        lambda row: analyze_stance(row['maintext'], safe_eval_entities(row['ner']), client), axis=1
+        lambda row: analyze_stance(row['cleantext'], safe_eval_entities(row['ner']), client), axis=1
     )
 
     output_file = f"dataset/romanian_political_articles_v2_sentiment_part{split_part}.csv"
     df.to_csv(output_file, index=False)
-    logging.info("Stance extraction completed and saved to csv.")
+    logging.info(f"Stance extraction completed and saved {len(df)} rows to {output_file}.")
+
