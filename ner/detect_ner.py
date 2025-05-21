@@ -19,16 +19,8 @@ nlp_ro = spacy.load("ro_core_news_sm")
 def remove_quotes(text):
     text = html.unescape(text)
 
-    quote_patterns = [
-        r'„.*?”',
-        r'“.*?”',
-        r'"[^"]*?"',
-        r'\'[^\']*?\'',
-        r'«.*?»',
-    ]
-    for pattern in quote_patterns:
-        text = re.sub(pattern, '', text)
-    return text
+    pattern = r'["\'„”‘’«»]{1,10}[^"\'„”‘’«»]{1,1000}?["\'„”‘’«»]{1,10}'
+    return re.sub(pattern, '', text, flags=re.DOTALL)
 
 def remove_hyperlinks(text: str) -> str:
     url_pattern = r'(https?://\S+|www\.\S+)'
