@@ -15,7 +15,7 @@ from transformers import LlamaTokenizer
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-MODEL = "/models/llama2-70b-gptq"
+MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
 TEMPERATURE = 0.0
 MAX_TOKENS = 10
 MAX_CONTEXT_TOKENS = 4096
