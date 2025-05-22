@@ -19,32 +19,48 @@ MODEL = "/models/llama2-70b-gptq"
 TEMPERATURE = 0.0
 MAX_TOKENS = 10
 MAX_CONTEXT_TOKENS = 4096
+BATCH_SIZE = 32
 
-def build_prompt(sentence: str, entity: str) -> str:
-    examples = (
-        "Propoziție: Klaus Iohannis a participat la o conferință în Bruxelles.\n"
-        "Entitate: Klaus Iohannis\n"
-        "Etichetă: neutru\n\n"
-        "Propoziție: USR a fost felicitat pentru inițiativa educațională.\n"
-        "Entitate: USR\n"
-        "Etichetă: pozitiv\n\n"
-        "Propoziție: PSD a fost acuzat de obstrucționarea votului în diaspora.\n"
-        "Entitate: PSD\n"
-        "Etichetă: negativ\n\n"
-    )
+def build_prompt(text: str, entitate: str) -> str:
+    prompt = f"""
+    # Clasificarea atitudinii față de o entitate politică
 
-    instruction = (
-        f"Clasifică atitudinea exprimată față de entitatea „{entity}” în propoziția următoare.\n"
-        f"Eticheta trebuie să fie exact una dintre:\n"
-        f"- pozitiv: propoziția exprimă susținere, laudă sau apreciere\n"
-        f"- negativ: propoziția exprimă critică, acuzație sau opoziție\n"
-        f"- neutru: propoziția este informativă, descrie fapte sau nu exprimă o opinie clară\n\n"
-        f"Important: dacă propoziția doar prezintă informații sau nu este clară, răspunde cu *neutru*.\n"
-        f"Răspunsul trebuie să fie DOAR un singur cuvânt: pozitiv, negativ sau neutru.\n\n"
-    )
+    ## Sarcină
 
-    target = f"Propoziție: {sentence}\nEtichetă:"
-    return examples + instruction + target
+    Ai la dispoziție variabila `text` (un fragment extras dintr-un articol de presă politică) în care se menționează o anumită entitate politică, precum și variabila `entitate` (numele entității respective). Sarcina ta este să analizezi acest text și să determini atitudinea exprimată față de entitatea menționată.
+
+    Modelul trebuie să aleagă **una singură** dintre următoarele etichete posibile, conform definițiilor de mai jos:
+
+    ## Etichete posibile
+
+    - **pozitiv**: ton favorabil sau susținere clară față de entitate (inclusiv exprimarea aprecierii, manifestarea încrederii ori evidențierea realizărilor entității în termeni laudativi).
+    - **negativ**: ton critic, disprețuitor sau ostil la adresa entității (inclusiv critici directe, exprimarea disprețului, acuzații sau atacuri la adresa entității).
+    - **neutru**: relatare obiectivă sau mențiune strict factuală despre entitate (fără exprimarea unei opinii evidente pozitive sau negative).
+
+    Modelul trebuie să rămână imparțial și să nu favorizeze nicio etichetă. Evaluează strict tonul și conținutul textului dat, fără a te lăsa influențat de cunoștințe din afara textului.
+
+    ## Exemple
+
+    1. **Entitate:** "Klaus Iohannis"
+        **Text:** "Președintele Klaus Iohannis a fost lăudat pentru inițiativa sa recentă. Mulți au afirmat că el a dat dovadă de o conducere vizionară în gestionarea crizei."
+        **Etichetă așteptată:** `pozitiv`
+
+    2. **Entitate:** "PSD"
+        **Text:** "PSD a fost criticat dur într-un editorial recent, fiind acuzat de abordări populiste și lipsă de transparență în ultimul an."
+        **Etichetă așteptată:** `negativ`
+
+    3. **Entitate:** "Parlamentul României"
+        **Text:** "Parlamentul României s-a reunit ieri în ședință comună pentru a discuta modificările propuse la legea bugetului, fără incidente notabile."
+        **Etichetă așteptată:** `neutru`
+
+        Acum, analizează textul de mai jos referitor la entitatea **{entitate}** și indică eticheta corectă în funcție de atitudinea exprimată:
+
+        \"\"\"{text}\"\"\"
+
+    Returnează **exclusiv** eticheta adecvată (`pozitiv`, `negativ` sau `neutru`), fără niciun alt comentariu sau explicație.
+    """
+    return prompt
+
 
 def query_llm(prompt, client, max_retries=3):
 
@@ -93,7 +109,7 @@ def analyze_stance(text: str, entities: List[str], client, tokenizer) -> List[tu
         entity_context = truncate_context_to_fit(relevant_sentences,
                                                  entity,
                                                  tokenizer,
-                                                 MAX_CONTEXT_TOKENS - MAX_TOKENS)
+                                                 MAX_CONTEXT_TOKENS - MAX_TOKENS - 1)
         prompt = build_prompt(entity_context, entity)
         stance = query_llm(prompt, client)
         results.append({"entity": entity, "stance": stance})
