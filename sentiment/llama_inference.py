@@ -19,47 +19,21 @@ MODEL = "/models/llama2-70b-gptq"
 TEMPERATURE = 0.0
 MAX_TOKENS = 10
 MAX_CONTEXT_TOKENS = 4096
-BATCH_SIZE = 32
 
-def build_prompt(text: str, entitate: str) -> str:
-    prompt = f"""
-    # Clasificarea atitudinii față de o entitate politică
+def build_prompt(text: str, entity: str) -> str:
+    return f"""Evaluează atitudinea exprimată față de entitatea „{entity}” în textul de mai jos.
 
-    ## Sarcină
+                Alege exact una dintre următoarele etichete:
+                - pozitiv
+                - negativ
+                - neutru
 
-    Ai la dispoziție variabila `text` (un fragment extras dintr-un articol de presă politică) în care se menționează o anumită entitate politică, precum și variabila `entitate` (numele entității respective). Sarcina ta este să analizezi acest text și să determini atitudinea exprimată față de entitatea menționată.
+                Bazază-ți răspunsul doar pe informațiile din text.
 
-    Modelul trebuie să aleagă **una singură** dintre următoarele etichete posibile, conform definițiilor de mai jos:
+                Text:
+                \"\"\"{text}\"\"\"
 
-    ## Etichete posibile
-
-    - **pozitiv**: ton favorabil sau susținere clară față de entitate (inclusiv exprimarea aprecierii, manifestarea încrederii ori evidențierea realizărilor entității în termeni laudativi).
-    - **negativ**: ton critic, disprețuitor sau ostil la adresa entității (inclusiv critici directe, exprimarea disprețului, acuzații sau atacuri la adresa entității).
-    - **neutru**: relatare obiectivă sau mențiune strict factuală despre entitate (fără exprimarea unei opinii evidente pozitive sau negative).
-
-    Modelul trebuie să rămână imparțial și să nu favorizeze nicio etichetă. Evaluează strict tonul și conținutul textului dat, fără a te lăsa influențat de cunoștințe din afara textului.
-
-    ## Exemple
-
-    1. **Entitate:** "Klaus Iohannis"
-        **Text:** "Președintele Klaus Iohannis a fost lăudat pentru inițiativa sa recentă. Mulți au afirmat că el a dat dovadă de o conducere vizionară în gestionarea crizei."
-        **Etichetă așteptată:** `pozitiv`
-
-    2. **Entitate:** "PSD"
-        **Text:** "PSD a fost criticat dur într-un editorial recent, fiind acuzat de abordări populiste și lipsă de transparență în ultimul an."
-        **Etichetă așteptată:** `negativ`
-
-    3. **Entitate:** "Parlamentul României"
-        **Text:** "Parlamentul României s-a reunit ieri în ședință comună pentru a discuta modificările propuse la legea bugetului, fără incidente notabile."
-        **Etichetă așteptată:** `neutru`
-
-        Acum, analizează textul de mai jos referitor la entitatea **{entitate}** și indică eticheta corectă în funcție de atitudinea exprimată:
-
-        \"\"\"{text}\"\"\"
-
-    Returnează **exclusiv** eticheta adecvată (`pozitiv`, `negativ` sau `neutru`), fără niciun alt comentariu sau explicație.
-    """
-    return prompt
+                Răspuns (doar un cuvânt):"""
 
 
 def query_llm(prompt, client, max_retries=3):
@@ -124,8 +98,8 @@ def safe_eval_entities(entities_str):
         return []
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2 or sys.argv[1] not in {"1", "2", "3", "4"}:
-        print("Usage: python script.py [1|2|3|4]")
+    if len(sys.argv) != 2 or sys.argv[1] not in {str(i) for i in range(1, 9)}:
+        print("Usage: python script.py [1|2|3|4|5|6|7|8]")
         sys.exit(1)
 
     split_part = int(sys.argv[1])
@@ -139,11 +113,11 @@ if __name__ == "__main__":
     logging.info("Loading dataset...")
     df = pd.read_csv("dataset/romanian_political_articles_v2_ner.csv")
 
-    logging.info("Splitting dataset into quarters...")
+    logging.info("Splitting dataset into 8 parts...")
     total = len(df)
-    quarter_size = total // 4
-    start = (split_part - 1) * quarter_size
-    end = start + quarter_size if split_part < 4 else total
+    part_size = total // 8
+    start = (split_part - 1) * part_size
+    end = start + part_size if split_part < 8 else total
     df = df.iloc[start:end]
 
     logging.info("Getting tokenizer...")
@@ -158,4 +132,3 @@ if __name__ == "__main__":
     output_file = f"dataset/romanian_political_articles_v2_sentiment_part{split_part}.csv"
     df.to_csv(output_file, index=False)
     logging.info(f"Stance extraction completed and saved {len(df)} rows to {output_file}.")
-
