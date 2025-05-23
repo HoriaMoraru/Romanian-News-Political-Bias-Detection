@@ -1,11 +1,14 @@
 import os
 import sys
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "dataset", "python")))
-from ArticleDatasetExporter import ArticleDatasetExporter
+import logging
+from ..dataset.python.ArticleDatasetExporter import ArticleDatasetExporter
 from newsplease import NewsPlease
-import random
-import time
 import undetected_chromedriver as uc
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+URLS_FILE = "sites_v2.txt"
+OUTPUT_FILE = "romanian_political_articles_v2.csv"
 
 def parse_urls_from_file(file_path):
     """
@@ -35,24 +38,31 @@ def parse_urls_from_file(file_path):
 
 #     return html
 
-
-if __name__ == "__main__":
-    url_file = "sites_b1_2.txt"
-
-    urls = parse_urls_from_file(url_file)
+def scrape_articles(urls):
     articles = []
-
     for i, url in enumerate(urls, start=1):
-        print(f"📥 [{i}/{len(urls)}] Scraping article: {url}")
+        logging.info(f"[{i}/{len(urls)}] Scraping article: {url}")
         try:
             # html = get_html_with_selenium(url)
-
             # article = NewsPlease.from_html(html)
             article = NewsPlease.from_url(url)
             articles.append(article)
         except Exception as e:
-            print(f"❌ Error scraping {url}: {e}")
+            logging.warning(f"Error scraping {url}: {e}")
+    return articles
+
+
+if __name__ == "__main__":
+    logging.info("Reading URLs...")
+    urls = parse_urls_from_file(URLS_FILE)
+
+    logging.info(f"Found {len(urls)} URLs to scrape.")
+
+    articles = scrape_articles(urls)
+    logging.info(f"Scraped {len(articles)} articles.")
 
     print("Exporting articles to CSV...")
-    exporter = ArticleDatasetExporter("romanian_political_articles_b1_1.csv")
+    exporter = ArticleDatasetExporter(OUTPUT_FILE)
     exporter.save(articles)
+
+    logging.info(f"Export completed. Saved to {OUTPUT_FILE}")

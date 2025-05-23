@@ -1,9 +1,13 @@
 import csv
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 class ArticleDatasetExporter:
     """
     A utility class to export a list of scraped article dictionaries to a CSV dataset,
-    skipping articles with empty maintext.
+    skipping articles with empty maintext or improperly scraped data.
     """
 
     def __init__(self, output_file):
@@ -18,39 +22,57 @@ class ArticleDatasetExporter:
         Saves the list of article dictionaries to a CSV file.
 
         Parameters:
-            articles (list): List of dictionaries representing news articles.
+            articles (list): List of dictionaries or NewsPlease article objects.
         """
+        total = len(articles)
+        skipped_empty = 0
+        skipped_invalid = 0
         valid_count = 0
+
+        logging.info(f"📁 Starting export to '{self.output_file}'")
+        logging.info(f"📊 Total articles to process: {total}")
 
         with open(self.output_file, "w", newline='', encoding="utf-8") as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
             writer.writeheader()
 
-            for article in articles:
+            for i, article in enumerate(articles, start=1):
                 if not article:
-                    print("⚠️ Article was not scrapped properly.")
-                    continue
-                print(f"💾 Saving article to CSV: {article.url}")
-                maintext = article.maintext
-                if not maintext or len(maintext.strip()) == 0:
-                    print("⚠️ Skipping article (no main text).")
+                    logging.warning(f"❌ [{i}/{total}] Skipped: Article object is None or malformed.")
+                    skipped_invalid += 1
                     continue
 
-                authors = article.authors
-                if isinstance(authors, list):
-                    authors = "; ".join(authors)
+                try:
+                    maintext = article.maintext
+                    if not maintext or len(maintext.strip()) == 0:
+                        logging.warning(f"⚠️ [{i}/{total}] Skipped: Empty maintext.")
+                        skipped_empty += 1
+                        continue
 
-                row = {
-                    "url": article.url,
-                    "title": article.title,
-                    "date_publish": article.date_publish,
-                    "description": article.description,
-                    "maintext": maintext,
-                    "source_domain": article.source_domain,
-                    "authors": authors,
-                }
+                    authors = article.authors
+                    if isinstance(authors, list):
+                        authors = "; ".join(authors)
 
-                writer.writerow(row)
-                valid_count += 1
+                    row = {
+                        "url": article.url,
+                        "title": article.title,
+                        "date_publish": article.date_publish,
+                        "description": article.description,
+                        "maintext": maintext,
+                        "source_domain": article.source_domain,
+                        "authors": authors,
+                    }
 
-        print(f"✅ Saved {valid_count} valid articles to {self.output_file}")
+                    writer.writerow(row)
+                    logging.info(f"✅ [{i}/{total}] Saved: {article.url}")
+                    valid_count += 1
+
+                except Exception as e:
+                    logging.exception(f"🔥 [{i}/{total}] Error while writing article: {e}")
+                    skipped_invalid += 1
+
+        logging.info("📦 Export complete.")
+        logging.info(f"✔️ Articles saved: {valid_count}")
+        logging.info(f"⚠️ Articles skipped (empty): {skipped_empty}")
+        logging.info(f"❌ Articles skipped (invalid): {skipped_invalid}")
+        logging.info(f"📄 Output file: {self.output_file}")

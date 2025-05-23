@@ -18,7 +18,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
 TEMPERATURE = 0.0
 MAX_TOKENS = 10
-MAX_CONTEXT_TOKENS = 4096
+MAX_CONTEXT_TOKENS = 8000
+INPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 
 def build_prompt(text: str, entity: str) -> str:
     return f"""Evaluează atitudinea exprimată față de entitatea „{entity}” în textul de mai jos.
@@ -62,7 +63,7 @@ def query_llm(prompt, client, max_retries=3):
 def count_tokens(text, tokenizer):
     return len(tokenizer.encode(text, add_special_tokens=False))
 
-def truncate_context_to_fit(sentences, entity, tokenizer, max_tokens=4000):
+def truncate_context_to_fit(sentences, entity, tokenizer, max_tokens=8000):
     selected = []
     for sent in sentences:
         selected.append(sent)
@@ -115,7 +116,7 @@ if __name__ == "__main__":
     )
 
     logging.info("Loading dataset...")
-    df = pd.read_csv("dataset/romanian_political_articles_v2_ner.csv")
+    df = pd.read_csv(INPUT_FILE)
 
     logging.info("Splitting dataset into 8 parts...")
     total = len(df)

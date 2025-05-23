@@ -1,44 +1,70 @@
+import os
+import sys
+import logging
 from serpapi import GoogleSearch
+from dotenv import load_dotenv
 
-API_KEY = "bf6519e83a7841c6c927e454a592499d59ae0e34db2473eca9b4055453fea92f"
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
+load_dotenv()
+API_KEY = os.getenv("SERPAPI_KEY")
 QUERY_FILE = "query.txt"
 OUTPUT_FILE = "sites_v2.txt"
 
-with open(QUERY_FILE, "r", encoding="utf-8") as f:
-    QUERY = f.read().strip()
+def read_query(query_file):
+    with open(query_file, "r", encoding="utf-8") as f:
+        return f.read().strip()
 
-urls = []
 
-for page in range(0, 10):
-    start_val = page * 100
-    print(f"🔍 Fetching results {start_val+1}–{start_val+100}...")
+def fetch_search_results(query, api_key, pages=10):
+    urls = []
 
-    params = {
-        "q": QUERY,
-        "location": "Austin, Texas, United States",
-        "google_domain": "google.com",
-        "api_key": API_KEY,
-        "engine": "google",
-        "num": 100,
-        "start": start_val
-    }
+    for page in range(pages):
+        start_val = page * 100
+        logging.info(f"🔍 Fetching results {start_val + 1}–{start_val + 100}...")
 
-    search = GoogleSearch(params)
-    results = search.get_dict()
+        params = {
+            "q": query,
+            "location": "Austin, Texas, United States",
+            "google_domain": "google.com",
+            "api_key": api_key,
+            "engine": "google",
+            "num": 100,
+            "start": start_val
+        }
 
-    organic = results.get("organic_results", [])
-    if not organic:
-        print(f"⚠️ No more results at start={start_val}. Ending early.")
-        break
+        search = GoogleSearch(params)
+        results = search.get_dict()
+        organic = results.get("organic_results", [])
 
-    for result in organic:
-        url = result.get("link")
-        urls.append(url)
+        if not organic:
+            logging.warning(f"⚠️ No more results at start={start_val}. Ending early.")
+            break
 
-unique_urls = list(set(urls))
+        for result in organic:
+            url = result.get("link")
+            if url:
+                urls.append(url)
 
-with open(OUTPUT_FILE, "a", encoding="utf-8") as f:
-    for u in unique_urls:
-        f.write(u + "\n")
+    return list(set(urls))
 
-print(f"\n✅ Saved {len(unique_urls)} unique URLs to {OUTPUT_FILE}")
+def save_urls(urls, output_file):
+    with open(output_file, "a", encoding="utf-8") as f:
+        for u in urls:
+            f.write(u + "\n")
+
+    logging.info(f"✅ Saved {len(urls)} new URLs to {output_file}")
+
+
+if __name__ == "__main__":
+    if not API_KEY:
+        logging.error("❌ SERPAPI_KEY not found in environment. Check the .env file.")
+        sys.exit(1)
+
+    logging.info("Reading query from file...")
+    query = read_query(QUERY_FILE)
+
+    logging.info("Fetching search results...")
+    urls = fetch_search_results(query, API_KEY)
+
+    save_urls(urls, OUTPUT_FILE)

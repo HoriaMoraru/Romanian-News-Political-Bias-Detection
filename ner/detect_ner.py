@@ -5,85 +5,13 @@ import html
 from tqdm import tqdm
 import spacy
 from transformers import AutoTokenizer, AutoModelForTokenClassification, AutoConfig, pipeline
+from ..preprocessing.Preprocessor import Preprocessor
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-logging.info("Loading dataset...")
-input_path = "dataset/romanian_political_articles_v2_shuffled.csv"
-df =pd.read_csv(input_path)
-df = df.dropna(subset=["maintext", "source_domain"])
+INPUT_FILE = "dataset/romanian_political_articles_v2_shuffled.csv"
+OUTPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 
-logging.info("Loading Romanian Spacy model...")
-nlp_ro = spacy.load("ro_core_news_sm")
-
-def remove_quotes(text):
-    text = html.unescape(text)
-
-    pattern = r'["\'„”‘’«»]{1,10}[^"\'„”‘’«»]{1,1000}?["\'„”‘’«»]{1,10}'
-    return re.sub(pattern, '', text, flags=re.DOTALL)
-
-def remove_hyperlinks(text: str) -> str:
-    url_pattern = r'(https?://\S+|www\.\S+)'
-    return re.sub(url_pattern, '', text)
-
-def remove_file_references(text: str) -> str:
-    file_extensions = (
-        r'\b\S+\.('
-        r'pdf|png|jpg|jpeg|gif|svg|doc|docx|xls|xlsx|ppt|pptx|zip|rar|7z|'
-        r'mp4|mp3|txt|exe'
-        r')\b'
-    )
-    return re.sub(file_extensions, '', text, flags=re.IGNORECASE)
-
-def remove_html(text):
-    return re.sub(r"<.*?>", "", text)
-
-def remove_digits_keep_years(text):
-    return re.sub(r'\b(?!20\d{2})\d+\b', '', text)
-
-def remove_urls(text):
-    return re.sub(r'http\S+', '', text)
-
-def normalize_whitespace(text):
-    return re.sub(r'\s+', ' ', text).strip()
-
-def remove_weird_punctuation(text):
-    return re.sub(r'[\*\•\·@~^_`+=\\|]', '', text)
-
-def preprocess_for_romanian_models(text):
-    return text.replace("ţ", "ț").replace("ş", "ș").replace("Ţ", "Ț").replace("Ş", "Ș")
-
-def preprocess_text(text : str):
-    if not text or len(text.strip()) == 0:
-        return ""
-
-    text = preprocess_for_romanian_models(text)
-
-    text = remove_html(text)
-
-    text = remove_hyperlinks(text)
-
-    text = remove_file_references(text)
-
-    text = remove_quotes(text)
-
-    text = remove_urls(text)
-
-    text = remove_digits_keep_years(text)
-
-    text = remove_weird_punctuation(text)
-
-    text = normalize_whitespace(text)
-
-    return text.strip()
-
-logging.info("Preprocessing text...")
-tqdm.pandas()
-df['cleantext'] = df['maintext'].progress_apply(preprocess_text)
-df = df[df['cleantext'].str.split().str.len() > 30]
-logging.info(f"Filtered dataset size: {len(df)}")
-
-logging.info("Loading NER pipeline...")
 def get_romanian_ner_nlp_pipeline():
     romanian_ner_model = "dumitrescustefan/bert-base-romanian-ner"
     tokenizer = AutoTokenizer.from_pretrained(romanian_ner_model, model_max_length=512)
@@ -100,8 +28,6 @@ def get_romanian_ner_nlp_pipeline():
     model = AutoModelForTokenClassification.from_pretrained(romanian_ner_model, config=config)
 
     return pipeline("ner", model=model, tokenizer=tokenizer, aggregation_strategy='simple')
-
-ner_pipeline = get_romanian_ner_nlp_pipeline()
 
 def is_pronoun(word, doc):
     return any(token.text == word and token.pos_ == "PRON" for token in doc)
@@ -125,7 +51,7 @@ def chunk_sentences(doc, tokenizer, max_tokens=512):
 
     return chunks
 
-def extract_named_entities(text):
+def extract_named_entities(text, nlp_ro, ner_pipeline):
     entities = set()
 
     try:
@@ -147,10 +73,25 @@ def extract_named_entities(text):
 
     return sorted(entities)
 
-logging.info("Extracting named entities...")
-df['ner'] = df['cleantext'].progress_apply(extract_named_entities)
+if __name__ == "__main__":
+    logging.info("Loading dataset...")
+    df = pd.read_csv(INPUT_FILE)
+    df = df.dropna(subset=["maintext", "source_domain"])
 
-output_path = "dataset/romanian_political_articles_v2_ner.csv"
-df.to_csv(output_path, index=False)
-logging.info(f"Saved NER output to {output_path}")
+    logging.info("Loading Romanian spaCy model...")
+    nlp_ro = spacy.load("ro_core_news_sm")
 
+    logging.info("Preprocessing text...")
+    tqdm.pandas()
+    df['cleantext'] = df['maintext'].progress_apply(lambda text: Preprocessor(text).process())
+    df = df[df['cleantext'].str.split().str.len() > 30]
+    logging.info(f"Filtered dataset size: {len(df)}")
+
+    logging.info("Loading NER model...")
+    ner_pipeline = get_romanian_ner_nlp_pipeline()
+
+    logging.info("Extracting named entities...")
+    df['ner'] = df['cleantext'].progress_apply(lambda text: extract_named_entities(text, nlp_ro, ner_pipeline))
+
+    df.to_csv(OUTPUT_FILE, index=False)
+    logging.info(f"Saved NER output to {OUTPUT_FILE}")

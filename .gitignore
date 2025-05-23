@@ -4,3 +4,4 @@
 /dataset/python/__pycache__/
 fep/sandbox/
 /logs
+.env
