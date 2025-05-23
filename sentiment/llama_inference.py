@@ -50,6 +50,8 @@ def query_llm(prompt, client, max_retries=3):
             message = response.choices[0].text.strip()
             match = re.search(r"\b(pozitiv|negativ|neutru)\b", message, re.IGNORECASE)
             stance = match.group(1).upper() if match else "UNKNOWN"
+            logging.info(f"Prompt: {prompt}")
+            logging.info(f"Stance: {stance}")
             return stance
         except Exception as e:
             logging.warning(f"Error querying llm for sentiment: {e}")
