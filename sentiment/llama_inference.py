@@ -25,10 +25,11 @@ def build_prompt(text: str, entity: str) -> str:
 
                 Alege exact una dintre următoarele etichete:
                 - pozitiv
-                - negativ
                 - neutru
+                - negativ
 
-                Bazază-ți răspunsul doar pe informațiile din text.
+                Alege eticheta care reflectă cel mai bine atitudinea din text, chiar dacă este subtilă.
+                Alege „neutru” decât dacă nu există nici un indiciu de atitudine pozitivă sau negativă clar si daca propozitia este pur informativa.
 
                 Text:
                 \"\"\"{text}\"\"\"
