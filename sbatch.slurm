@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --export=PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 #SBATCH --partition=dgxa100
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:2
 #SBATCH --cpus-per-task=5
 #SBATCH --mem-per-cpu=16G
 #SBATCH --time=11:59:59
@@ -16,20 +16,17 @@ apptainer exec --nv \
   bash -c '
     source /vllm-venv/bin/activate
 
-    ulimit -n 65536
-    ulimit -u 32768
-
     vllm --version
     echo "[INFO] Starting vLLM server..."
     vllm serve \
-      /models/llama2-70b-gptq \
-      --quantization gptq \
+      /models/Llama-3.3-70B-Instruct-bnb-4bit \
+      --quantization bitsandbytes \
+      --load-format bitsandbytes \
       --trust-remote-code \
       --gpu-memory-utilization 0.9 \
-      --tensor-parallel-size 1 \
-      --pipeline-parallel-size 1 \
-      --tokenizer /models/llama2-70b-gptq \
-      --max-model-len 2048 \
+      --tokenizer /models/Llama-3.3-70B-Instruct-bnb-4bit \
+      --max-model-len 8000 \
+      --dtype float16 \
       --port 8000 &
 
     echo "[INFO] Waiting for vLLM server to be ready..."
