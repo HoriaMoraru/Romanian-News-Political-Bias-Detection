@@ -76,7 +76,8 @@ def analyze_stance(text: str, entities: List[str], client, tokenizer) -> List[tu
     sentences = sent_tokenize(text)
 
     for entity in entities:
-        relevant_sentences = [s for s in sentences if entity.lower() in s.lower()]
+        relevant_sentences = [s for s in sentences if re.search(rf"\b{re.escape(entity)}\b", s, flags=re.IGNORECASE)]
+
         if not relevant_sentences:
             results.append((entity, "NO_ENTITY"))
             continue
