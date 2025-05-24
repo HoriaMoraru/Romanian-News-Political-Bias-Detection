@@ -7,6 +7,8 @@ import spacy
 from collections import defaultdict
 from collections import Counter
 from preprocessing.Preprocessor import Preprocessor
+from ml.PoissonBiasEmbedder import PoissonBiasEmbedder
+from ml.svd_postprocess import svd_postprocess
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -15,6 +17,9 @@ TOO_GOOD_PHRASES_FILE = "ml/dataset/too_good_phrases.csv"
 MI_FILE = "ml/dataset/mutual_information_scores_v2.csv"
 PMI_FILE = "ml/dataset/pointwise_mutual_information_scores.csv"
 MATRIX_FILE = "ml/dataset/phrase_domain_frequency_matrix.csv"
+PHRASE_EMBEDDINGS_FILE = "ml/dataset/phrase_embeddings.csv"
+DOMAIN_EMBEDDINGS_FILE = "ml/dataset/domain_embeddings.csv"
+SVD_FILE = "ml/dataset/svd.csv"
 
 def extract_ngrams_spacy(text, n, nlp):
     doc = nlp(text)
@@ -323,3 +328,22 @@ if __name__ == "__main__":
     logging.info("Computing pointwise mutual information scores...")
     pmi_scores = compute_pointwise_mutual_information(phrase_frequency_matrix,
                                                       export_path=PMI_FILE)
+
+    logging.info("Training Poisson Bias Embedder...")
+    model = PoissonBiasEmbedder(nij_matrix=phrase_frequency_matrix, rank=3, seed=42)
+    model.fit()
+
+    logging.info("Post-processing SVD...")
+    U_svd, V_svd, s = svd_postprocess(model.U, model.V, model.w)
+
+    phrase_embeddings = pd.DataFrame(U_svd, index=phrase_frequency_matrix.index, columns=[f"bias_dim_{i+1}" for i in range(U_svd.shape[1])])
+    domain_embeddings = pd.DataFrame(V_svd, index=phrase_frequency_matrix.columns, columns=[f"bias_dim_{i+1}" for i in range(V_svd.shape[1])])
+
+    phrase_embeddings.to_csv("output/phrase_bias_embeddings.csv")
+    logging.info(f"Phrase embeddings saved to {PHRASE_EMBEDDINGS_FILE}")
+
+    domain_embeddings.to_csv("output/domain_bias_embeddings.csv")
+    logging.info(f"Domain embeddings saved to {DOMAIN_EMBEDDINGS_FILE}")
+
+    pd.Series(s, name="singular_value").to_csv("output/singular_values.csv", index_label="bias_dim")
+    logging.info(f"Singular values saved to {SVD_FILE}")
