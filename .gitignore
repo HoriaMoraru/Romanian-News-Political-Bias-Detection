@@ -2,6 +2,11 @@
 .vscode/
 /webscrapping\__pycache__\
 /dataset/python/__pycache__/
+/ml/__init__.py
+/preprocessing/__init__.py
+/preprocessing/__pycache__/
+/ml/__pycache__/
 fep/sandbox/
 /logs
 .env
+/dataset/ml/too_good_phrases_v1.csv
