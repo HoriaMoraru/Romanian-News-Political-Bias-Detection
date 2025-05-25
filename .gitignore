@@ -10,3 +10,10 @@ fep/sandbox/
 /logs
 .env
 /dataset/ml/too_good_phrases_v1.csv
+/visualization/__pycache__/
+/visualization/__init__.py
+/dataset/ml/too_good_phrases_v2.csv
+/dataset/ml/pointwise_mutual_information_scores.csv
+/dataset/ml/mutual_information_scores_v2.csv
+/dataset/ml/phrase_embeddings.csv
+/dataset/ml/ubiquitous_phrases.csv

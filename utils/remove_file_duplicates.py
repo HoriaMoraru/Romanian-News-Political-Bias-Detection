@@ -1,4 +1,7 @@
 import argparse
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def remove_duplicate_urls(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
@@ -20,13 +23,13 @@ def remove_duplicate_urls(file_path):
         for url in unique_urls:
             f.write(url + '\n')
 
-    print(f"✅ Cleaned file saved: {file_path}")
+    logging.info(f"✅ Cleaned file saved: {file_path}")
     if duplicates:
-        print(f"❗ Removed {len(duplicates)} duplicate URLs:")
+        logging.warning(f"❗ Removed {len(duplicates)} duplicate URLs:")
         for dup in duplicates:
-            print(dup)
+            logging.warning(f"Duplciated URL: {dup}")
     else:
-        print("✅ No duplicates found.")
+        logging.info("✅ No duplicates found.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Remove duplicate URLs from a text file.")

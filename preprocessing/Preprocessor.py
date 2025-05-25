@@ -19,7 +19,7 @@ class Preprocessor:
 
     def remove_hyperlinks(self):
         url_pattern = r'(https?://\S+|www\.\S+)'
-        self.text = re.sub(url_pattern, '', self.text)
+        self.text = re.sub(url_pattern, '', self.text, flags=re.IGNORECASE)
         return self
 
     def remove_file_references(self):
@@ -38,10 +38,6 @@ class Preprocessor:
 
     def remove_digits_keep_years(self):
         self.text = re.sub(r'\b(?!20\d{2})\d+\b', '', self.text)
-        return self
-
-    def remove_urls(self):
-        self.text = re.sub(r'http\S+', '', self.text)
         return self
 
     def normalize_whitespace(self):
@@ -70,7 +66,6 @@ class Preprocessor:
                 .remove_hyperlinks()
                 .remove_file_references()
                 .remove_quotes()
-                .remove_urls()
                 .remove_digits_keep_years()
                 .remove_weird_punctuation()
                 .normalize_whitespace()
