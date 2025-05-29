@@ -53,7 +53,7 @@ class PoissonBiasEmbedder:
 
         # Gradient
         D = N_hat - N  # (m, n)
-        grad_U = D @ V @ W.T + 2 * self.l2_regularization * U # (m, r)
+        grad_U = D @ V @ W.T + 2 * self.l2_regularization *  U # (m, r)
         grad_V = D.T @ U @ W + 2 * self.l2_regularization * V # (n, r)
         grad_w = np.array([(U[:, k][:, None] * D) @ V[:, k] for k in range(self.rank)])
         grad_w = grad_w.sum(axis=1) + 2 * self.l2_regularization * w
