@@ -5,6 +5,7 @@ from openai import OpenAI
 from tqdm import tqdm
 import re
 import textwrap
+import time
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -102,6 +103,7 @@ if __name__ == "__main__":
             continue
         logging.info(f"Normalized {len(result)} entities in batch.")
         normalized_entities.update(result)
+        time.sleep(1)
 
     with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
         json.dump(normalized_entities, f, ensure_ascii=False, indent=2)
