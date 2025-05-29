@@ -13,9 +13,9 @@ TEMPERATURE = 0.0
 MAX_TOKENS = 8192
 BATCH_SIZE = 200
 
-INPUT_FILE = "dataset/romanian_political_articles_v2_ner_normalized.csv"
-NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_again_entities.json"
-NORMALIZED_ENTITIES_DATASET_FILE = "dataset/romanian_political_articles_v2_ner_normalized_again.csv"
+INPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
+NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_entities.json"
+NORMALIZED_ENTITIES_DATASET_FILE = "dataset/romanian_political_articles_v2_ner_normalized.csv"
 
 def build_prompt(entities: list[str]) -> str:
     return textwrap.dedent(f"""\
