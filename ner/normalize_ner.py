@@ -6,6 +6,7 @@ from tqdm import tqdm
 import re
 import textwrap
 
+# Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
@@ -30,7 +31,7 @@ def build_prompt(entities: list[str]) -> str:
         {{
         "entitate": "formă canonică"
         }}
-        """)
+    """)
 
 def query_llm(prompt: str, client, max_retries=3) -> dict:
     for _ in range(max_retries):
@@ -41,18 +42,17 @@ def query_llm(prompt: str, client, max_retries=3) -> dict:
                 temperature=TEMPERATURE,
                 max_tokens=MAX_TOKENS,
             )
-            logging.info(f"Prompt: {prompt}")
             message = response.choices[0].text.strip()
+
             match = re.search(r'\{[\s\S]*\}', message)
             if match:
                 cleaned = match.group().strip().strip("```json").strip("```")
-                logging.info(f"Raw response: {cleaned}")
+                logging.info(f"Raw response preview: {cleaned[:100]}...")
                 return json.JSONDecoder().raw_decode(cleaned)[0]
             else:
                 logging.warning("No JSON object found in response.")
         except Exception as e:
-            logging.warning(f"Error querying llm for normalization: {e}")
-            continue
+            logging.warning(f"Error querying LLM for normalization: {e}")
     return {}
 
 def batch_entities(entities, batch_size):
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         if not result:
             logging.warning("Received empty response from LLM, skipping batch.")
             continue
-        logging.info("Result keys:", result.keys())
+        logging.info(f"Normalized {len(result)} entities in batch.")
         normalized_entities.update(result)
 
     with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
