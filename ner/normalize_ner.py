@@ -41,10 +41,12 @@ def query_llm(prompt: str, client, max_retries=3) -> dict:
                 temperature=TEMPERATURE,
                 max_tokens=MAX_TOKENS,
             )
+            logging.info(f"Prompt: {prompt}")
             message = response.choices[0].text.strip()
             match = re.search(r'\{[\s\S]*\}', message)
             if match:
                 cleaned = match.group().strip().strip("```json").strip("```")
+                logging.info(f"Raw response: {cleaned}")
                 return json.JSONDecoder().raw_decode(cleaned)[0]
             else:
                 logging.warning("No JSON object found in response.")
@@ -80,7 +82,7 @@ if __name__ == "__main__":
         if not result:
             logging.warning("Received empty response from LLM, skipping batch.")
             continue
-        logging.info(f"Normalized {len(result)} entities in batch.")
+        logging.info("Result keys:", result.keys())
         normalized_entities.update(result)
 
     with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
