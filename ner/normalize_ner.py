@@ -44,7 +44,8 @@ def query_llm(prompt: str, client, max_retries=3) -> dict:
             message = response.choices[0].text.strip()
             match = re.search(r'\{[\s\S]*\}', message)
             if match:
-                return json.loads(match.group())
+                cleaned = match.group().strip().strip("```json").strip("```")
+                return json.JSONDecoder().raw_decode(cleaned)[0]
             else:
                 logging.warning("No JSON object found in response.")
         except Exception as e:
@@ -79,7 +80,7 @@ if __name__ == "__main__":
         if not result:
             logging.warning("Received empty response from LLM, skipping batch.")
             continue
-        logging(f"Normalized {len(result)} entities in batch.")
+        logging.info(f"Normalized {len(result)} entities in batch.")
         normalized_entities.update(result)
 
     with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
