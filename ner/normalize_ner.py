@@ -19,18 +19,35 @@ NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_entities.json"
 NORMALIZED_ENTITIES_DATASET_FILE = "dataset/romanian_political_articles_v2_ner_normalized.csv"
 
 def build_prompt(entities: list[str]) -> str:
+    examples = '\n'.join([
+        '- "dl Ciolacu"',
+        '- "Firea Gabriela"',
+        '- "Iohannis K."',
+    ])
+    expected = textwrap.dedent("""\
+        {
+        "dl Ciolacu": "Marcel Ciolacu",
+        "Firea Gabriela": "Gabriela Firea",
+        "Iohannis K.": "Klaus Iohannis"
+        }
+    """)
+    entity_list = '\n'.join([f'- "{e}"' for e in entities])
     return textwrap.dedent(f"""\
         Normalizează următoarele entități numite din limba română la forma lor canonică.
         Folosește numele complet dacă este posibil (ex: „Marcel Ciolacu” în loc de „dl Ciolacu”).
         Răspunsul trebuie să fie strict un obiect JSON, fără explicații.
 
+        Exemplu:
         Entități:
-        {chr(10).join([f'- "{ent}"' for ent in entities])}
+        {examples}
 
-        Formatul dorit al răspunsului:
-        {{
-        "entitate": "formă canonică"
-        }}
+        Răspuns:
+        {expected}
+
+        Acum, normalizează aceste entități:
+        {entity_list}
+
+        Răspuns:
     """)
 
 def query_llm(prompt: str, client, max_retries=3) -> dict:
@@ -47,7 +64,7 @@ def query_llm(prompt: str, client, max_retries=3) -> dict:
             match = re.search(r'\{[\s\S]*\}', message)
             if match:
                 cleaned = match.group().strip().strip("```json").strip("```")
-                logging.info(f"Raw response preview: {cleaned[:100]}...")
+                logging.info(f"Raw response preview: {cleaned}...")
                 return json.JSONDecoder().raw_decode(cleaned)[0]
             else:
                 logging.warning("No JSON object found in response.")
@@ -78,6 +95,7 @@ if __name__ == "__main__":
     normalized_entities = {}
     for batch in tqdm(batch_entities(unique_entities, BATCH_SIZE), desc="Normalizing"):
         prompt = build_prompt(batch)
+        logging.info(f"Prompt: {prompt}")
         result = query_llm(prompt, client)
         if not result:
             logging.warning("Received empty response from LLM, skipping batch.")
