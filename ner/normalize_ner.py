@@ -10,8 +10,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
 TEMPERATURE = 0.0
-MAX_TOKENS = 8192
-BATCH_SIZE = 10
+MAX_TOKENS = 1024
+BATCH_SIZE = 30
 
 INPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_entities.json"
@@ -42,8 +42,6 @@ def query_llm(prompt: str, client, max_retries=3) -> dict:
                 max_tokens=MAX_TOKENS,
             )
             message = response.choices[0].text.strip()
-            logging.info(f"Prompt: {prompt}")
-            logging.info(f"Response: {message}")
             match = re.search(r'\{[\s\S]*\}', message)
             if match:
                 return json.loads(match.group())
@@ -81,6 +79,7 @@ if __name__ == "__main__":
         if not result:
             logging.warning("Received empty response from LLM, skipping batch.")
             continue
+        logging(f"Normalized {len(result)} entities in batch.")
         normalized_entities.update(result)
 
     with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
