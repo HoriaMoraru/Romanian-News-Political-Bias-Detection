@@ -12,8 +12,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
 TEMPERATURE = 0.0
-MAX_TOKENS = 1024
-BATCH_SIZE = 50
+MAX_TOKENS = 4096
+BATCH_SIZE = 200
 
 INPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_entities.json"
@@ -112,7 +112,6 @@ if __name__ == "__main__":
             continue
         logging.info(f"Normalized {len(result)} entities in batch.")
         normalized_entities.update(result)
-        time.sleep(1)
 
     with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
         json.dump(normalized_entities, f, ensure_ascii=False, indent=2)
