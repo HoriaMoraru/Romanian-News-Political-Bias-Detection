@@ -6,6 +6,7 @@ from tqdm import tqdm
 import re
 import textwrap
 from math import ceil
+from time import sleep
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
