@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
 TEMPERATURE = 0.0
 MAX_TOKENS = 1024
-BATCH_SIZE = 30
+BATCH_SIZE = 50
 
 INPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_entities.json"
@@ -24,19 +24,28 @@ def build_prompt(entities: list[str]) -> str:
         '- "dl Ciolacu"',
         '- "Firea Gabriela"',
         '- "Iohannis K."',
+        '- "liderii"',
+        '- "Aneimariei Gavrila"',
     ])
     expected = textwrap.dedent("""\
         {
         "dl Ciolacu": "Marcel Ciolacu",
         "Firea Gabriela": "Gabriela Firea",
-        "Iohannis K.": "Klaus Iohannis"
+        "Iohannis K.": "Klaus Iohannis",
+        "liderii": "lider",
+        "Aneimariei Gavrila": "Anamaria Gavrila"
         }
     """)
     entity_list = '\n'.join([f'- "{e}"' for e in entities])
     return textwrap.dedent(f"""\
-        Normalizează următoarele entități numite din limba română la forma lor canonică.
-        Folosește numele complet dacă este posibil (ex: „Marcel Ciolacu” în loc de „dl Ciolacu”).
-        Răspunsul trebuie să fie strict un obiect JSON, fără explicații.
+
+        Normalizează următoarele entități din limba română la forma lor canonică.
+
+        Instrucțiuni:
+        - Dacă entitatea este un nume propriu, folosește forma completă, corectă (ex: „Marcel Ciolacu” în loc de „dl Ciolacu”).
+        - Dacă entitatea este un substantiv comun (ex: „liderii”), oferă forma de bază (ex: „lider”).
+        - Corectează eventualele greșeli de tastare, declinări sau inversări de prenume/nume.
+        - Răspunsul trebuie să fie un **obiect JSON valid**, fără explicații, fără text suplimentar.
 
         Exemplu:
         Entități:
