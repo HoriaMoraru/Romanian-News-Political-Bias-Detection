@@ -5,7 +5,7 @@ from openai import OpenAI
 from tqdm import tqdm
 import re
 import textwrap
-import time
+from math import ceil
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
 TEMPERATURE = 0.0
 MAX_TOKENS = 4096
-BATCH_SIZE = 200
+BATCH_SIZE = 150
 
 INPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_entities.json"
@@ -73,7 +73,7 @@ def query_llm(prompt: str, client, max_retries=3) -> dict:
 
             match = re.search(r'\{[\s\S]*\}', message)
             if match:
-                cleaned = match.group().strip().strip("```json").strip("```")
+                cleaned = re.sub(r"^```json\s*|\s*```$", "", match.group().strip())
                 logging.info(f"Raw response preview: {cleaned}...")
                 return json.JSONDecoder().raw_decode(cleaned)[0]
             else:
@@ -102,16 +102,19 @@ if __name__ == "__main__":
     logging.info(f"Found {len(unique_entities)} unique entities.")
 
     logging.info("Normalizing entities...")
+    total_normalized = 0
+    pbar = tqdm(batch_entities(unique_entities, BATCH_SIZE), desc="Normalizing", total=(ceil(len(unique_entities) / BATCH_SIZE)))
     normalized_entities = {}
-    for batch in tqdm(batch_entities(unique_entities, BATCH_SIZE), desc="Normalizing"):
+    for batch in pbar:
         prompt = build_prompt(batch)
         logging.info(f"Prompt: {prompt}")
         result = query_llm(prompt, client)
         if not result:
             logging.warning("Received empty response from LLM, skipping batch.")
             continue
-        logging.info(f"Normalized {len(result)} entities in batch.")
         normalized_entities.update(result)
+        total_normalized += len(result)
+        pbar.set_postfix_str(f"{total_normalized}/{len(unique_entities)} normalized")
 
     with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
         json.dump(normalized_entities, f, ensure_ascii=False, indent=2)
