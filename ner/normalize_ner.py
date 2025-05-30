@@ -14,8 +14,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
 TEMPERATURE = 0.0
-MAX_TOKENS = 6000
-BATCH_SIZE = 300
+MAX_TOKENS = 4096
+BATCH_SIZE = 200
 
 INPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_entities.json"
