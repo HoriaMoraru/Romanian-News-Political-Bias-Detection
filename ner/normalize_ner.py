@@ -13,8 +13,8 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 MODEL = "/models/Llama-3.3-70B-Instruct-bnb-4bit"
 TEMPERATURE = 0.0
-MAX_TOKENS = 4096
-BATCH_SIZE = 150
+MAX_TOKENS = 6000
+BATCH_SIZE = 300
 
 INPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 NORMALIZED_ENTITIES_FILE = "dataset/ml/normalized_entities.json"
@@ -74,7 +74,7 @@ def query_llm(prompt: str, client, max_retries=3) -> dict:
 
             match = re.search(r'\{[\s\S]*\}', message)
             if match:
-                cleaned = re.sub(r"^```json\s*|\s*```$", "", match.group().strip())
+                cleaned = re.sub(r"^```(?:json)?\s*|\s*```$", "", match.group().strip(), flags=re.IGNORECASE)
                 logging.info(f"Raw response preview: {cleaned}...")
                 return json.JSONDecoder().raw_decode(cleaned)[0]
             else:
@@ -117,9 +117,9 @@ if __name__ == "__main__":
         total_normalized += len(result)
         pbar.set_postfix_str(f"{total_normalized}/{len(unique_entities)} normalized")
 
-    with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
-        json.dump(normalized_entities, f, ensure_ascii=False, indent=2)
-    logging.info(f"Saved {len(normalized_entities)} normalized entities to {NORMALIZED_ENTITIES_FILE}")
+        with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
+            json.dump(normalized_entities, f, ensure_ascii=False, indent=2)
+        logging.info(f"Checkpoint saved: {len(normalized_entities)} entities normalized so far.")
 
     logging.info("Applying normalization to dataset...")
     df["ner"] = df["ner"].apply(lambda ents: [normalized_entities.get(ent, ent) for ent in ents])
