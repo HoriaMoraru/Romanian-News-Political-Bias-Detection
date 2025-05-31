@@ -8,6 +8,7 @@
 /ml/__pycache__/
 fep/sandbox/
 /logs
+/logs2
 .env
 /dataset/ml/too_good_phrases_v1.csv
 /visualization/__pycache__/
