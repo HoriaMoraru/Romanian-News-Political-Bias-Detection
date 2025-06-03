@@ -39,6 +39,6 @@ apptainer exec --nv \
     curl http://localhost:8000/v1/models
 
     echo "[INFO] vLLM server is up. Running inference script..."
-    python3 normalize_ner.py
+    python3 compute_phrase_domain_frequency_matrix.py
 '
 
