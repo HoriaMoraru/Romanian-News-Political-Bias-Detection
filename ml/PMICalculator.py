@@ -31,10 +31,10 @@ class PMICalculator:
                     pmi = np.log2(pij / (pi * pj))
                     rows.append((i, j, pmi))
 
-        pmi_df = pd.DataFrame(rows, columns=[row_label, column_label, "PMI_Score"]).sort_values(by="PMI_Score", ascending=False)
+        pmi_df = pd.DataFrame(rows, columns=[row_label, column_label, "pmi"]).sort_values(by="pmi", ascending=False)
 
         if export_path:
-            pmi_df.to_csv(export_path, sep="\t", index=False)
+            pmi_df.to_csv(export_path, index=False)
             logging.info(f"Pointwise Mutual Information scores exported to {export_path}")
 
         return pmi_df
@@ -81,7 +81,7 @@ class PMICalculator:
         info_scores = pd.Series(scores).sort_values(ascending=False)
 
         if export_path:
-            info_scores.to_csv(export_path, sep="\t", header=["MI_score"], index_label=row_label)
+            info_scores.to_csv(export_path, header=["mi"], index_label=row_label)
             logging.info(f"Mutual Information scores exported to {export_path}")
 
         return info_scores

@@ -11,9 +11,9 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 MIN_TOTAL_FREQ = 5
 INPUT_FILE = "dataset/romanian_political_articles_v2_shuffled.csv"
-TOO_GOOD_PHRASES_FILE = "dataset/ml/too_good_phrases_v2.csv"
+TOO_GOOD_PHRASES_FILE = "dataset/ml/too_good_phrases.csv"
 UBIQUITOUS_PHRASES_FILE = "dataset/ml/ubiquitous_phrases.csv"
-MATRIX_FILE = "dataset/ml/phrase_domain_frequency_matrix_v2.csv"
+MATRIX_FILE = "dataset/ml/phrase_domain_frequency_matrix.csv"
 BOILERPLATE_PATTERNS_FILE = "ml/phrase_domain_frequency/utils/boilerplate_patterns.txt"
 
 def load_boilerplate_patterns(path: str) -> list[str]:
@@ -32,19 +32,37 @@ def strip_boilerplate(text: str, boilerplate_patterns: list[str]) -> str:
         text = re.sub(pat, "", text, flags=re.IGNORECASE)
     return text
 
-def extract_ngrams_spacy(text, n, nlp, stopwords):
+def extract_ngrams_spacy(text: str, n: int, nlp, stopwords: set[str]) -> set[str]:
+    """
+    Extraction of n-grams (length = n) from `text` using spaCy,
+
+    - Only alphabetic tokens or hyphenated sequences of letters are kept.
+    - We skip any n-gram for which every token (lowercased) is in `stopwords`.
+      In other words, we keep an n-gram if at least one subtoken is NOT a stopword.
+    """
     doc = nlp(text)
-    tokens = [
-        token.text for token in doc
-        if not token.is_space and not token.is_punct and token.is_alpha
-    ]
-    ngrams = []
-    for i in range(len(tokens) - n + 1):
-        phrase = " ".join(tokens[i : i + n])
-        if all(tok.lower() in stopwords for tok in phrase.split()):
-            continue
-        ngrams.append(phrase)
-    return set(ngrams)
+    filtered_tokens: list[str] = []
+    is_all_stop: list[bool] = []
+
+    for token in doc:
+        txt = token.text
+
+        if txt.replace("-", "").isalpha():
+            filtered_tokens.append(txt)
+            is_all_stop.append(txt.lower() in stopwords)
+
+    L = len(filtered_tokens)
+    if L < n:
+        return set()
+
+    ngrams = set()
+    for i in range(L - n + 1):
+        window_flags = is_all_stop[i : i + n]
+        if not all(window_flags):
+            phrase = " ".join(filtered_tokens[i : i + n])
+            ngrams.add(phrase)
+
+    return ngrams
 
 def preprocess_for_ml(text, nlp):
     """
@@ -74,36 +92,23 @@ def preprocess_for_ml(text, nlp):
 
     return " PERIOD ".join(processed_sentences)
 
-def create_phrase_frequency_matrix(df, min_total_freq=MIN_TOTAL_FREQ):
+def create_phrase_frequency_matrix(df):
     """
     Creates a phrase-domain frequency matrix (Nij matrix), where:
-    - Each row represents a unique phrase (unigram, bigram, trigram, etc.)
-    - Each column represents a unique news source domain
-    - Each cell [i, j] contains the number of times phrase i appears in articles from domain j
-
-    Returns:
-        pd.DataFrame: A phrase-by-domain frequency matrix (rows = phrases, columns = domains)
+     - Each row is a unique phrase (unigram, bigram, trigram, …), no matter how rare.
+     - Each column is a unique news source domain.
+     - Each cell [i, j] = number of times phrase i appears in articles from domain j.
     """
-    overall_counter = Counter(phrase for sublist in df["all_ngrams"] for phrase in sublist)
+    all_phrases = df["all_ngrams"].explode().unique().tolist()
 
-    frequent_phrases = list({
-        phrase
-        for phrase, cnt in overall_counter.items()
-        if cnt >= min_total_freq})
-
-    # Create the Nij matrix (rows: phrases, columns: domains)
-    domains = df['source_domain'].unique()
-    nij_matrix = pd.DataFrame(0, index=frequent_phrases, columns=domains)
+    domains = df["source_domain"].unique()
+    nij_matrix = pd.DataFrame(0, index=all_phrases, columns=domains, dtype=int)
 
     for domain in domains:
-        domain_articles = df[df['source_domain'] == domain]
-        domain_phrases = Counter()
-
-        for phrases_list in domain_articles['all_ngrams']:
-            filtered = [p for p in phrases_list if p in frequent_phrases]
-            domain_phrases.update(filtered)
-
-        for phrase, count in domain_phrases.items():
+        domain_counter = Counter()
+        for phrases_list in df.loc[df["source_domain"] == domain, "all_ngrams"]:
+            domain_counter.update(phrases_list)
+        for phrase, count in domain_counter.items():
             nij_matrix.at[phrase, domain] = count
 
     return nij_matrix
@@ -294,11 +299,11 @@ if __name__ == "__main__":
     nlp = spacy.load("ro_core_news_lg")
     STOP_WORDS = nlp.Defaults.stop_words
 
-    logging.info("Preprocessing text...")
-    tqdm.pandas()
-    df['cleantext'] = df['maintext'].progress_apply(
-    lambda t: preprocess_for_ml(Preprocessor(t).process(), nlp)
-    )
+    logging.info("Loading preprocessor...")
+    preprocessor = Preprocessor(nlp=nlp)
+
+    tqdm.pandas(desc="Cleaning...")
+    df['cleantext'] = df['maintext'].progress_apply(lambda t: preprocessor.process_ml(t))
 
     df = df[df['cleantext'].str.split().str.len() > 30]
     logging.info(f"Filtered dataset size: {len(df)}")
@@ -308,31 +313,31 @@ if __name__ == "__main__":
     df['bigrams'] = df['cleantext'].progress_apply(lambda t: extract_ngrams_spacy(t, 2, nlp, STOP_WORDS))
     df['trigrams'] = df['cleantext'].progress_apply(lambda t: extract_ngrams_spacy(t, 3, nlp, STOP_WORDS))
 
-    logging.info("Removing phrases that contain 'PERIOD'...")
-    df['monograms'] = df['monograms'].progress_apply(remove_period_ngrams)
-    df['bigrams'] = df['bigrams'].progress_apply(remove_period_ngrams)
-    df['trigrams'] = df['trigrams'].progress_apply(remove_period_ngrams)
-    df['all_ngrams'] = df.progress_apply(lambda row: row['monograms'] | row['bigrams'] | row['trigrams'], axis=1)
+    # logging.info("Removing phrases that contain 'PERIOD'...")
+    # df['monograms'] = df['monograms'].progress_apply(remove_period_ngrams)
+    # df['bigrams'] = df['bigrams'].progress_apply(remove_period_ngrams)
+    # df['trigrams'] = df['trigrams'].progress_apply(remove_period_ngrams)
+    # df['all_ngrams'] = df.progress_apply(lambda row: row['monograms'] | row['bigrams'] | row['trigrams'], axis=1)
 
     logging.info("Creating phrase frequency matrix...")
     phrase_frequency_matrix = create_phrase_frequency_matrix(df)
     logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
 
-    logging.info("Removing redundant ngrams that are contained in longer ngrams...")
-    phrase_frequency_matrix = filter_redundant_ngrams(phrase_frequency_matrix, df, threshold=0.7)
-    logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
+    # logging.info("Removing redundant ngrams that are contained in longer ngrams...")
+    # phrase_frequency_matrix = filter_redundant_ngrams(phrase_frequency_matrix, df, threshold=0.7)
+    # logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
 
-    logging.info("Filtering too good phrases...")
-    phrase_frequency_matrix = filter_too_good_phrases(phrase_frequency_matrix,
-                                                      export_path=TOO_GOOD_PHRASES_FILE,
-                                                      threshold=0.9)
-    logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
+    # logging.info("Filtering too good phrases...")
+    # phrase_frequency_matrix = filter_too_good_phrases(phrase_frequency_matrix,
+    #                                                   export_path=TOO_GOOD_PHRASES_FILE,
+    #                                                   threshold=0.9)
+    # logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
 
-    logging.info("Filtering ubiquitous phrases...")
-    phrase_frequency_matrix = filter_ubiquitous_phrases(phrase_frequency_matrix,
-                                                        export_path=UBIQUITOUS_PHRASES_FILE,
-                                                        threshold=0.9)
-    logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
+    # logging.info("Filtering ubiquitous phrases...")
+    # phrase_frequency_matrix = filter_ubiquitous_phrases(phrase_frequency_matrix,
+    #                                                     export_path=UBIQUITOUS_PHRASES_FILE,
+    #                                                     threshold=0.9)
+    # logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
 
     phrase_frequency_matrix.to_csv(MATRIX_FILE, index=True, index_label="phrase")
     logging.info(f"Phrase frequency matrix saved to {MATRIX_FILE}")
