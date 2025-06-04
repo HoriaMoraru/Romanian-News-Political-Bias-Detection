@@ -16,29 +16,13 @@ UBIQUITOUS_PHRASES_FILE = "dataset/ml/ubiquitous_phrases.csv"
 MATRIX_FILE = "dataset/ml/phrase_domain_frequency_matrix.csv"
 BOILERPLATE_PATTERNS_FILE = "ml/phrase_domain_frequency/utils/boilerplate_patterns.txt"
 
-def load_boilerplate_patterns(path: str) -> list[str]:
-    patterns = []
-    with open(path, "r", encoding="utf-8") as f:
-        for raw in f:
-            line = raw.strip()
-            if not line or line.startswith("#"):
-                continue
-            literal_pattern = re.escape(line)
-            patterns.append(literal_pattern)
-    return patterns
-
-def strip_boilerplate(text: str, boilerplate_patterns: list[str]) -> str:
-    for pat in boilerplate_patterns:
-        text = re.sub(pat, "", text, flags=re.IGNORECASE)
-    return text
-
 def extract_ngrams_spacy(text: str, n: int, nlp, stopwords: set[str]) -> set[str]:
     """
-    Extraction of n-grams (length = n) from `text` using spaCy,
+    Extraction of n-grams (length = n) from `text` using spaCy.
 
-    - Only alphabetic tokens or hyphenated sequences of letters are kept.
-    - We skip any n-gram for which every token (lowercased) is in `stopwords`.
-      In other words, we keep an n-gram if at least one subtoken is NOT a stopword.
+    Only alphabetic tokens or hyphenated sequences of letters are kept.
+    We skip any n-gram for which every token (lowercased) is in `stopwords`.
+    In other words, we keep an n-gram if at least one subtoken is NOT a stopword.
     """
     doc = nlp(text)
     filtered_tokens: list[str] = []
@@ -64,35 +48,7 @@ def extract_ngrams_spacy(text: str, n: int, nlp, stopwords: set[str]) -> set[str
 
     return ngrams
 
-def preprocess_for_ml(text, nlp):
-    """
-    Removes all punctuation except sentence-ending periods.
-    Replaces each sentence-ending period with the token 'PERIOD'.
-    Lowercases the first word of each sentence.
-    """
-
-    doc = nlp(text)
-    processed_sentences = []
-
-    for sent in doc.sents:
-        sent_text = sent.text.strip()
-        if not sent_text:
-            continue
-
-        # Remove all punctuation from the sentence
-        clean_sent = re.sub(r'[^\w\s]', '', sent_text)
-        words = clean_sent.split()
-        if not words:
-            continue
-
-        # Lowercase the first word
-        words[0] = words[0].lower()
-
-        processed_sentences.append(" ".join(words))
-
-    return " PERIOD ".join(processed_sentences)
-
-def create_phrase_frequency_matrix(df):
+def create_phrase_frequency_matrix(df: pd.DataFrame) -> pd.DataFrame:
     """
     Creates a phrase-domain frequency matrix (Nij matrix), where:
      - Each row is a unique phrase (unigram, bigram, trigram, …), no matter how rare.
@@ -286,15 +242,6 @@ if __name__ == "__main__":
     logging.info("Dropping rows with missing text or source...")
     df = df.dropna(subset=["maintext", "source_domain"])
 
-    logging.info("Loading boilerplate patterns...")
-    boilerplate_patterns = load_boilerplate_patterns(BOILERPLATE_PATTERNS_FILE)
-
-    logging.info("Stripping boilerplate from maintext...")
-    tqdm.pandas()
-    df["maintext"] = df["maintext"].progress_apply(
-    lambda t: strip_boilerplate(t, boilerplate_patterns)
-    )
-
     logging.info("Loading spacy model...")
     nlp = spacy.load("ro_core_news_lg")
     STOP_WORDS = nlp.Defaults.stop_words
@@ -317,7 +264,9 @@ if __name__ == "__main__":
     # df['monograms'] = df['monograms'].progress_apply(remove_period_ngrams)
     # df['bigrams'] = df['bigrams'].progress_apply(remove_period_ngrams)
     # df['trigrams'] = df['trigrams'].progress_apply(remove_period_ngrams)
-    # df['all_ngrams'] = df.progress_apply(lambda row: row['monograms'] | row['bigrams'] | row['trigrams'], axis=1)
+
+    logging.info("Combining n-grams into a single set of all n-grams...")
+    df['all_ngrams'] = df.progress_apply(lambda row: row['monograms'] | row['bigrams'] | row['trigrams'], axis=1)
 
     logging.info("Creating phrase frequency matrix...")
     phrase_frequency_matrix = create_phrase_frequency_matrix(df)

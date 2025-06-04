@@ -75,11 +75,17 @@ if __name__ == "__main__":
     logging.info(f"Loading dataset from {INPUT_FILE}...")
     df = pd.read_csv(INPUT_FILE)
 
+    logging.info("Dropping rows with missing text or source...")
+    df = df.dropna(subset=["maintext", "source_domain", "url"])
+
     logging.info("Loading preprocessor...")
     preprocessor = Preprocessor()
 
     tqdm.pandas(desc="Cleaning...")
     df['cleantext'] = df['maintext'].progress_apply(lambda t: preprocessor.process_nlp(t))
+
+    df = df[~df['cleantext'].apply(skip_article)]
+    logging.info(f"Filtered dataset to {len(df)} by removing short articles.")
 
     urls: list[str] = []
     sources: list[str] = []

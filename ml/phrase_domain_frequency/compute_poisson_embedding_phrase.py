@@ -5,7 +5,7 @@ import pandas as pd
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-PHRASE_FREQUENCY_MATRIX_FILE = "dataset/ml/phrase_domain_frequency_matrix_v2.csv"
+PHRASE_FREQUENCY_MATRIX_FILE = "dataset/ml/phrase_domain_frequency_matrix.csv"
 PHRASE_EMBEDDINGS_FILE = "dataset/ml/phrase_domain_phrase_embeddings.csv"
 DOMAIN_EMBEDDINGS_FILE = "dataset/ml/phrase_domain_domain_embeddings.csv"
 SVD_FILE = "dataset/ml/svd_phrase.csv"
@@ -23,10 +23,10 @@ if __name__ == "__main__":
 
     phrase_embeddings = pd.DataFrame(U_svd,
                                      index=phrase_frequency_matrix.index,
-                                     columns=[f"bias_dim_{i+1}" for i in range(U_svd.shape[1])])
+                                     columns=[f"bias_dim_{i}" for i in range(U_svd.shape[1])])
     domain_embeddings = pd.DataFrame(V_svd,
                                      index=phrase_frequency_matrix.columns,
-                                     columns=[f"bias_dim_{i+1}" for i in range(V_svd.shape[1])])
+                                     columns=[f"bias_dim_{i}" for i in range(V_svd.shape[1])])
 
     phrase_embeddings.to_csv(PHRASE_EMBEDDINGS_FILE)
     logging.info(f"Phrase embeddings saved to {PHRASE_EMBEDDINGS_FILE}")

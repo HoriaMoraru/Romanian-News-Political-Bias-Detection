@@ -81,7 +81,7 @@ class PMICalculator:
         info_scores = pd.Series(scores).sort_values(ascending=False)
 
         if export_path:
-            info_scores.to_csv(export_path, header=["mi"], index_label=row_label)
+            info_scores.to_frame("mi").to_csv(export_path, index_label=row_label)
             logging.info(f"Mutual Information scores exported to {export_path}")
 
         return info_scores

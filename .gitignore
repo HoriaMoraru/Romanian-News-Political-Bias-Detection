@@ -6,5 +6,6 @@ fep/sandbox/
 /logs2
 .env
 /dataset/ml
+/dataset/nlp
 __pycache__/
 __init__.py
