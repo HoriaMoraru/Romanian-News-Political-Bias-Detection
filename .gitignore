@@ -5,12 +5,6 @@ fep/sandbox/
 /logs
 /logs2
 .env
-/dataset/ml/too_good_phrases_v1.csv
-/dataset/ml/too_good_phrases_v2.csv
-/dataset/ml/pointwise_mutual_information_scores.csv
-dataset/ml/mutual_information_scores_v2.csv
-/dataset/ml/phrase_embeddings.csv
-/dataset/ml/ubiquitous_phrases.csv
-dataset/ml/phrase_domain_phrase_embeddings.csv
+/dataset/ml
 __pycache__/
 __init__.py
