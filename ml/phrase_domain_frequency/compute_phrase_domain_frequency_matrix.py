@@ -1,6 +1,5 @@
 import logging
 import pandas as pd
-import re
 from tqdm import tqdm
 import spacy
 from collections import defaultdict
@@ -260,10 +259,10 @@ if __name__ == "__main__":
     df['bigrams'] = df['cleantext'].progress_apply(lambda t: extract_ngrams_spacy(t, 2, nlp, STOP_WORDS))
     df['trigrams'] = df['cleantext'].progress_apply(lambda t: extract_ngrams_spacy(t, 3, nlp, STOP_WORDS))
 
-    # logging.info("Removing phrases that contain 'PERIOD'...")
-    # df['monograms'] = df['monograms'].progress_apply(remove_period_ngrams)
-    # df['bigrams'] = df['bigrams'].progress_apply(remove_period_ngrams)
-    # df['trigrams'] = df['trigrams'].progress_apply(remove_period_ngrams)
+    logging.info("Removing phrases that contain 'PERIOD'...")
+    df['monograms'] = df['monograms'].progress_apply(remove_period_ngrams)
+    df['bigrams'] = df['bigrams'].progress_apply(remove_period_ngrams)
+    df['trigrams'] = df['trigrams'].progress_apply(remove_period_ngrams)
 
     logging.info("Combining n-grams into a single set of all n-grams...")
     df['all_ngrams'] = df.progress_apply(lambda row: row['monograms'] | row['bigrams'] | row['trigrams'], axis=1)
@@ -272,21 +271,21 @@ if __name__ == "__main__":
     phrase_frequency_matrix = create_phrase_frequency_matrix(df)
     logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
 
-    # logging.info("Removing redundant ngrams that are contained in longer ngrams...")
-    # phrase_frequency_matrix = filter_redundant_ngrams(phrase_frequency_matrix, df, threshold=0.7)
-    # logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
+    logging.info("Removing redundant ngrams that are contained in longer ngrams...")
+    phrase_frequency_matrix = filter_redundant_ngrams(phrase_frequency_matrix, df, threshold=0.7)
+    logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
 
-    # logging.info("Filtering too good phrases...")
-    # phrase_frequency_matrix = filter_too_good_phrases(phrase_frequency_matrix,
-    #                                                   export_path=TOO_GOOD_PHRASES_FILE,
-    #                                                   threshold=0.9)
-    # logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
+    logging.info("Filtering too good phrases...")
+    phrase_frequency_matrix = filter_too_good_phrases(phrase_frequency_matrix,
+                                                      export_path=TOO_GOOD_PHRASES_FILE,
+                                                      threshold=0.9)
+    logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
 
-    # logging.info("Filtering ubiquitous phrases...")
-    # phrase_frequency_matrix = filter_ubiquitous_phrases(phrase_frequency_matrix,
-    #                                                     export_path=UBIQUITOUS_PHRASES_FILE,
-    #                                                     threshold=0.9)
-    # logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
+    logging.info("Filtering ubiquitous phrases...")
+    phrase_frequency_matrix = filter_ubiquitous_phrases(phrase_frequency_matrix,
+                                                        export_path=UBIQUITOUS_PHRASES_FILE,
+                                                        threshold=0.9)
+    logging.info(f"The frequency matrix has: {len(phrase_frequency_matrix.index)} elements")
 
     phrase_frequency_matrix.to_csv(MATRIX_FILE, index=True, index_label="phrase")
     logging.info(f"Phrase frequency matrix saved to {MATRIX_FILE}")

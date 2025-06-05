@@ -17,7 +17,6 @@ OUTPUT_EMB_NPY = "dataset/nlp/bert_article_embeddings.npy"
 OUTPUT_EMB_CSV = "dataset/nlp/bert_article_embeddings.csv"
 # ───────────────────────────────────────────────────────────────────────────────
 
-
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def get_article_embeddings_vector(
