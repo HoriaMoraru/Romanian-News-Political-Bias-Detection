@@ -71,7 +71,7 @@ class Preprocessor:
     def _ml_specific(self, text: str) -> str:
         """
         Removes all punctuation (preserving only word chars and whitespace),
-        lowercases each sentence’s first token,
+        lowercases each sentence's first token,
         and joins sentences with ' PERIOD '.
         """
         doc = self.nlp(text)
@@ -94,18 +94,6 @@ class Preprocessor:
         return " PERIOD ".join(processed_sentences)
 
     def process_nlp(self, text: str) -> str:
-        """
-        Applies the standard sequence of cleanup steps and returns a cleaned string:
-          1. strip boilerplate
-          2. normalize Romanian chars
-          3. remove HTML tags
-          4. remove URLs
-          5. remove file references
-          6. remove quoted spans
-          7. remove digits (except years)
-          8. remove weird punctuation
-          9. collapse whitespace
-        """
         if not text or not text.strip():
             return ""
 
@@ -122,10 +110,6 @@ class Preprocessor:
         return t
 
     def process_ml(self, text: str) -> str:
-        """
-        Applies the same cleanup as process_nlp(), then passes the result to _ml_specific()
-        to produce an ML-ready string with tokenized sentences joined by 'PERIOD'.
-        """
         cleaned = self.process_nlp(text)
         if not cleaned:
             return ""
