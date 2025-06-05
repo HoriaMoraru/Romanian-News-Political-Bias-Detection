@@ -11,7 +11,7 @@ from preprocessing.Preprocessor import Preprocessor
 # CONSTANTS
 # ───────────────────────────────────────────────────────────────────────────────
 INPUT_FILE = "dataset/romanian_political_articles_v2_shuffled.csv"
-MODEL_NAME = "dumitrescustefan/bert-base-romanian-cased-v1"
+MODEL_NAME = "readerbench/RoBERT-large"
 MAX_POSITION_EMBEDDINGS = 512
 OUTPUT_EMB_NPY = "dataset/nlp/bert_article_embeddings.npy"
 OUTPUT_EMB_CSV = "dataset/nlp/bert_article_embeddings.csv"
