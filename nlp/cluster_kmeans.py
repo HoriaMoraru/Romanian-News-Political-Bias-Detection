@@ -23,7 +23,7 @@ if __name__ == "__main__":
     best_labels = None
 
     logging.info("Running KMeans and computing silhouette scores from k=2 to k=6...")
-    for k in range(2, 7):
+    for k in range(2, 4):
         kmeans = KMeans(n_clusters=k, random_state=42, n_init="auto")
         labels = kmeans.fit_predict(X_umap)
         score = silhouette_score(X_umap, labels)

@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 INPUT_CSV = "dataset/nlp/bert_article_embeddings_umap.csv"
 OUTPUT_CSV = "dataset/nlp/bert_article_embeddings_umap_hdbscan_clusters.csv"
 
-MIN_CLUSTER_SIZE = 100
+MIN_CLUSTER_SIZE = 30
 MIN_SAMPLES = 15
 
 if __name__ == "__main__":
