@@ -2,10 +2,11 @@ import logging
 import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import normalize
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-PCA_COMPONENTS_FROM_ELBOW = 100
+PCA_COMPONENTS_FROM_ELBOW = 80
 INPUT_EMB_NPY = "dataset/nlp/bert_article_embeddings.npy"
 INPUT_EMB_CSV = "dataset/nlp/bert_article_embeddings.csv"
 OUTPUT_PCA = "dataset/nlp/bert_article_embeddings_pca.npy"
@@ -16,6 +17,9 @@ if __name__ == "__main__":
     embeddings = np.load(INPUT_EMB_NPY)
     n_articles, _ = embeddings.shape
     logging.info(f"Loaded BERT embeddings of shape {embeddings.shape}")
+
+    # logging.info(f"Normalizing embeddings...")
+    # normalized_embeddings = normalize(embeddings)
 
     pca = PCA(PCA_COMPONENTS_FROM_ELBOW, random_state=42)
     reduced_embeddings = pca.fit_transform(embeddings)

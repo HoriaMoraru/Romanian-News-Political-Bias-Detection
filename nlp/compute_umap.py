@@ -5,10 +5,15 @@ import umap.umap_ as umap
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-PCA_FILE = "dataset/nlp/bert_article_embeddings_pca.npy"
-PCA_FILE_CSV = "dataset/nlp/bert_article_embeddings_pca.csv"
+PCA_FILE = "dataset/nlp/bert_article_embeddings.npy"
+PCA_FILE_CSV = "dataset/nlp/bert_article_embeddings.csv"
 OUTPUT_UMAP_EMBEDDINGS = "dataset/nlp/bert_article_embeddings_umap.npy"
 OUTPUT_UMAP_EMBEDDINGS_CSV = "dataset/nlp/bert_article_embeddings_umap.csv"
+
+N_COMPONENTS = 15
+N_NEIGHBORS = 15
+MIN_DIST = 0.3
+METRIC = 'cosine'
 
 if __name__ == "__main__":
     logging.info(f"Loading PCA embeddings from {PCA_FILE}…")
@@ -18,9 +23,10 @@ if __name__ == "__main__":
 
     reducer = umap.UMAP(
         random_state=42,
-        n_neighbors=15,
-        min_dist=0.3,
-        metric='cosine')
+        n_components= N_COMPONENTS,
+        n_neighbors=N_NEIGHBORS,
+        min_dist=MIN_DIST,
+        metric=METRIC)
 
     umap_embeddings = reducer.fit_transform(pca_embeddings)
     logging.info(f"UMAP reduced embeddings to shape {umap_embeddings.shape}")

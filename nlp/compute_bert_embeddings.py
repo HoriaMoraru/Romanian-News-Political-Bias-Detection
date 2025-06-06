@@ -11,7 +11,7 @@ from preprocessing.Preprocessor import Preprocessor
 # CONSTANTS
 # ───────────────────────────────────────────────────────────────────────────────
 INPUT_FILE = "dataset/romanian_political_articles_v2_shuffled.csv"
-MODEL_NAME = "readerbench/RoBERT-large"
+MODEL_NAME = "intfloat/multilingual-e5-large-instruct"
 MAX_POSITION_EMBEDDINGS = 512
 OUTPUT_EMB_NPY = "dataset/nlp/bert_article_embeddings.npy"
 OUTPUT_EMB_CSV = "dataset/nlp/bert_article_embeddings.csv"
@@ -23,36 +23,43 @@ def get_article_embeddings_vector(
     cleantext: str,
     tokenizer: AutoTokenizer,
     model: AutoModel,
-    device: torch.device) -> torch.Tensor:
+    device: torch.device
+) -> torch.Tensor:
     """
-    Given a pre-cleaned text (cleantext), returns a single 768-dim (Model's hidden size)
+    Given a pre-cleaned text (cleantext), returns a single 384-dim (MiniLM's hidden size)
     embedding (torch.Tensor) by:
       - Tokenizing (with special tokens)
-      - Splitting into chunks of at most (512) tokens
-      - For each chunk: feed through BERT, extract CLS token
-      - Averaging all CLS embeddings into one 768-dim vector
+      - Splitting into chunks of at most 512 tokens
+      - For each chunk: feed through MiniLM, compute masked mean-pooling over all tokens
+      - Averaging all chunk-pooled vectors into one 384-dim vector
     """
     tokens = tokenizer.encode(cleantext, add_special_tokens=True)
     max_len = MAX_POSITION_EMBEDDINGS
 
-    chunks : list[list[int]]= [tokens[i:i+max_len] for i in range(0, len(tokens), max_len)]
+    chunks: list[list[int]] = [tokens[i:i + max_len] for i in range(0, len(tokens), max_len)]
 
     chunk_embeddings: list[torch.Tensor] = []
 
     model.eval()
     with torch.no_grad():
         for chunk in chunks:
-            input = torch.tensor([chunk], dtype = torch.long, device=device)               # shape [1, seq_len]
-            attention_mask = torch.ones_like(input, device=device)                         # no padding
+            input_ids = torch.tensor([chunk], dtype=torch.long, device=device)         # shape: (1, L)
+            attention_mask = torch.ones_like(input_ids, device=device)                 # shape: (1, L), no padding
 
-            outputs = model(input, attention_mask=attention_mask)
+            outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+            last_hidden = outputs.last_hidden_state                                    # shape: (1, L, 384)
 
-            # Use CLS token's embedding (index 0) as chunk representation
-            cls_embedding = outputs.last_hidden_state[:, 0, :]                             # shape [1, 768]
-            chunk_embeddings.append(cls_embedding[0])                                      # append 1x768 vector
+            mask_expanded = attention_mask.unsqueeze(-1).float()                       # shape: (1, L, 1)
+            summed = torch.sum(last_hidden * mask_expanded, dim=1)                     # shape: (1, 384)
+            mask_sum = torch.clamp(mask_expanded.sum(dim=1), min=1e-9)                 # shape: (1, 1)
+            pooled_chunk = (summed / mask_sum).squeeze(0)                              # shape: (384,)
 
-    article_vector = torch.stack(chunk_embeddings).mean(dim=0)                             # shape [768]
-    return article_vector
+            chunk_embeddings.append(pooled_chunk)
+
+    return (
+        torch.stack(chunk_embeddings, dim=0).mean(dim=0)                               # shape: (384,)
+        if len(chunk_embeddings) > 1 else chunk_embeddings[0]
+    )
 
 def skip_article(text:str, min_words:int = 30) -> bool:
     """

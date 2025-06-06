@@ -2,11 +2,11 @@ import logging
 import numpy as np
 import pandas as pd
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import normalize
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 INPUT_EMB_NPY = "dataset/nlp/bert_article_embeddings.npy"
-OUTPUT_PCA = "dataset/nlp/bert_article_embeddings_pca.npy"
 OUTUT_PCA_SUMMARY_CSV = "dataset/nlp/bert_article_embeddings_pca_summary.csv"
 
 if __name__ == "__main__":
