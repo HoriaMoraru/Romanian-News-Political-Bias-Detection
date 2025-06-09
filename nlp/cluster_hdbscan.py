@@ -1,6 +1,7 @@
 import pandas as pd
 import hdbscan
 import logging
+import bertopic.representation
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
