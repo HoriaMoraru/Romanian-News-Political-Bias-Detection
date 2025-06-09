@@ -15,9 +15,6 @@ from gensim.corpora import Dictionary
 from gensim.models.coherencemodel import CoherenceModel
 
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.decomposition import PCA
-from sklearn.pipeline import make_pipeline
-from sklearn.decomposition import TruncatedSVD
 
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation._keybert import KeyBERTInspired
@@ -90,8 +87,8 @@ if __name__ == "__main__":
         preprocessor=lambda x: x, #Skip
         lowercase=False,
         ngram_range=(1 , 3),
-        min_df=3,
-        max_df=0.95,
+        min_df=5,
+        max_df=0.85,
         strip_accents=None
     )
 
@@ -100,19 +97,18 @@ if __name__ == "__main__":
     )
 
     umap_model = UMAP(
-        n_neighbors=20,
+        n_neighbors=15,
         n_components=5,
-        min_dist=0.3,
+        min_dist=0.05,
         metric="cosine",
         random_state=SEED
     )
 
     hdbscan_model = HDBSCAN(
         min_cluster_size=10,
-        min_samples=3,
+        min_samples=1,
         metric="euclidean",
         cluster_selection_method="eom",
-        cluster_selection_epsilon=0.05,
         prediction_data=True,
         core_dist_n_jobs=1
     )
