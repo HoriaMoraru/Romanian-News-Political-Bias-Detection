@@ -90,6 +90,8 @@ if __name__ == "__main__":
         preprocessor=lambda x: x, #Skip
         lowercase=False,
         ngram_range=(1 , 3),
+        min_df=3,
+        max_df=0.95,
         strip_accents=None
     )
 
@@ -98,18 +100,19 @@ if __name__ == "__main__":
     )
 
     umap_model = UMAP(
-        n_neighbors=15,
-        n_components=5,
-        min_dist=0.1,
+        n_neighbors=30,
+        n_components=10,
+        min_dist=0.2,
         metric="cosine",
         random_state=42
     )
 
     hdbscan_model = HDBSCAN(
         min_cluster_size=10,
-        min_samples=None,
+        min_samples=3,
         metric="euclidean",
         cluster_selection_method="eom",
+        cluster_selection_epsilon=0.1,
         prediction_data=True,
         core_dist_n_jobs=1
     )
