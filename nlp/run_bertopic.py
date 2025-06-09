@@ -15,6 +15,8 @@ from gensim.corpora import Dictionary
 from gensim.models.coherencemodel import CoherenceModel
 
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.decomposition import PCA
+from sklearn.pipeline import make_pipeline
 
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation._keybert import KeyBERTInspired
@@ -99,13 +101,20 @@ if __name__ == "__main__":
         reduce_frequent_words=True
     )
 
+    pca_model = PCA(
+        n_components=100,
+        random_state=SEED
+    )
+
     umap_model = UMAP(
         n_neighbors=30,
         n_components=10,
         min_dist=0.2,
         metric="cosine",
-        random_state=42
+        random_state=SEED
     )
+
+    dim_reduce = make_pipeline(pca_model, umap_model)
 
     hdbscan_model = HDBSCAN(
         min_cluster_size=10,
@@ -126,7 +135,7 @@ if __name__ == "__main__":
 
     topic_model = BERTopic(
         embedding_model=MODEL_NAME,
-        umap_model=umap_model,
+        umap_model=dim_reduce,
         hdbscan_model=hdbscan_model,
         vectorizer_model=vectorizer_model,
         ctfidf_model=ctfidf_model,
