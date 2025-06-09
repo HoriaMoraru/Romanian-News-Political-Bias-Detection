@@ -17,9 +17,11 @@ from gensim.models.coherencemodel import CoherenceModel
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import PCA
 from sklearn.pipeline import make_pipeline
+from sklearn.decomposition import TruncatedSVD
 
 from bertopic.vectorizers import ClassTfidfTransformer
 from bertopic.representation._keybert import KeyBERTInspired
+from bertopic.representation import MaximalMarginalRelevance
 
 from preprocessing.Preprocessor import Preprocessor
 
@@ -51,18 +53,14 @@ def chunk_text(text: str, max_length: int):
     for i in range(0, len(text), max_length):
         yield text[i : i + max_length]
 
-def spacy_tokenizer(doc: str, nlp, stop_words: set[str]) -> list[str]:
+def spacy_tokenizer(doc, nlp, stop_words, lemmatize=False):
     tokens = []
-    chunk_size = nlp.max_length
-    for piece in chunk_text(doc, chunk_size):
-        sp = nlp(piece)
-        for token in sp:
-            if not token.is_alpha:
+    for piece in chunk_text(doc, nlp.max_length):
+        for token in nlp(piece):
+            if not token.is_alpha or token.lower_ in stop_words:
                 continue
-            txt = token.text.lower()
-            if txt in stop_words:
-                continue
-            tokens.append(txt)
+            txt = token.lemma_ if lemmatize else token.text
+            tokens.append(txt.lower())
     return tokens
 
 if __name__ == "__main__":
@@ -88,7 +86,7 @@ if __name__ == "__main__":
     STOP_WORDS = nlp.Defaults.stop_words
 
     vectorizer_model = CountVectorizer(
-        tokenizer=lambda doc: spacy_tokenizer(doc, nlp, STOP_WORDS),
+        tokenizer=lambda doc: spacy_tokenizer(doc, nlp, STOP_WORDS, lemmatize=False),
         preprocessor=lambda x: x, #Skip
         lowercase=False,
         ngram_range=(1 , 3),
@@ -101,36 +99,45 @@ if __name__ == "__main__":
         reduce_frequent_words=True
     )
 
-    pca_model = PCA(
-        n_components=100,
+    # pca_model = PCA(
+    #     n_components=100,
+    #     random_state=SEED
+    # )
+
+    svd_model = TruncatedSVD(
+        n_components=50,
         random_state=SEED
     )
 
     umap_model = UMAP(
-        n_neighbors=30,
-        n_components=10,
-        min_dist=0.2,
+        n_neighbors=20,
+        n_components=5,
+        min_dist=0.3,
         metric="cosine",
         random_state=SEED
     )
 
-    dim_reduce = make_pipeline(pca_model, umap_model)
+    dim_reduce = make_pipeline(svd_model, umap_model)
 
     hdbscan_model = HDBSCAN(
         min_cluster_size=10,
         min_samples=3,
         metric="euclidean",
         cluster_selection_method="eom",
-        cluster_selection_epsilon=0.1,
+        cluster_selection_epsilon=0.05,
         prediction_data=True,
         core_dist_n_jobs=1
     )
 
-    representation_model = KeyBERTInspired(
-        top_n_words=10,
-        nr_repr_docs=4,
-        nr_candidate_words=100,
-        random_state=SEED
+    # representation_model = KeyBERTInspired(
+    #     top_n_words=10,
+    #     nr_repr_docs=4,
+    #     nr_candidate_words=100,
+    #     random_state=SEED
+    # )
+
+    representation_model = MaximalMarginalRelevance(
+        diversity=0.7
     )
 
     topic_model = BERTopic(
