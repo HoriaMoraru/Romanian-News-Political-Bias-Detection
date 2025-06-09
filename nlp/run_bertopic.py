@@ -78,8 +78,8 @@ if __name__ == "__main__":
 
     documents = df["cleantext"].astype(str).tolist()
 
-    embeddings = np.load(EMBEDDINGS_NPY_FILE)
-    logging.info(f"Computed embeddings, shape: {embeddings.shape}")
+    # embeddings = np.load(EMBEDDINGS_NPY_FILE)
+    # logging.info(f"Computed embeddings, shape: {embeddings.shape}")
 
     logging.info("Loading spacy model...")
     nlp = spacy.load("ro_core_news_lg")
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     )
 
     logging.info(f"Fitting topic model...")
-    topics, probs = topic_model.fit_transform(documents, embeddings)
+    topics, probs = topic_model.fit_transform(documents)
 
     topic_info = topic_model.get_topic_info()
     print(topic_info)
