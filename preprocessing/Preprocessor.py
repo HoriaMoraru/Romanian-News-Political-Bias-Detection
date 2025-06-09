@@ -82,9 +82,7 @@ class Preprocessor:
             if not sent_text:
                 continue
 
-            # Remove punctuation except letters/digits/underscore/whitespace
-            clean_sent = re.sub(r"[^\w\s]", "", sent_text)
-            words = clean_sent.split()
+            words = sent_text.split()
             if not words:
                 continue
 

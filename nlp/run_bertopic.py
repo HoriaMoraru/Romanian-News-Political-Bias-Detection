@@ -90,21 +90,13 @@ if __name__ == "__main__":
         preprocessor=lambda x: x, #Skip
         lowercase=False,
         ngram_range=(1 , 3),
+        min_df=3,
+        max_df=0.95,
         strip_accents=None
     )
 
     ctfidf_model = ClassTfidfTransformer(
         reduce_frequent_words=True
-    )
-
-    # pca_model = PCA(
-    #     n_components=100,
-    #     random_state=SEED
-    # )
-
-    svd_model = TruncatedSVD(
-        n_components=50,
-        random_state=SEED
     )
 
     umap_model = UMAP(
@@ -114,8 +106,6 @@ if __name__ == "__main__":
         metric="cosine",
         random_state=SEED
     )
-
-    dim_reduce = make_pipeline(svd_model, umap_model)
 
     hdbscan_model = HDBSCAN(
         min_cluster_size=10,
@@ -140,7 +130,7 @@ if __name__ == "__main__":
 
     topic_model = BERTopic(
         embedding_model=MODEL_NAME,
-        umap_model=dim_reduce,
+        umap_model=umap_model,
         hdbscan_model=hdbscan_model,
         vectorizer_model=vectorizer_model,
         ctfidf_model=ctfidf_model,
