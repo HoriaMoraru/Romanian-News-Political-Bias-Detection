@@ -90,8 +90,6 @@ if __name__ == "__main__":
         preprocessor=lambda x: x, #Skip
         lowercase=False,
         ngram_range=(1 , 3),
-        min_df=3,
-        max_df=0.95,
         strip_accents=None
     )
 
