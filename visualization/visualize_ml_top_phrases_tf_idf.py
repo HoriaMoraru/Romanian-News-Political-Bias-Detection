@@ -4,7 +4,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 PHRASE_EMBEDDINGS_FILE = "dataset/ml/phrase_domain_phrase_embeddings.csv"
-PHRASE_TFIDF_FILE = "dataset/ml/phrase_tfidf_matrix.csv"  # <-- your TF–IDF matrix
+PHRASE_TFIDF_FILE = "dataset/ml/phrase_domain_tf_idf_matrix.csv"
 
 def print_top_phrases(embeddings: pd.DataFrame,
                       dim: str,
@@ -60,5 +60,5 @@ if __name__ == "__main__":
     top_100_dim1_by_tfidf = get_top_n_by_dim(top_500_dim1, "tfidf", n=100)
     top_100_dim2_by_tfidf = get_top_n_by_dim(top_500_dim2, "tfidf", n=100)
 
-    print_top_phrases(top_100_dim1_by_tfidf, dim="tfidf", n=10)
-    print_top_phrases(top_100_dim2_by_tfidf, dim="tfidf", n=10)
+    print_top_phrases(top_100_dim1_by_tfidf, dim="tfidf", n=50)
+    print_top_phrases(top_100_dim2_by_tfidf, dim="tfidf", n=50)
