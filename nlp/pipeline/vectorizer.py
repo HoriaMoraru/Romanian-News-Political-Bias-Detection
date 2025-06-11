@@ -10,19 +10,22 @@ class TextVectorizer(CountVectorizer):
         min_df: int = 5,
         max_df: float = 0.85,
     ):
-        # load SpaCy
-        self.nlp       = spacy.load(spacy_model)
-        self.stop_words= self.nlp.Defaults.stop_words
-        self.lemmatize = lemmatize
+        self.spacy_model = spacy_model
+        self.lemmatize   = lemmatize
+        self.ngram_range = ngram_range
+        self.min_df      = min_df
+        self.max_df      = max_df
 
-        # delegate all vectorizer args to the parent
+        self.nlp        = spacy.load(self.spacy_model)
+        self.stop_words = self.nlp.Defaults.stop_words
+
         super().__init__(
             tokenizer=self._tokenize,
             preprocessor=lambda x: x,
             lowercase=False,
-            ngram_range=ngram_range,
-            min_df=min_df,
-            max_df=max_df,
+            ngram_range=self.ngram_range,
+            min_df=self.min_df,
+            max_df=self.max_df,
             strip_accents=None
         )
 
@@ -31,7 +34,7 @@ class TextVectorizer(CountVectorizer):
             yield text[i : i + max_length]
 
     def _tokenize(self, doc: str) -> list[str]:
-        tokens: list[str] = []
+        tokens = []
         for piece in self._chunk_text(doc, self.nlp.max_length):
             for token in self.nlp(piece):
                 if not token.is_alpha or token.lower_ in self.stop_words:

@@ -31,9 +31,8 @@ if __name__ == "__main__":
     logging.info(f"After filtering short/empty: {len(df)} rows remain")
 
     tv = TextVectorizer()
-    cv = tv.get_vectorizer()
-    X = cv.fit_transform(df["cleantext"])  # shape = (n_docs, n_terms)
-    feature_names = np.array(cv.get_feature_names_out())
+    X = tv.fit_transform(df["cleantext"])  # shape = (n_docs, n_terms)
+    feature_names = np.array(tv.get_feature_names_out())
 
     topic_words_df = pd.read_csv(TOPIC_WORDS_FILE)
     allowed = set(topic_words_df["word"].unique())

@@ -134,7 +134,6 @@ if __name__ == "__main__":
         total_normalized += len(result)
         pbar.set_postfix_str(f"{total_normalized}/{len(unique_entities)} normalized")
 
-        # Save progress
         with open(NORMALIZED_ENTITIES_FILE, "w", encoding="utf-8") as f:
             json.dump(normalized_entities, f, ensure_ascii=False, indent=2)
         logging.info(f"Checkpoint saved: {len(normalized_entities)} entities normalized so far.")
