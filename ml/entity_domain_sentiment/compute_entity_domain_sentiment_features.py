@@ -64,6 +64,8 @@ def compute_sentiment_features(df) -> list[dict]:
 if __name__ == "__main__":
     logging.info("Reading dataset...")
     df = pd.read_csv(INPUT_DATASET, encoding="utf-8")
+    df = df.dropna(subset=["url"])
+    logging.info(f"Original row count: {len(df)}")
 
     logging.info("Reading normalization dictionary...")
     with open(NORMALIZED_ENTITIES_MAP, "r", encoding="utf-8") as f:

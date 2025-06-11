@@ -35,7 +35,6 @@ class TextVectorizer(CountVectorizer):
             yield text[i : i + max_length]
 
     def _tokenize(self, doc: str) -> list[str]:
-        print(self.stop_words)
         tokens = []
         for piece in self._chunk_text(doc, self.nlp.max_length):
             for token in self.nlp(piece):

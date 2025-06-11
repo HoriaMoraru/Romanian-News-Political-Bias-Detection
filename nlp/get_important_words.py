@@ -2,33 +2,15 @@ import pandas as pd
 import numpy as np
 from nlp.pipeline.vectorizer import TextVectorizer
 import logging
-from tqdm import tqdm
-import re
-
-from preprocessing.Preprocessor import Preprocessor
 
 TOPIC_WORDS_FILE = "dataset/nlp/topic_words.csv"
-DATASET_FILE = "dataset/romanian_political_articles_v2_shuffled.csv"
+DATASET_FILE = "dataset/romanian_political_articles_v2_nlp_with_topics.csv"
 OUTPUT_FILE = "dataset/nlp/phrase_source_important_words.csv"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-def skip_article(text: str, min_words: int = 30) -> bool:
-    if not text or not text.strip():
-        return True
-    return len(re.findall(r"\w+", text)) < min_words
-
 if __name__ == "__main__":
     df = pd.read_csv(DATASET_FILE)
-    df = df.dropna(subset=["maintext", "source_domain", "url"])
-    logging.info(f"Original row count: {len(df)}")
-
-    logging.info("Cleaning text via Preprocessor()…")
-    preprocessor = Preprocessor()
-    tqdm.pandas(desc="Cleaning articles")
-    df["cleantext"] = df["maintext"].progress_apply(lambda t: preprocessor.process_nlp(t))
-    df = df[~df["cleantext"].apply(skip_article)]
-    logging.info(f"After filtering short/empty: {len(df)} rows remain")
 
     tv = TextVectorizer()
     X = tv.fit_transform(df["cleantext"])  # shape = (n_docs, n_terms)
