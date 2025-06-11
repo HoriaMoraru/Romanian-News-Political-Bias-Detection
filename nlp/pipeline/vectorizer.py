@@ -1,7 +1,7 @@
 import spacy
 from sklearn.feature_extraction.text import CountVectorizer
 
-class TextVectorizer:
+class TextVectorizer(CountVectorizer):
     def __init__(
         self,
         spacy_model: str = "ro_core_news_lg",
@@ -10,13 +10,15 @@ class TextVectorizer:
         min_df: int = 5,
         max_df: float = 0.85,
     ):
-        self.nlp = spacy.load(spacy_model)
-        self.stop_words = self.nlp.Defaults.stop_words
+        # load SpaCy
+        self.nlp       = spacy.load(spacy_model)
+        self.stop_words= self.nlp.Defaults.stop_words
         self.lemmatize = lemmatize
 
-        self.vectorizer = CountVectorizer(
+        # delegate all vectorizer args to the parent
+        super().__init__(
             tokenizer=self._tokenize,
-            preprocessor=lambda x: x,       # skip built-in preprocessing
+            preprocessor=lambda x: x,
             lowercase=False,
             ngram_range=ngram_range,
             min_df=min_df,
@@ -29,10 +31,6 @@ class TextVectorizer:
             yield text[i : i + max_length]
 
     def _tokenize(self, doc: str) -> list[str]:
-        """
-        Split into spaCy tokens (in chunks if length exceeds spaCy limits), filter,
-        and optionally lemmatize.
-        """
         tokens: list[str] = []
         for piece in self._chunk_text(doc, self.nlp.max_length):
             for token in self.nlp(piece):
@@ -41,6 +39,3 @@ class TextVectorizer:
                 txt = token.lemma_ if self.lemmatize else token.text
                 tokens.append(txt.lower())
         return tokens
-
-    def get_vectorizer(self) -> CountVectorizer:
-        return self.vectorizer
