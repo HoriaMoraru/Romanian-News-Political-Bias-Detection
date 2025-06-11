@@ -61,7 +61,7 @@ if __name__ == "__main__":
         embedding_model = MODEL_NAME,
         umap_model = create_umap(),
         hdbscan_model = create_hdbscan(),
-        vectorizer_model = vectorizer,
+        vectorizer_model = vectorizer.get_vectorizer(),
         ctfidf_model = create_tfidf(),
         representation_model = create_representation_model(),
         calculate_probabilities=True,
