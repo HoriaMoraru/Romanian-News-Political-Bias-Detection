@@ -26,6 +26,7 @@ class TextVectorizer(CountVectorizer):
             ngram_range=self.ngram_range,
             min_df=self.min_df,
             max_df=self.max_df,
+            stop_words=self.stop_words,
             strip_accents=None
         )
 
@@ -34,6 +35,8 @@ class TextVectorizer(CountVectorizer):
             yield text[i : i + max_length]
 
     def _tokenize(self, doc: str) -> list[str]:
+        print(self.stop_words_)
+        print(self.stop_words)
         tokens = []
         for piece in self._chunk_text(doc, self.nlp.max_length):
             for token in self.nlp(piece):
