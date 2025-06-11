@@ -1,47 +1,55 @@
 from bertopic.representation._keybert import KeyBERTInspired
-from typing import List, Mapping
+from typing import List, Mapping, Union
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-from sentence_transformers import SentenceTransformer
 
 class KeyBERTWithPrecomputed(KeyBERTInspired):
+    """
+    KeyBERT-inspired representation that uses precomputed document embeddings
+    for topic centroids and precomputed word embeddings for candidate terms.
+    """
     def __init__(self,
                  embeddings: np.ndarray,
-                 embedding_model_checkpoint: str,
+                 word_embs: np.ndarray,
+                 token_to_idx: Mapping[str, int],
                  **kwargs):
         """
-        embeddings: your (n_docs, dim) array you loaded with np.load(...)
-        embedding_model_checkpoint: e.g. "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-        kwargs are passed to KeyBERTInspired (top_n_words, etc.)
+        Args:
+          embeddings:    (n_docs, D) array of document embeddings
+          word_embs:     (vocab_size, D) array of word embeddings
+          token_to_idx:  mapping token → row in word_embs
+          **kwargs:      passed through to KeyBERTInspired (top_n_words, nr_candidates, etc.)
         """
         super().__init__(**kwargs)
         self.precomputed_embeddings = embeddings
-        self.checkpoint = embedding_model_checkpoint
-        self.word_model = SentenceTransformer(self.checkpoint)
+        self.word_embs              = word_embs
+        self.token_to_idx           = token_to_idx
 
-    def _extract_embeddings(self,
-                            topic_model,
-                            topics: Mapping[int, List[str]],
-                            representative_docs: List[str],
-                            repr_doc_indices: List[List[int]]):
-        # 1) document embeddings → use precomputed
-        #   repr_doc_indices is a list of lists, but KeyBERTInspired flattens them,
-        #   so repr_embeddings = embeddings[flat_indices]
-        flat_idx = [i for sub in repr_doc_indices for i in sub]
-        repr_embeddings = self.precomputed_embeddings[flat_idx]
+    def _extract_embeddings(
+        self,
+        topic_model,
+        topics: Mapping[int, List[str]],
+        representative_docs: List[str],
+        repr_doc_indices: List[List[int]]
+    )-> Union[np.ndarray, List[str]]:
+        flat_idxs = [i for grp in repr_doc_indices for i in grp]
+        repr_embs = self.precomputed_embeddings[flat_idxs]
 
-        # group back into topic blocks
         topic_embeddings = [
-            np.mean(
-                repr_embeddings[ sum(len(sub) for sub in repr_doc_indices[:i]) :
-                                 sum(len(sub) for sub in repr_doc_indices[:i+1]) ],
-                axis=0
-            )
-            for i in range(len(repr_doc_indices))
+            repr_embs[idxs].mean(axis=0)
+            for idxs in repr_doc_indices
         ]
 
-        # 2) word embeddings → embed the vocabulary words
         vocab = list({w for words in topics.values() for w in words})
-        word_embs = self.word_model.encode(vocab, convert_to_numpy=True)
-        sim = cosine_similarity(topic_embeddings, word_embs)
+
+        word_emb_list = []
+        for word in vocab:
+            idx = self.token_to_idx.get(word)
+            if idx is None:
+                word_emb_list.append(np.zeros(self.word_embs.shape[1]))
+            else:
+                word_emb_list.append(self.word_embs[idx])
+        word_embeddings = np.vstack(word_emb_list)
+
+        sim = cosine_similarity(topic_embeddings, word_embeddings)
         return sim, vocab

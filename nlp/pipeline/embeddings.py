@@ -11,9 +11,8 @@ from preprocessing.Preprocessor import Preprocessor
 # ───────────────────────────────────────────────────────────────────────────────
 # CONSTANTS
 # ───────────────────────────────────────────────────────────────────────────────
-INPUT_FILE             = "dataset/romanian_political_articles_v2_shuffled.csv"
+INPUT_FILE             = "dataset/romanian_political_articles_v2_nlp.csv"
 MODEL_NAME             = "intfloat/multilingual-e5-large-instruct"
-MAX_POSITION_EMBEDDINGS = 512
 OUTPUT_ART_NPY         = "dataset/nlp/bert_article_embeddings.npy"
 OUTPUT_ART_CSV         = "dataset/nlp/bert_article_embeddings.csv"
 OUTPUT_WORD_NPY        = "dataset/nlp/bert_word_embeddings.npy"
@@ -28,9 +27,11 @@ def get_article_embeddings_vector(
     model: AutoModel,
     device: torch.device
 ) -> torch.Tensor:
-    tokens = tokenizer.encode(cleantext, add_special_tokens=True)
-    chunks: list[list[int]] = [tokens[i:i + MAX_POSITION_EMBEDDINGS]
-                                for i in range(0, len(tokens), MAX_POSITION_EMBEDDINGS)]
+    tokens = tokenizer.encode(cleantext,
+                              add_special_tokens=True
+                              )
+    chunks: list[list[int]] = [tokens[i:i + tokenizer.model_max_length]
+                                for i in range(0, len(tokens), tokenizer.model_max_length)]
 
     chunk_embeddings: list[torch.Tensor] = []
     model.eval()
@@ -65,6 +66,7 @@ def get_word_embeddings(
     device: torch.device,
     batch_size: int = 256
 ) -> tuple[np.ndarray, dict]:
+
     model.eval()
     embeddings: list[np.ndarray] = []
     token_to_idx: dict[str, int] = {}
@@ -72,15 +74,17 @@ def get_word_embeddings(
 
     for start in tqdm(range(0, len(vocab), batch_size), desc="Embedding tokens"):
         batch = vocab[start:start+batch_size]
-        enc = tokenizer(batch, add_special_tokens=False,
-                        return_tensors="pt", padding=True,
-                        truncation=True, max_length=tokenizer.model_max_length)
+        enc = tokenizer(batch,
+                        add_special_tokens=False,
+                        return_tensors="pt",
+                        padding=True,
+                        truncation=True,
+                        max_length=tokenizer.model_max_length)
         input_ids = enc['input_ids'].to(device)
         attention_mask = enc['attention_mask'].to(device)
 
         with torch.no_grad():
             last_hidden = model(input_ids=input_ids, attention_mask=attention_mask).last_hidden_state
-            # mean-pool
             pooled = last_hidden.mean(dim=1).cpu().numpy()
 
         for i, token in enumerate(batch):
@@ -99,16 +103,10 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     model     = AutoModel.from_pretrained(MODEL_NAME).to(device)
 
-    # --- Article Embeddings ---
     logging.info(f"Loading dataset from {INPUT_FILE}...")
     df = pd.read_csv(INPUT_FILE)
-    df = df.dropna(subset=["maintext", "source_domain", "url"])
-    preprocessor = Preprocessor()
-    tqdm.pandas(desc="Cleaning...")
-    df['cleantext'] = df['maintext'].progress_apply(lambda t: preprocessor.process_nlp(t))
-    df = df[~df['cleantext'].apply(skip_article)]
-    logging.info(f"Filtered dataset to {len(df)} by removing short articles.")
 
+    # --- Article Embeddings ---
     urls, sources, art_embs = [], [], []
     for url, src, text in tqdm(zip(df['url'], df['source_domain'], df['cleantext']),
                                 total=len(df), desc="Article embeddings"):

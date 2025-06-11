@@ -12,6 +12,11 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 INPUT_FILE = "dataset/romanian_political_articles_v2_shuffled.csv"
 OUTPUT_FILE = "dataset/romanian_political_articles_v2_ner.csv"
 
+def skip_article(text: str, min_words: int = 30) -> bool:
+    if not text or not text.strip():
+        return True
+    return len(re.findall(r"\w+", text)) < min_words
+
 def get_romanian_ner_nlp_pipeline():
     romanian_ner_model = "dumitrescustefan/bert-base-romanian-ner"
     tokenizer = AutoTokenizer.from_pretrained(romanian_ner_model, model_max_length=512)
@@ -79,19 +84,21 @@ if __name__ == "__main__":
     df = df.dropna(subset=["maintext", "source_domain"])
 
     logging.info("Loading Romanian spaCy model...")
-    nlp_ro = spacy.load("ro_core_news_sm")
+    nlp = spacy.load("ro_core_news_lg")
 
-    logging.info("Preprocessing text...")
-    tqdm.pandas()
-    df['cleantext'] = df['maintext'].progress_apply(lambda text: Preprocessor(text).process())
-    df = df[df['cleantext'].str.split().str.len() > 30]
+    logging.info("Loading preprocessor...")
+    preprocessor = Preprocessor(nlp=nlp)
+
+    tqdm.pandas(desc="Cleaning...")
+    df['cleantext'] = df['maintext'].progress_apply(lambda t: preprocessor.process_nlp(t))
+    df = df[~df['cleantext'].apply(skip_article)]
     logging.info(f"Filtered dataset size: {len(df)}")
 
     logging.info("Loading NER model...")
     ner_pipeline = get_romanian_ner_nlp_pipeline()
 
-    logging.info("Extracting named entities...")
-    df['ner'] = df['cleantext'].progress_apply(lambda text: extract_named_entities(text, nlp_ro, ner_pipeline))
+    tqdm.pandas(desc="Extracting named entities...")
+    df['ner'] = df['cleantext'].progress_apply(lambda text: extract_named_entities(text, nlp, ner_pipeline))
 
     df.to_csv(OUTPUT_FILE, index=False)
     logging.info(f"Saved NER output to {OUTPUT_FILE}")

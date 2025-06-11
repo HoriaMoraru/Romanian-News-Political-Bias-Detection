@@ -4,6 +4,7 @@ import logging
 import numpy as np
 import pandas as pd
 import torch
+import json
 
 from bertopic import BERTopic
 
@@ -20,6 +21,9 @@ from nlp.pipeline.fine_tunning import create_representation_model
 # CONFIGURATIONS
 # ───────────────────────────────────────────────────────────────────────────────
 INPUT_FILE    = "dataset/romanian_political_articles_v2_nlp.csv"
+EMBEDDINGS_DOC_NPY         = "dataset/nlp/bert_article_embeddings.npy"
+EMBEDDINGS_WORD_NPY        = "dataset/nlp/bert_word_embeddings.npy"
+EMBEDDINGS_WORD_JSON       = "dataset/nlp/bert_word_index.json"
 MODEL_NAME    = "intfloat/multilingual-e5-base"
 TOPIC_WORDS   = "dataset/nlp/topic_words.csv"
 DATASET_WITH_TOPICS = "dataset/romanian_political_articles_v2_nlp_with_topics.csv"
@@ -37,6 +41,10 @@ if __name__ == "__main__":
     df = pd.read_csv(INPUT_FILE)
 
     documents = df["cleantext"].astype(str).tolist()
+
+    doc_embeddings   = np.load(EMBEDDINGS_DOC_NPY)         # (n_docs, D)
+    word_embeddingss  = np.load(EMBEDDINGS_WORD_NPY)        # (vocab_size, D)
+    token_to_idx = json.load(open(EMBEDDINGS_WORD_JSON, "r"))
 
     vectorizer = TextVectorizer()
 
