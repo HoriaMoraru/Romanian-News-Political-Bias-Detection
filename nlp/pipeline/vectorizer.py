@@ -24,7 +24,7 @@ class TextVectorizer:
             strip_accents=None
         )
 
-    def _chunk_text(text: str, max_length: int):
+    def _chunk_text(self, text: str, max_length: int):
         for i in range(0, len(text), max_length):
             yield text[i : i + max_length]
 

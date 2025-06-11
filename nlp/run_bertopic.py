@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
     topic_model = BERTopic(
         embedding_model = MODEL_NAME,
-        umap_model = create_hdbscan(),
+        umap_model = create_umap(),
         hdbscan_model = create_hdbscan(),
         vectorizer_model = vectorizer,
         ctfidf_model = create_tfidf(),
