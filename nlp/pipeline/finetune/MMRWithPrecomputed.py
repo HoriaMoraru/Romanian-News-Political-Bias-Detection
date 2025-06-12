@@ -39,16 +39,20 @@ class MMRWithPrecomputed(MaximalMarginalRelevance):
           4. Return the filtered (word, score) list
         """
         updated_topics = {}
-        repr_docs = topic_model._extract_representative_docs(c_tf_idf, documents, topics)
+        repr_docs_mappings, _, repr_doc_indices, _ = topic_model._extract_representative_docs(c_tf_idf, documents, topics)
 
         for topic, topic_words in topics.items():
             words = [word[0] for word in topic_words]
 
-            doc_idxs = repr_docs.get(topic, [])
-            if not doc_idxs:
+            doc_texts = repr_docs_mappings.get(topic, [])
+            if not doc_texts:
                 warnings.warn(f"No representative docs for topic {topic}, skipping MMR.")
                 updated_topics[topic] = topic_words
                 continue
+
+            topic_list = list(topics.keys())
+            idx = topic_list.index(topic)
+            doc_idxs = repr_doc_indices[idx]
 
             topic_embedding = self.doc_embeddings[doc_idxs].mean(axis=0, keepdims=True)
 
