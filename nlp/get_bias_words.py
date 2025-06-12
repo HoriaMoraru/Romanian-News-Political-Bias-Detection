@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
+import json
 
 from nlp.pipeline.vectorizer import TextVectorizer
 from ml.NGramPurger import NGramPurger
@@ -12,6 +13,7 @@ TOPIC_WORDS_FILE      = "dataset/nlp/topic_words.csv"
 DATASET_FILE          = "dataset/romanian_political_articles_v2_nlp_with_topics.csv"
 OUTPUT_DATASET_FILE   = "dataset/romanian_political_articles_v2_nlp_with_topicswords.csv"
 OUTPUT_FILE           = "dataset/nlp/phrase_source_bias_words.csv"
+NORMALIZED_ENTITIES_MAP = "dataset/ml/normalized_entities.json"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -80,5 +82,13 @@ if __name__ == "__main__":
         .sum()
         .drop(columns="source", errors="ignore")
     )
+
+    with open(NORMALIZED_ENTITIES_MAP, "r", encoding="utf-8") as f:
+        entity_map = json.load(f)
+    entity_names = {ent.lower() for ent in entity_map.values()}
+
+    cols_to_keep = [c for c in source_freq_pruned.columns if c not in entity_names]
+    source_freq_pruned = source_freq_pruned[cols_to_keep]
+
     source_freq_pruned.to_csv(OUTPUT_FILE)
     logging.info(f"Saved pruned source-level phrase frequencies to {OUTPUT_FILE}")
