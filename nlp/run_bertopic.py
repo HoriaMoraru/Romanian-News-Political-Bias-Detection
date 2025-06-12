@@ -17,7 +17,7 @@ from nlp.pipeline.clustering import create_hdbscan
 from nlp.pipeline.dimensionality_reduce import create_umap
 from nlp.pipeline.tfidf import create_tfidf
 from nlp.pipeline.vectorizer import TextVectorizer
-from nlp.pipeline.finetune.fine_tunning import create_representation_model_precomputed_embeddings, create_representation_model
+from nlp.pipeline.finetune.fine_tunning import create_representation_model
 
 # ───────────────────────────────────────────────────────────────────────────────
 # CONFIGURATIONS
