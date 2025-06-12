@@ -3,7 +3,7 @@ import pandas as pd
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
-INPUT_FILE = "dataset/nlp/phrase_source_important_words.csv"
+INPUT_FILE = "dataset/nlp/phrase_source_bias_words.csv"
 OUTPUT_DIR = "visualization/wordclouds"
 MAX_WORDS = 200
 

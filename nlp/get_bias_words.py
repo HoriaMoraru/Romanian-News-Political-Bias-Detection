@@ -5,7 +5,7 @@ import logging
 
 TOPIC_WORDS_FILE = "dataset/nlp/topic_words.csv"
 DATASET_FILE = "dataset/romanian_political_articles_v2_nlp_with_topics.csv"
-OUTPUT_FILE = "dataset/nlp/phrase_source_important_words.csv"
+OUTPUT_FILE = "dataset/nlp/phrase_source_bias_words.csv"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 

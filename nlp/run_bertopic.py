@@ -23,9 +23,6 @@ from nlp.pipeline.finetune.fine_tunning import create_representation_model_preco
 # CONFIGURATIONS
 # ───────────────────────────────────────────────────────────────────────────────
 INPUT_FILE    = "dataset/romanian_political_articles_v2_nlp.csv"
-EMBEDDINGS_DOC_NPY         = "dataset/nlp/bert_article_embeddings.npy"
-EMBEDDINGS_WORD_NPY        = "dataset/nlp/bert_word_embeddings.npy"
-EMBEDDINGS_WORD_JSON       = "dataset/nlp/bert_word_index.json"
 MODEL_NAME    = "intfloat/multilingual-e5-base"
 TOPIC_WORDS   = "dataset/nlp/topic_words.csv"
 DATASET_WITH_TOPICS = "dataset/romanian_political_articles_v2_nlp_with_topics.csv"
@@ -44,28 +41,21 @@ if __name__ == "__main__":
 
     documents = df["cleantext"].astype(str).tolist()
 
-    doc_embeddings   = np.load(EMBEDDINGS_DOC_NPY)         # (n_docs, D)
-    word_embeddings  = np.load(EMBEDDINGS_WORD_NPY)        # (vocab_size, D)
-    token_to_idx = json.load(open(EMBEDDINGS_WORD_JSON, "r"))
-
-    vectorizer = TextVectorizer()
+    vectorizer = TextVectorizer(lemmatize=True)
 
     topic_model = BERTopic(
-        embedding_model = None,
+        embedding_model = SentenceTransformer(MODEL_NAME),
         umap_model = create_umap(),
         hdbscan_model = create_hdbscan(),
         vectorizer_model = vectorizer,
         ctfidf_model = create_tfidf(),
-        representation_model = create_representation_model_precomputed_embeddings(
-            doc_embeddings=doc_embeddings,
-            word_embeddings=word_embeddings,
-            token_to_idx=token_to_idx),
+        representation_model = create_representation_model(),
         calculate_probabilities=True,
         verbose=True
     )
 
     logging.info(f"Fitting topic model...")
-    topics, probs = topic_model.fit_transform(documents=documents, embeddings=doc_embeddings)
+    topics, probs = topic_model.fit_transform(documents=documents)
 
     logging.info("Adding topic assignments to dataset...")
     df["topic"] = topics
