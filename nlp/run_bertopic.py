@@ -15,7 +15,7 @@ from nlp.pipeline.clustering import create_hdbscan
 from nlp.pipeline.dimensionality_reduce import create_umap
 from nlp.pipeline.tfidf import create_tfidf
 from nlp.pipeline.vectorizer import TextVectorizer
-from nlp.pipeline.finetune.fine_tunning import create_representation_model_precomputed_embeddings
+from nlp.pipeline.finetune.fine_tunning import create_representation_model_precomputed_embeddings, create_representation_model
 
 # ───────────────────────────────────────────────────────────────────────────────
 # CONFIGURATIONS
@@ -54,16 +54,13 @@ if __name__ == "__main__":
         hdbscan_model = create_hdbscan(),
         vectorizer_model = vectorizer,
         ctfidf_model = create_tfidf(),
-        representation_model = create_representation_model_precomputed_embeddings(
-            doc_embeddings,
-            word_embeddings,
-            token_to_idx),
+        representation_model = create_representation_model(),
         calculate_probabilities=True,
         verbose=True
     )
 
     logging.info(f"Fitting topic model...")
-    topics, probs = topic_model.fit_transform(documents=documents, embeddings=doc_embeddings)
+    topics, probs = topic_model.fit_transform(documents=documents)
 
     logging.info("Adding topic assignments to dataset...")
     df["topic"] = topics
