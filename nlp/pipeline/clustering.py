@@ -1,7 +1,7 @@
 from hdbscan import HDBSCAN
 
 def create_hdbscan(
-    min_cluster_size: int = 10,
+    min_cluster_size: int = 5,
     min_samples: int = 1,
     metric: str = "euclidean",
     cluster_selection_method: str = "eom",

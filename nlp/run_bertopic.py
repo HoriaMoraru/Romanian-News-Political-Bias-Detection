@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     documents = df["cleantext"].astype(str).tolist()
 
-    vectorizer = TextVectorizer(lemmatize=True)
+    vectorizer = TextVectorizer(lemmatize=False)
 
     topic_model = BERTopic(
         embedding_model = SentenceTransformer(MODEL_NAME),

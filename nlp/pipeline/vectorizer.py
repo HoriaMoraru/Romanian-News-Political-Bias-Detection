@@ -6,7 +6,7 @@ class TextVectorizer(CountVectorizer):
         self,
         spacy_model: str = "ro_core_news_lg",
         lemmatize: bool = False,
-        ngram_range: tuple = (1, 3),
+        ngram_range: tuple = (1, 2),
         min_df: int = 5,
         max_df: float = 0.85,
     ):
