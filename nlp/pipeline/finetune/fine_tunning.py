@@ -23,6 +23,8 @@ def create_representation_model_precomputed_embeddings(
 ):
     keybert = KeyBERTWithPrecomputed(
         embeddings=doc_embeddings,
+        word_embs=word_embeddings,
+        token_to_idx=token_to_idx,
         top_n_words=30
     )
     mmr = MMRWithPrecomputed(
