@@ -1,0 +1,3161 @@
+topic_id,word,c_tf_idf
+-1,coaliție guvernare,0.8524056
+-1,susținător,0.8458878
+-1,primărie,0.83752835
+-1,propunere,0.8347659
+-1,decembrie,0.823972
+-1,forță,0.8232993
+-1,sală,0.8226185
+-1,încheia,0.821475
+-1,anulare alegere,0.82146525
+-1,dreaptă,0.8214245
+-1,electorat,0.8185215
+-1,cotroceni,0.81560314
+-1,liviu dragnea,0.8123222
+-1,calin georgescu,0.8097875
+-1,conditie,0.80971545
+0,prezidențial elena lasconi,0.86711866
+0,candidată usr,0.86252695
+0,lideră usr,0.84898806
+0,alegere prezidențial elena,0.84643173
+0,electoral nicușor,0.8461723
+0,usr susține,0.8353504
+0,susținere nicușor dan,0.8347933
+0,sprijin elena lasconi,0.83398604
+0,candidată,0.8331944
+0,retrage cursă prezidențial,0.8328618
+0,usr nicușor,0.8286902
+0,elena lasconi declara,0.8274584
+0,național usr,0.82742214
+0,lasconi candidat,0.8252214
+0,conducere usr,0.82316196
+1,activenews,0.8634648
+1,cenzură,0.8492632
+1,informație,0.842075
+1,donație,0.83962
+1,funcțional,0.82670707
+1,ajuta,0.82091284
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+1,,0.8208693
+2,candidatură victor ponta,0.861546
+2,prezidențial independent,0.8569469
+2,premier președinte psd,0.8567064
+2,prezidențial victor,0.8495772
+2,candidatură alegere prezidențial,0.84666735
+2,ponta președinte,0.84652406
+2,premier președinte,0.8460218
+2,prezidențial aștepta,0.84086335
+2,consiliu politic național,0.8374273
+2,central depune candidatură,0.8271659
+2,afară partid,0.82232094
+2,lider psd victor,0.8218876
+2,psd ști,0.81938547
+2,victor ponta premier,0.81929755
+2,funcție președinte țară,0.8190416
+3,prezidențial victor ponta,0.8490982
+3,candidat independent prezidențial,0.8260193
+3,inundație,0.8250258
+3,retrage cursă prezidențial,0.8200983
+3,dezvăluire,0.81745416
+3,ponta spune,0.812124
+3,victor ponta declara,0.80558944
+3,plângere penal,0.8050103
+3,spune vlad,0.80180025
+3,apă,0.79985213
+3,porțile,0.79958504
+3,apele român,0.79946136
+3,tragedie colectiv,0.79859245
+3,sat românesc,0.79756737
+3,cetățenie,0.7975615
+4,băsescu președinte românia,0.86588466
+4,traian băsescu președinte,0.86077213
+4,președinte pmp,0.85137343
+4,spune președinte,0.85057193
+4,afirma traian băsescu,0.8487917
+4,președinte românia arăta,0.84876454
+4,traian băsescu susține,0.84875345
+4,scrie președinte,0.8455092
+4,băsescu declara,0.84505785
+4,prezidențial condiție,0.84345925
+4,șef stat major,0.8430859
+4,șef stat spune,0.84254694
+4,președinte traian,0.83967435
+4,românia traian băsescu,0.8395119
+4,crede președinte,0.83937836
+5,ciucă președinte partidul_național_liberal,0.87664473
+5,partidul_național_liberal nicolae ciucă,0.86389995
+5,partidul_național_liberal rămâne,0.8611156
+5,partidul_național_liberal guvernare,0.8605745
+5,șef partidul_național_liberal,0.8593683
+5,partidul_național_liberal singur,0.8593324
+5,prezidențial nicolae ciucă,0.8585088
+5,partidul_național_liberal nicolae,0.85383207
+5,nicolae ciucă lider,0.8535136
+5,candidat partidul_național_liberal alegere,0.8527645
+5,ciucă președinte,0.85211444
+5,spune nicolae ciucă,0.84744585
+5,liberal nicolae ciucă,0.844192
+5,prezidențial nicolae,0.8436957
+5,ciucă candidat,0.8417683
+6,deputat parlament românia,0.85289156
+6,imunitate parlamentar,0.8447925
+6,proiect lege,0.8382496
+6,vârstă,0.83363163
+6,administrație public,0.8334485
+6,revizuire constituție,0.82908773
+6,opinie dumneavoastră,0.82897353
+6,educație sexual,0.82846296
+6,infrastructură,0.8270273
+6,următor,0.82646817
+6,românia mandat,0.82608175
+6,județ,0.8260087
+6,justiție,0.8232584
+6,bugetar,0.82249415
+6,propunea,0.82242596
+7,campanie călin georgescu,0.8568959
+7,propagandă,0.85264546
+7,platformă tiktok,0.8393657
+7,conspiraționist,0.8352647
+7,investigație,0.8290819
+7,federație rus,0.8285029
+7,fraudă,0.8280784
+7,campanie online,0.8257724
+7,aceștia,0.82244223
+7,finanța ban,0.8206103
+7,rușilor,0.81933516
+7,urmăritor,0.8180882
+7,întreprindere,0.8130393
+7,ședință csat,0.8123531
+7,georgescu,0.81207925
+8,susține călin georgescu,0.84958243
+8,deputat george becali,0.8379312
+8,prezidențial spune,0.8182266
+8,deputat neafiliat,0.81108963
+8,georgescu george,0.8075628
+8,lideră anamaria,0.80550826
+8,dezvălui,0.8050263
+8,parlamentar aur,0.80420935
+8,aur anamaria gavrilă,0.80402845
+8,înscrie cursă prezidențial,0.8028022
+8,becali declara,0.80248857
+8,susține george,0.8003185
+8,sta partid,0.7999234
+8,spune simion,0.79974663
+8,nemulțumi decizie,0.79949343
+9,presă propagandă,0.8600206
+9,publicitate politic,0.85139954
+9,campanie prezidențial,0.8457828
+9,televiziună,0.8392847
+9,subvenție,0.8355265
+9,publicație,0.8341695
+9,sită investigație,0.82715595
+9,pagină,0.82301366
+9,firmă,0.822688
+9,europarlamentare,0.82206774
+9,leu cheltuială,0.820711
+9,platformă online,0.82058364
+9,emisiune,0.8162384
+9,studentă,0.813522
+9,plăti,0.80975354
+10,moțiune cenzură guvern,0.88593113
+10,vota moțiune cenzură,0.8744863
+10,parlamentar formațiune,0.85451895
+10,semnatar moțiune,0.84675074
+10,cenzură iniția,0.845338
+10,majoritate deputat,0.84354246
+10,guvern ciolacu,0.8419914
+10,cenzură,0.8408685
+10,moțiune,0.837113
+10,vot parlamentar,0.8338138
+10,depune moțiune,0.83346224
+10,constituțional,0.8303558
+10,usr ionuț moșteanu,0.8281042
+10,demitere guvern,0.82802814
+10,parlamentar psd partidul_național_liberal,0.82584614
+11,presedinte traian basescu,0.8703523
+11,consilier prezidential,0.86255425
+11,ministru educatiei,0.84244937
+11,daniel funeriu,0.8291212
+11,valer dorneanu,0.82187724
+11,purtator cuvant,0.82136226
+11,partidul_dațional_liberal,0.8211974
+11,functiă,0.8202393
+11,confruntare,0.81874675
+11,premier emil boc,0.81821644
+11,înapoi homepage,0.8174752
+11,putea urmări știre,0.81570697
+11,actualizat,0.8139473
+11,confidențialitate,0.81357497
+11,joi aprilie,0.8123796
+12,kelemen hunor președinte,0.8624147
+12,hunor lider udmr,0.85801756
+12,președinte udmr,0.8446779
+12,formațiune politic conduce,0.83890384
+12,guvern minoritar,0.8343408
+12,câștiga nicușor dan,0.82564807
+12,udmr spune,0.825105
+12,lider maghiar,0.82030606
+12,clasă politică,0.8173326
+12,arăta guvern,0.8156854
+12,politică externa,0.81069446
+12,forma majoritate,0.80929244
+12,udmr kelemen,0.8079136
+12,hunor declara,0.80744326
+12,hunor,0.8003934
+13,relație bilateral,0.8356014
+13,diplomație,0.8319082
+13,europarlamentar român,0.8300159
+13,sprijin ucraina,0.8272028
+13,infrastructură,0.82321477
+13,administrație prezidențială,0.82217205
+13,ucraina republicii moldova,0.82184577
+13,agresiune rusia,0.82122576
+13,inițiativei,0.8191034
+13,uniunea_europeană,0.8179436
+13,parteneriat strategic,0.81446064
+13,miniștr extern,0.8142753
+13,reuniune consiliu,0.81308854
+13,securitate europa,0.80887705
+13,reziliență,0.80855286
+14,știrilor agerpres ruga,0.8534767
+14,informare public informație,0.846719
+14,preluare știrilor agerpres,0.8401573
+14,publica sită agerpres,0.8396424
+14,proteja dispoziție legal,0.83917356
+14,ruga contacta direcție,0.8385732
+14,informație transmis prelua,0.837127
+14,știrilor,0.83616817
+14,sită agerpres proteja,0.8360527
+14,secțiune condiție,0.8323742
+14,conținut website informație,0.8318311
+14,conținut website destina,0.8302562
+14,contacta direcție marketing,0.82977295
+14,prelua conformitate legislație,0.8290874
+14,condiție utilizare interesa,0.8288212
+15,tur alegere prezidențial,0.87304425
+15,președinte autorității electoral,0.87192774
+15,biroului electoral,0.86881876
+15,alegere președintelui românia,0.8652645
+15,autorități electoral,0.8601537
+15,electoral secție,0.8589419
+15,secție votare străinătate,0.85672724
+15,curte constituțional decide,0.85649574
+15,birou electoral județean,0.85645735
+15,președintelui,0.8555112
+15,autoritate electoral permanent,0.8500954
+15,anulare prim,0.84259593
+15,renumărare vot,0.84202605
+15,constituțional românia,0.84122896
+15,curte constituțional,0.8405336
+16,ciolacu sorin grindeanu,0.8494188
+16,deputată psd,0.84392166
+16,inculpată,0.84228206
+16,comisie anchetă,0.8340789
+16,aviatorilor,0.8317229
+16,insolvență,0.83018386
+16,constituire grup infracțional,0.8286507
+16,patron firmă,0.8281238
+16,scandal nordis,0.8264605
+16,procuror diicot,0.8262762
+16,cumpărător,0.82525235
+16,judiciar,0.8247125
+16,laura vicol,0.8247105
+16,insider politic,0.824034
+16,criminalitate organizat terorism,0.8240185
+17,președinte interimar,0.824971
+17,consilier prezidențial,0.8240143
+17,parteneriat statele_unite_ale_americii,0.8207904
+17,delegație,0.8200331
+17,retragere trupă american,0.81981957
+17,prezidențial problemă,0.81750405
+17,administrație trump,0.81709164
+17,parlamentar român,0.81459457
+17,agendă discuție,0.80332434
+17,cameră reprezentanților,0.802191
+17,american românia,0.79672223
+17,bolojan palat cotroceni,0.7948743
+17,potrivit informație,0.7936114
+17,întrevedere,0.7922502
+17,marți aprilie,0.78820467
+18,prezidențial crin antonescu,0.8760205
+18,partidul_național_liberal crin antonescu,0.86481416
+18,antonescu alegere prezidențial,0.86451936
+18,candidatură crin antonescu,0.8602604
+18,candida alegere prezidențial,0.85342824
+18,lider partidul_național_liberal crin,0.8516525
+18,candidat unic coaliție,0.8435615
+18,alegere prezidențial lună,0.8422817
+18,antonescu candidat comun,0.84208465
+18,bolojan lider partidul_național_liberal,0.84033537
+18,candidatură cotroceni,0.838778
+18,candidatură crin,0.8363708
+18,program prezidențial,0.8322546
+18,declara crin antonescu,0.83141744
+18,partid coaliție,0.82950544
+19,județean partidul_național_liberal,0.8562206
+19,președinte cj,0.84891903
+19,biroului politic,0.84522104
+19,județean prahova,0.84406006
+19,vicepreședint,0.841998
+19,candidat alegere parlamentar,0.8411435
+19,listă senat,0.8382213
+19,președinte pnl,0.83670723
+19,filială,0.8365991
+19,consiliu local,0.83391887
+19,primar municipiu oradea,0.8338382
+19,primar funcție,0.8335173
+19,loc cameră deputaților,0.83129025
+19,retragere sprijin politic,0.83087313
+19,primar liberal,0.8307254
+20,președintă comisie european,0.8758501
+20,consiliu european,0.85699046
+20,vicepreședinte parlament,0.8508303
+20,funcție comisar,0.84351575
+20,comisie european ursula,0.8415756
+20,românia funcție,0.8340999
+20,președintă,0.83359575
+20,politică coeziune,0.8333509
+20,uniunea_europeană,0.8309443
+20,socialiștilor,0.82789123
+20,partid popular european,0.82630277
+20,conferențiar,0.8254523
+20,județeană,0.82536924
+20,stat minister fondurilor,0.82229125
+20,studiu european,0.82205474
+21,primărie sector,0.8625556
+21,municipiu bucurești,0.8405303
+21,general nicușor,0.8267066
+21,imunitate parlamentar,0.8248928
+21,cristian popescu piedone,0.82486475
+21,opinie dumneavoastră,0.8223821
+21,simonă spătaru,0.8194968
+21,alianță dreapta unită,0.817894
+21,consiliu local sector,0.8159948
+21,dreapta,0.8159468
+21,protecție consumatorilor,0.81564057
+21,vota următor,0.8141203
+21,psd giurgiu,0.8106515
+21,educație,0.81059587
+21,revizuire constituție,0.80937254
+22,electoral secție votare,0.88614815
+22,vot alegere prezidențial,0.8711705
+22,vot oră,0.86542046
+22,votare străinătate,0.86130285
+22,prezență vot,0.8571484
+22,cabină vot,0.8535135
+22,vot corespondență,0.8520044
+22,voturi,0.8498026
+22,listă electoral,0.8457686
+22,fraudă vot,0.84380263
+22,autoritate electoral permanent,0.8431051
+22,număr alegător,0.8381599
+22,vot diaspora,0.83812475
+22,local oră,0.83774006
+22,putea vota alegere,0.8376523
+23,george simion președinte,0.87925303
+23,simion președinte aur,0.8786484
+23,simion conferință presă,0.8633062
+23,președinte aur george,0.8559974
+23,aur prezidențial,0.85403323
+23,spune candidat aur,0.84421617
+23,candidat aliantă,0.8435525
+23,georgescu premier,0.842868
+23,alegere prezidențial declara,0.8423939
+23,formațiune politic conduce,0.84119844
+23,formulă guvernare,0.83940494
+23,democrație spune,0.83882356
+23,george simion declara,0.83794415
+23,călin georgescu funcție,0.8377368
+23,aliantă unire romanilor,0.83586127
+24,minister justiția,0.8609016
+24,penal cod procedură,0.83580345
+24,corupție,0.8355293
+24,știrile pro,0.8353684
+24,infracțiune,0.8346743
+24,comisie veneția,0.83396715
+24,recomandare,0.828399
+24,sistem judiciar,0.8271842
+24,gratuit newsletter știrile,0.8268968
+24,luptă anticorupție,0.82535946
+24,asociație profesional,0.82354385
+24,abonați,0.8203794
+24,resursă financiar,0.8195119
+24,instagram știrile protv,0.81902546
+24,aplicație știrile protv,0.8184622
+25,președinte consiliu,0.85234785
+25,consiliu național aur,0.8502971
+25,președinte george simion,0.84526557
+25,aur președinte,0.8444268
+25,partid alianță unire,0.83805436
+25,vârf partid,0.83585083
+25,național conducere partid,0.8344805
+25,ședință consiliu național,0.83398986
+25,conducere aur,0.8339057
+25,președinte partid george,0.8330158
+25,târziu președinte,0.8291967
+25,partid claudiu târziu,0.8275466
+25,românilor aur,0.8266463
+25,europarlamentar claudiu,0.8255389
+25,structură conducere,0.82374454
+26,prezidențial sondaj,0.8417273
+26,alegere prezidențial arăta,0.8267566
+26,antonescu nicușor,0.80571496
+26,finală nicușor,0.7997316
+26,nicușor dan george,0.7978822
+26,casă sondare,0.7946117
+26,simion conduce,0.7940134
+26,sondaj atlasintel,0.79275274
+26,scenariile,0.7920252
+26,vot tur,0.7911889
+26,sondaj george simion,0.7908794
+26,crin antonescu elena,0.78967136
+26,alianță românia,0.78697294
+26,comandă,0.7824356
+26,potrivit cercetare,0.782057
+27,președintă anamaria gavrilă,0.86059034
+27,susținător georgescu,0.84158754
+27,candidatură,0.8356215
+27,mandată primar,0.8314241
+27,lideră,0.826298
+27,ccr respinge contestație,0.8252764
+27,călin georgescu george,0.82412755
+27,șef aur,0.82307297
+27,maria gavrilă,0.8213128
+27,scrutin an trecut,0.81806886
+27,variantă înlocuitor,0.8177681
+27,partid oamenilor tineri,0.8122959
+27,șefa,0.8110283
+27,reprezentant presă,0.81060195
+27,avramescu,0.81008303
+28,comunitate maghiar,0.8523371
+28,președinte udmr,0.85061705
+28,limbă maghiar,0.84616244
+28,românia udmr,0.84409136
+28,udmr partid,0.839239
+28,uniune democrată,0.82733953
+28,maghiar,0.8251271
+28,udmr obține,0.82494164
+28,întreba părere,0.82199764
+28,premier ungaria viktor,0.8212924
+28,udmr vota,0.8180313
+28,organizație,0.81742144
+28,avocatului,0.8167546
+28,viktor orban,0.8143122
+28,fidesz,0.8143116
+29,euronews românia aduce,0.84688854
+29,președinte consiliu european,0.84499705
+29,iranului,0.8322958
+29,președinte american donald,0.8314112
+29,sancțiune rusia,0.82871497
+29,ofensivă,0.8248378
+29,zăpadă,0.8160234
+29,potrivit agenție,0.81457365
+29,orientul,0.8144395
+29,trump lider,0.8103733
+29,respectiv încheia program,0.80992967
+29,bază militar,0.8099227
+29,umanitar,0.8093662
+29,netanyahu,0.80909526
+29,premier ungar,0.8070612
+30,vot cameră deputaților,0.85128677
+30,aur partidul_național_liberal,0.8496797
+30,deputaților psd,0.8468116
+30,parlament european,0.8465687
+30,partid românia,0.83820844
+30,alegere parlamentar,0.8379688
+30,partidul_național_liberal usr,0.83590436
+30,rezultate alegeri,0.834972
+30,parlament partid,0.8325751
+30,vota oră,0.83115447
+30,partid oamenilor,0.82723033
+30,partid social democrat,0.8263041
+30,prag electoral,0.82590437
+30,vot aur,0.8255694
+30,românia udmr,0.82156175
+31,partid ecologist român,0.84756655
+31,partid încheia,0.84656477
+31,dacian cioloș declara,0.84229183
+31,implicare politic,0.83680356
+31,înființare partid,0.83595157
+31,candida listă,0.8325436
+31,viitor partid,0.82697797
+31,românia împreună,0.8266772
+31,public temă,0.825395
+31,program politic,0.8221964
+31,partid reper,0.8221725
+31,mișcare românia,0.8215965
+31,lider alianță,0.81985277
+31,europarlamentar,0.81858784
+31,împreună coleg,0.81745255
+32,decizie biroului electoral,0.8541868
+32,campanie nicușor dan,0.8419008
+32,competiție electoral,0.83348536
+32,electoral central interzice,0.8318839
+32,renunțare candidatură,0.8314141
+32,candidat independent nicușor,0.82983875
+32,candidat decât,0.8270088
+32,politic campanie electoral,0.8251189
+32,material propagandă,0.82275665
+32,usr decizie,0.81737137
+32,usr nicușor,0.81717944
+32,atât usr,0.8133473
+32,decizie bec,0.8131029
+32,contesta instanță,0.8118774
+32,putea campanie,0.8067007
+33,victorie nicușor dan,0.87060523
+33,nicușor dan președinte,0.8670079
+33,președinte ales românia,0.86318034
+33,câștigare alegere prezidențial,0.86114156
+33,președinte ucraina,0.8449946
+33,prezidențial transmite,0.83784765
+33,președinte franța,0.8361583
+33,spune nicușor,0.83229995
+33,dan câștiga,0.83189857
+33,câștigare,0.8241004
+33,felicita nicușor,0.82357025
+33,sită autorități electoral,0.8235332
+33,merge președinte,0.82210225
+33,electoral permanent anunța,0.82174945
+33,consiliu european,0.8197929
+34,bolojan președinte interimar,0.8686924
+34,interimar partidul_național_liberal spune,0.8675587
+34,partidul_național_liberal ilie bolojan,0.8654789
+34,interimar partidul_național_liberal cătălin,0.8500275
+34,spune președinte interimar,0.8473848
+34,bolojan ședință,0.84679043
+34,funcție președinte interimar,0.84569
+34,partidul_național_liberal susține,0.8409275
+34,predoiu președinte interimar,0.83721066
+34,președinte senat,0.8366133
+34,politic național partidul_național_liberal,0.83580613
+34,senat ilie bolojan,0.8294658
+34,ilie bolojan declara,0.8289045
+34,partidul_național_liberal cătălin predoiu,0.8245021
+34,biroului permanent,0.8234989
+35,ministru justitiei,0.85732836
+35,curte casatie justitie,0.84400684
+35,urmarire penală,0.8436899
+35,judecată,0.84129417
+35,coruptie,0.836799
+35,rechizitoriu,0.83181906
+35,inculpat,0.82916254
+35,ordonantă,0.8273587
+35,parchetului,0.8267765
+35,exista probă,0.8258791
+35,instantă,0.8246027
+35,tehnică,0.8240588
+35,cod procedură,0.8227
+35,radu marinescu,0.82185423
+35,faptă,0.8216202
+36,guvern ciolacu,0.86636627
+36,minister investiție proiectelor,0.85157514
+36,minister agriculturii,0.84959066
+36,minister transporturilor,0.8423088
+36,minister dezvoltării,0.83853436
+36,program guvernare,0.83670425
+36,miniștr,0.8325843
+36,minister cultură,0.8297864
+36,public administrație,0.82631797
+36,finanțelor,0.82250863
+36,comisiile specialitate,0.82139224
+36,justiției,0.8211369
+36,propune ministru,0.8190422
+36,transporturilor,0.8133211
+36,primi aviz favorabil,0.8127705
+37,partid alianță unire,0.85637254
+37,partid aur,0.85225093
+37,aur funcție,0.8402585
+37,membru formațiune,0.8393961
+37,partid extremist,0.83851594
+37,tânăr,0.83643025
+37,extremist aur,0.83226156
+37,listă aur,0.8317419
+37,interdicție,0.8306664
+37,oră publicare articol,0.82894313
+37,românia republică moldova,0.82495594
+37,petrișor peiu,0.8242115
+37,afișa,0.82180244
+37,gianina șerban,0.81985515
+37,grupare,0.8193439
+38,prezidențial crin antonescu,0.87860394
+38,antonescu candidat coaliție,0.85268855
+38,crin antonescu candidat,0.84928983
+38,președinte crin,0.84078705
+38,candidat alianță românia,0.8361589
+38,program prezidențial,0.831861
+38,prezidențial clasa loc,0.8278421
+38,iniția președinte,0.8246753
+38,mareșal ion antonescu,0.81484586
+38,crin antonescu preciza,0.81428134
+38,candidat coaliție alegere,0.814261
+38,băsescu pdl,0.81297636
+38,guvernare crin,0.81233656
+38,relație rusia,0.8101649
+38,antonescu spune,0.80952907
+39,fraudă electoral,0.86052984
+39,închidere secție votare,0.8585789
+39,vot republică moldova,0.8411002
+39,presupus fraudă,0.826053
+39,proces electoral,0.8221773
+39,vot exista,0.8198606
+39,român străinătate,0.8157646
+39,republică,0.81450796
+39,votare,0.8139337
+39,secție,0.81317556
+39,serviciu telecomunicații special,0.8131493
+39,înmatriculare,0.81271154
+39,retelă socializare,0.8113287
+39,exista suspiciune,0.80986774
+39,acuzație,0.8095883
+40,nicușor dan vot,0.86120665
+40,prezidențial vot,0.85572255
+40,nicușor dan conduce,0.8478442
+40,președinte următor,0.84201777
+40,simion nicușor dan,0.8402282
+40,simion obține vot,0.8392416
+40,nicușor dan obține,0.838972
+40,nicușor dan moment,0.8372067
+40,dan câștiga alegere,0.8368008
+40,nicușor dan avans,0.8344894
+40,george simion nicușor,0.83377266
+40,nicușor dan george,0.8335457
+40,țară nicușor dan,0.83171874
+40,vot oră,0.8304684
+40,alegeri,0.82976043
+41,ședință psd,0.84467685
+41,funcție președinte psd,0.8424355
+41,organizație psd,0.8320726
+41,șefie partid,0.83167124
+41,prezidențial marcel ciolacu,0.82959557
+41,consiliu politic,0.82672477
+41,ședință consiliu,0.823362
+41,consiliilor județene,0.82171416
+41,național partidul_sațional_diberal,0.8203476
+41,demisiona funcție președinte,0.8188818
+41,președinte organizație,0.81758416
+41,coaliție guvernare declara,0.81644833
+41,lider psd răspunde,0.81369615
+41,partid marcel ciolacu,0.81279445
+41,prezidențial marcel,0.80967975
+42,prezidențial george simion,0.87426096
+42,nicușor dan victorie,0.86571366
+42,contracandidat nicușor,0.85263
+42,aur alegere prezidențial,0.8456807
+42,simion recunoaște,0.84296143
+42,aur george simion,0.83914196
+42,facebook george simion,0.8364499
+42,simion candidat aur,0.8354248
+42,șef aur,0.83150494
+42,simion transmite mesaj,0.83037055
+42,spune simion,0.82851183
+42,câștigător,0.8277681
+42,george simion sustine,0.8275559
+42,recunoaște înfrângere,0.8254382
+42,lider aur george,0.82501304
+43,candidature diana șoșoacă,0.8773552
+43,șoșoacă anunța,0.85284734
+43,șoșoacă,0.8505491
+43,alegeri prezidențial,0.84400415
+43,bec respinge candidatură,0.83537304
+43,președintă,0.8325699
+43,jurnalistă,0.82886046
+43,cere președinte,0.8285246
+43,respectare constituție,0.82490927
+43,consilier parlamentar,0.8223792
+43,candidatură,0.8221231
+43,sos românia,0.82153195
+43,față sediu,0.81961155
+43,condiție eligibilitate,0.8189454
+43,curte constituțional,0.8183442
+44,bolojan președinte interimar,0.8761956
+44,partidul_național_liberal ilie bolojan,0.86045486
+44,președinte interimar românia,0.8596188
+44,spune președinte interimar,0.8582625
+44,președinte guvern,0.8455652
+44,președinte românia candidat,0.835366
+44,potrivit președinte,0.8316412
+44,alegere prezidențial afirma,0.83156955
+44,spune psd partidul_național_liberal,0.83069676
+44,situație actual,0.8259562
+44,ilie bolojan afirma,0.8248739
+44,interimar ilie bolojan,0.8243749
+44,șef executivului,0.82371604
+44,potrivit bolojan,0.82308054
+44,marți președinte,0.8167475
+45,președinte ucraina volodimir,0.8592502
+45,putin vrea,0.84780514
+45,președinte rus,0.8431097
+45,ucraina declara,0.8241527
+45,soluționare conflict,0.8232331
+45,președinte american donald,0.8199158
+45,discuție direct,0.80795175
+45,invazie rus,0.80703616
+45,ucrainean volodimir zelenski,0.8049426
+45,kremlin,0.8041005
+45,rus vladimir,0.8010378
+45,trump anunța,0.79941106
+45,lider kiev,0.7990828
+45,armistițiu,0.79877806
+45,ucrainean,0.7966484
+46,românia președinte interimar,0.844705
+46,premier marcel ciolacu,0.83899647
+46,diasporă românesc,0.83286744
+46,șef executivului spune,0.83170784
+46,relație statele_unite_ale_americii,0.8269628
+46,ciolacu anunța joi,0.8211475
+46,atribuție președinte,0.8196423
+46,președinte francez emmanuel,0.8184162
+46,trump susține,0.8181239
+46,declarație controversat,0.8164192
+46,sprînceană,0.8126903
+46,zonă politic,0.81231
+46,om afacere român,0.81173027
+46,administrație,0.810068
+46,administratie trump,0.8090761
+47,președinte statele_unite_ale_americii,0.84617865
+47,președinte joe biden,0.8461627
+47,an președinte,0.8293003
+47,donald trump,0.82822084
+47,trump vorbi,0.8269305
+47,reședință,0.8238926
+47,imigrație,0.81870115
+47,începe mandat,0.817271
+47,soție,0.8167182
+47,arăta declarație,0.8160913
+47,percheziție,0.8147247
+47,casă alb,0.8108245
+47,milion dolar,0.80805016
+47,divorț,0.8069388
+47,strălucitor,0.80523217
+48,pensie militar,0.86767244
+48,pensiile,0.8537319
+48,semnatar moțiune,0.848244
+48,parlamentar aur românia,0.8445343
+48,senatoare,0.84412587
+48,asigurare social,0.84104645
+48,indemnizație,0.8403542
+48,inflație,0.83725226
+48,moțiune,0.8355281
+48,lună ministru,0.83459723
+48,impozitare,0.8339796
+48,semna parlamentar,0.83251834
+48,buget stat,0.8304899
+48,senat,0.8303267
+48,salariu,0.83007026
+49,vârstă pensionară,0.8638104
+49,procuror judecător,0.851812
+49,pensie serviciu,0.8452655
+49,consiliu superior magistraturii,0.84091854
+49,magistrație,0.84056634
+49,magistraturii,0.84008324
+49,independentă justitie,0.83991396
+49,judecător curte constituțional,0.8375276
+49,pensiile,0.8328636
+49,curte casație justiție,0.82956636
+49,sistem judiciar,0.82945967
+49,legislativă,0.8271351
+49,proiect lege privind,0.8260431
+49,pensie special,0.82578784
+49,decizie curtii constitutional,0.8240124
+50,candidat psd primărie,0.8613638
+50,bucureștean,0.8422128
+50,rămâne candidat,0.8416678
+50,organizație psd bucurești,0.8363424
+50,național psd,0.8337905
+50,cursă primărie capitală,0.830426
+50,magistrală,0.82734185
+50,parlament european,0.8262317
+50,funcție conducere partid,0.82376957
+50,primar general,0.82372475
+50,capitală gabriela fire,0.823593
+50,președinte organizație,0.8230258
+50,guvernare local,0.8224893
+50,demisiona funcție ministru,0.8197615
+50,arenă național,0.8192304
+51,prezidențial mircea geoană,0.87936276
+51,prezidențial discuție,0.849473
+51,mircea geoană declara,0.8486048
+51,geoană,0.8449786
+51,north_atlantic_treaty_organization mircea geoană,0.84415054
+51,adjunct șef,0.84163296
+51,președinție românia,0.8410522
+51,lider partidul_sațional_diberal,0.83619106
+51,geoană susține,0.8314886
+51,deputată,0.8217751
+51,exista legătură,0.8212748
+51,plagiat teză,0.8196763
+51,vizită,0.81368387
+51,spune candidat independent,0.81268966
+51,spune mircea,0.8101601
+52,prezidențial crin antonescu,0.89284
+52,antonescu candidat coaliție,0.88026726
+52,electoral crin antonescu,0.8699651
+52,alegere prezidențial crin,0.86612403
+52,antonescu candidat comun,0.85475415
+52,explica crin antonescu,0.854731
+52,crin antonescu transmite,0.85346866
+52,candidat alianță,0.85191154
+52,candidat comun coaliție,0.84919167
+52,prezidențial critica,0.8479713
+52,coaliție alegere prezidențial,0.84781325
+52,guvernare alegere prezidențial,0.8445622
+52,declarație nicușor dan,0.84412384
+52,antonescu menționa,0.84410655
+52,coaliție guvernare,0.8440454
+53,dosar corupție,0.8602507
+53,direcție național anticorupție,0.8548552
+53,procuror direcție,0.8501388
+53,șef administrație,0.84764946
+53,săvârșire infracțiune,0.8470495
+53,percheziție,0.84681153
+53,organizație municipal psd,0.8412727
+53,funcționar public,0.8359285
+53,presă local,0.83279335
+53,acces persoană,0.83106035
+53,premier adrian năstase,0.83035725
+53,port constanța,0.82935774
+53,măsură control judiciar,0.82798624
+53,consiliu judetean,0.82798326
+53,cod procedură penal,0.82692075
+54,presedintiă,0.833276
+54,clasă politică,0.83128065
+54,coruptie,0.8230623
+54,scor partid,0.8212402
+54,simpatizant psd,0.818774
+54,domn ciolacu,0.81581885
+54,intrebare,0.81573844
+54,mateescu,0.8137678
+54,impotrivă,0.81112003
+54,adevarat,0.804981
+54,romania,0.80182636
+54,nicusor dan,0.801767
+54,candidati,0.80135214
+54,intelegere,0.7996359
+54,ramană,0.79831946
+55,europarlamentar iunie pregătire,0.859274
+55,știrile zilei,0.84511733
+55,european pune ștampilă,0.8448999
+55,loc parlament european,0.8309489
+55,ștampilă listă,0.82929695
+55,politiciean candida alegere,0.8275937
+55,listă partid ști,0.8269868
+55,cetățen informație relevant,0.82645863
+55,aduce față cetățen,0.8230014
+55,variantă scris portret,0.82060826
+55,echipă știrile,0.8191395
+55,rubrică propune aduce,0.8189175
+55,șansă merge bruxelles,0.817968
+55,listă șansă merge,0.8148967
+55,pune frunte listă,0.81413203
+56,medic cătălin cîrstoiu,0.8658798
+56,clinică privat,0.85213137
+56,manager spital,0.83878595
+56,facultate medicină,0.83791554
+56,intervenție chirurgical,0.8337368
+56,ministru sănătate,0.83110535
+56,primărie bucurești,0.8310181
+56,purtător cuvânt partidul_național_liberal,0.82992315
+56,spune medic,0.82846045
+56,cursă primărie,0.8265254
+56,șef secție,0.82203037
+56,firmă familie,0.8217255
+56,consultație,0.8168279
+56,declarație avere,0.81682444
+56,capitală,0.8151963
+57,redacție modera comentariu,0.8616057
+57,vulgaritățile atitudine extremist,0.84090006
+57,atac persoană vulgaritățile,0.8403984
+57,afectat redacție modera,0.8386079
+57,publicație roaga cititor,0.83685935
+57,cititor comenta subiect,0.83126295
+57,vulgaritățile,0.82902116
+57,discriminatoriu invita cititor,0.82806754
+57,comentator semna nume,0.82770544
+57,divers contradictoriu publicație,0.82759535
+57,spațiu afectat redacție,0.82668686
+57,articol exprima seamă,0.8250793
+57,comentariu renunțînd considera,0.821446
+57,precizare ziar,0.8195423
+57,găzduiască informație punct,0.81811583
+58,recent declarație avere,0.85286283
+58,imobiliar,0.82906926
+58,colecție,0.8280128
+58,milion euro,0.8228806
+58,horațiu,0.81799746
+58,casă locui,0.81794775
+58,soție,0.81763726
+58,construcție,0.81678617
+58,deține teren,0.8154062
+58,pădure,0.81527734
+58,cumpăra,0.81465733
+58,apartament metru_pătrat,0.8136035
+58,bijuterie euro,0.81214154
+58,suprafață,0.8117475
+58,bancar,0.8102342
+59,federației rus,0.84319025
+59,euronews românia aduce,0.8352661
+59,politică european,0.8323964
+59,republicii moldova,0.82326925
+59,război mondial,0.8216079
+59,roșia montan,0.82134295
+59,tânără,0.82090205
+59,influență,0.81916726
+59,invazie rus,0.8179533
+59,radu mazăre,0.81792474
+59,băsescu,0.81556594
+59,cereală,0.8145813
+59,neutralitate,0.81428325
+59,stat paralel,0.8123858
+59,respectiv încheia program,0.81120795
+60,plagiat teză,0.8666394
+60,minister educație,0.85814905
+60,diplomelor,0.8446454
+60,bibliotecă,0.8446249
+60,științe,0.84415424
+60,academie poliție,0.8428426
+60,elevă,0.8411803
+60,universitate național apărare,0.841107
+60,național informație,0.8352636
+60,conferențiar,0.83158046
+60,etică,0.83141434
+60,colegiu,0.8313185
+60,profesor universitate,0.8312911
+60,colegi național,0.83087194
+60,codruța kövesi,0.8300073
+61,politică monetar,0.86919016
+61,bancă național românia,0.8642295
+61,rată dobândă,0.85460347
+61,instituție financiar,0.8437046
+61,criptomonedă,0.8433864
+61,credită,0.8422916
+61,bursă valori,0.8379173
+61,scumpire,0.83543503
+61,ținând,0.8347119
+61,rafinărie,0.8332087
+61,preț energie,0.8328527
+61,dolar,0.8325414
+61,rezervă,0.83211625
+61,indicelui,0.8308629
+61,scădere,0.83042204
+62,călin georgescu interviu,0.86720043
+62,președinte trump,0.8477073
+62,președinție călin,0.8403405
+62,democrație pace,0.8375772
+62,domn georgescu,0.8285366
+62,spune călin,0.826326
+62,globalișt,0.822346
+62,stat paralel,0.8197863
+62,popor român,0.8164349
+62,război,0.81085104
+62,persecuție,0.8107462
+62,revendicare,0.8100462
+62,vot fura,0.8083406
+62,conștiință,0.80706954
+62,singur șansă,0.8063723
+63,crin antonescu președinte,0.8849933
+63,partidul_național_liberal crin antonescu,0.88133585
+63,președinte partidul_național_liberal crin,0.86769366
+63,crin antonescu candidat,0.8662421
+63,antonescu președinte partidul_național_liberal,0.86423886
+63,antonescu președinte interimar,0.8606875
+63,declara crin antonescu,0.8582218
+63,liberal crin antonescu,0.85793924
+63,băsescu crin antonescu,0.85730326
+63,crin antonescu întreba,0.8503072
+63,președinte partidul_național_liberal candidat,0.8430747
+63,carieră politic,0.8427777
+63,băsescu crin,0.83825755
+63,antonescu candidat comun,0.838054
+63,frunte partidul_național_liberal,0.83684266
+64,prezidențial călin georgescu,0.8784421
+64,călin georgescu vota,0.8765885
+64,călin georgescu susține,0.87271047
+64,declarație călin georgescu,0.8661474
+64,alegere prezidențial călin,0.8598058
+64,independent călin georgescu,0.8575275
+64,votant călin,0.85606194
+64,călin georgescu mesaj,0.8553066
+64,spune candidat prezidențial,0.85208505
+64,georgescu candidat independent,0.84484124
+64,georgescu soție,0.8439873
+64,prezidențial tur scrutin,0.84286153
+64,georgescu întreba,0.83768845
+64,românia călin,0.8366207
+64,soție călin,0.83475935
+65,cheltuială bugetar,0.8561027
+65,ședință guvern,0.8539953
+65,minister finanțe,0.8531327
+65,guvern cioloș,0.8484031
+65,creștere taxă,0.8468876
+65,purtător cuvânt guvern,0.8417151
+65,lege buget stat,0.835192
+65,coaliție întâlni,0.83404297
+65,exista transparență,0.8323155
+65,executivului,0.830804
+65,comisie sănătate,0.82972693
+65,ciolacu declara marți,0.828931
+65,cod fiscal,0.8284313
+65,contribuabil,0.82777107
+65,băncilor,0.82719254
+66,propagandă electoral,0.8751752
+66,publicitate politic,0.8552903
+66,electoral alegere prezidențial,0.8549744
+66,autorități electoral,0.8526182
+66,autoritate electoral permanent,0.84330094
+66,durată campanie,0.8379193
+66,campanie electoral alegere,0.83570445
+66,public adresă,0.83016706
+66,adresă mail,0.82949495
+66,lege privind finanțare,0.82906914
+66,alegere președinte românia,0.8284286
+66,publicitar,0.82690513
+66,electoral promovare,0.8252024
+66,autorități,0.82385343
+66,ordonanță urgență,0.82320917
+67,bolojan președinte,0.88151324
+67,bolojan partidul_național_liberal,0.87316936
+67,președinte cj bihor,0.86609656
+67,consiliu județean bihor,0.8551632
+67,partid ilie bolojan,0.85476494
+67,ilie bolojan lider,0.85091764
+67,președinte consiliu județean,0.849527
+67,ilie bolojan declara,0.84479034
+67,presedinte interimar,0.8428677
+67,ilie bolojan deveni,0.83995795
+67,bolojan urma,0.8357226
+67,partidul_național_liberal demisie,0.8345965
+67,sedintă conducere,0.8332513
+67,județean,0.8310227
+67,politică partid,0.83019876
+68,candidat extremă dreaptă,0.8416022
+68,alegere prezidențial românia,0.83861566
+68,dezbatere nicușor,0.82908535
+68,naționalist,0.82850945
+68,capitală românia,0.8265696
+68,nicușor dan george,0.82063276
+68,răzvan ungureanu,0.81478536
+68,dan câștiga,0.8137381
+68,publicație,0.8128588
+68,primar bucurești,0.81274116
+68,uniunea_europeană,0.81161445
+68,armistițiu,0.8107301
+68,scrie politico,0.8091778
+68,interferență,0.8066143
+68,adopta poziție,0.8066044
+69,coaliție marcel ciolacu,0.8570761
+69,ciolacu președinte,0.85543287
+69,președinte interimar românia,0.848014
+69,ieșire guvernare,0.84227014
+69,lider coaliție,0.84115565
+69,ciolacu demisiona,0.83928806
+69,demisie funcție ministru,0.838258
+69,conducere partidul_sațional_diberal,0.83651733
+69,demisiona frunte partid,0.83506525
+69,ministru guvern românia,0.8304062
+69,demisie marcel ciolacu,0.8286594
+69,frunte guvern,0.8282553
+69,ședință conducere,0.8261063
+69,conducere psd,0.82350826
+69,prezidențială,0.8220365
+70,susține realitate jurnalism,0.84943247
+70,susținu cititor susție,0.84590095
+70,pressone diferență putea,0.8406849
+70,rămâne românia vital,0.8405163
+70,susție sumă,0.8399751
+70,dezinformare poluare,0.83885616
+70,reportaj imersiv românia,0.8385448
+70,jur putea ajuta,0.8367757
+70,pagină susține modalitate,0.83566916
+70,crea dependență rând,0.83107275
+70,sumă mic lună,0.8298447
+70,rămâe abona pressone,0.82960844
+70,luptă corupție plagiată,0.8294585
+70,jurnalism independent,0.829393
+70,redirecționare impozit venit,0.82805026
+71,candidatură președinte,0.8584794
+71,mandat președinte românia,0.8382363
+71,alegere parlamentar decembrie,0.83781374
+71,legislație electoral,0.83690834
+71,solicitare partidul_național_liberal,0.83582616
+71,partidul_sațional_diberal decide lună,0.83491087
+71,partidul_național_liberal klaus,0.83266354
+71,candida parlamentare,0.82899034
+71,președinte klaus iohannis,0.8255915
+71,parlamentar pnl,0.8243611
+71,politic alianță politic,0.82371175
+71,consiliu legislativ,0.8235924
+71,putea candida independent,0.82344127
+71,modificare legislație,0.822634
+71,înapoi homepage președinte,0.8220732
+72,ciolacu anunța psd,0.87931293
+72,coaliție guvernare marcel,0.8489586
+72,demisie funcție premier,0.84726614
+72,președinte psd marcel,0.8445606
+72,consiliu național psd,0.84078234
+72,vicepreședinte psd sorin,0.84068406
+72,miniștr psd,0.83721614
+72,alianță guvernare,0.8371334
+72,fapt marcel ciolacu,0.83247554
+72,coaliție politic,0.8322351
+72,președinte consiliu național,0.8312192
+72,mihai tudose președinte,0.82649016
+72,ciolacu sediu central,0.82510996
+72,demisiona conducere,0.8248679
+72,politic național partidul_sațional_diberal,0.8239931
+73,dreaptă alternativă germania,0.85957384
+73,formațiune extremă dreaptă,0.8315058
+73,germania afd,0.82869005
+73,migrație ilegal,0.8250936
+73,coaliție,0.8163215
+73,cancelar germania,0.81134015
+73,extremă,0.8080123
+73,partid majoritate,0.8072948
+73,partener guvernare,0.8052969
+73,lider conservator,0.7949723
+73,cancelar olaf scholz,0.7947489
+73,graniță,0.7947275
+73,ministru extern,0.79387313
+73,măsură reducere,0.79274815
+73,ministră educație,0.7922549
+74,deficit bugetar,0.85966897
+74,reformă fiscal,0.8409281
+74,inflație,0.8394617
+74,bancă național românia,0.8390589
+74,ministru finanțelor,0.8340272
+74,economie românia,0.82990366
+74,datorie public,0.82926834
+74,scădere,0.8261939
+74,dobândă,0.82572854
+74,previziune,0.82494473
+74,impozit dividende,0.8223494
+74,taxă,0.82179505
+74,național redresare reziliență,0.8199482
+74,românia încasa,0.81506073
+74,creștere venit,0.814903
+75,călin georgescu acuza,0.8750129
+75,percheziție,0.83913136
+75,săvârșire infracțiune,0.82646275
+75,instigare acțiune,0.82425606
+75,ordine constituțional,0.82313544
+75,finanțare campanie electoral,0.8224493
+75,declarație privind,0.8220821
+75,măsură control judiciar,0.8204607
+75,penal față,0.81991136
+75,acuzație aduce,0.8193604
+75,crimă război,0.8187191
+75,georgescu ridica,0.81858546
+75,informație fals,0.81844705
+75,interdicție,0.8182726
+75,judecătoria,0.81747776
+76,românia spațiu schengen,0.8536018
+76,frontieră,0.8370687
+76,românia bulgaria,0.82445633
+76,minister afacere intern,0.82387257
+76,discuție continua,0.82011676
+76,migrație ilegal,0.8188875
+76,românia adera,0.81825924
+76,aderare țară,0.81629974
+76,uniunea_europeană privind,0.81588215
+76,președinte parlament,0.8150114
+76,anunț oficial,0.8124412
+76,graniță,0.8119557
+76,restricție impune,0.811738
+76,eurodeputat,0.8091098
+76,citește marcel ciolacu,0.80899197
+77,redacție modera comentariu,0.84887683
+77,publicație roaga cititor,0.8359803
+77,atac persoană vulgaritățile,0.8262955
+77,rezonabil bucuros comentator,0.826069
+77,vorbi nicușor,0.8257035
+77,comentator semna nume,0.8235762
+77,zelenski anunța,0.8235393
+77,precizare ziar,0.8210149
+77,divers contradictoriu publicație,0.8201531
+77,spațiu afectat redacție,0.81864035
+77,antisemit rasist discriminatoriu,0.81453085
+77,comenta subiect articol,0.8142891
+77,comentariu renunțînd considera,0.8141775
+77,propune găzduiască informație,0.8139117
+77,deznădăjdui chip spune,0.8135195
+78,muzeului,0.83264637
+78,expoziție,0.8262133
+78,ministru cultură raluca,0.8193407
+78,istorie românia,0.81564224
+78,poliție,0.81238234
+78,hotărâri,0.80941767
+78,legendă,0.80674374
+78,cultură,0.80504113
+78,argint,0.80227077
+78,comoară,0.79927754
+78,furat,0.7965747
+78,hotărâre guvern,0.7951602
+78,dacic,0.7943703
+78,țară jos,0.7911516
+78,descoperi,0.79055
+79,judecătoare,0.8584746
+79,ministru justitiei,0.8570871
+79,judecator procuror,0.8539369
+79,magistraturii,0.8499131
+79,sistem judiciar,0.839826
+79,presedinte,0.8390052
+79,hotararea,0.8275612
+79,functiă vicepresedintă,0.82657355
+79,incetare,0.82317436
+79,justitie,0.82216036
+79,consiliu superior,0.8201032
+79,conditie lege,0.8195132
+79,termen judecată,0.81938565
+79,presedintă,0.8189931
+79,independentă,0.81803477
+80,candidatură călin georgescu,0.88150024
+80,georgescu alegere prezidențial,0.8677207
+80,contestație ccr,0.86097014
+80,central invalida candidatură,0.85726106
+80,curte constituțional ccr,0.85301757
+80,contestație curte constituțional,0.849259
+80,călin georgescu ridica,0.8488841
+80,alegere prezidențial trebui,0.84747565
+80,dosar candidatură,0.8459827
+80,candidature călin,0.84355277
+80,înregistrăre candidature,0.8378215
+80,georgescu caz,0.8371978
+80,hotărâre ccr,0.83418703
+80,georgescu depune,0.83106446
+80,sine depune candidatură,0.83012307
+81,prezidențial ciolacu,0.8688483
+81,spune președinte psd,0.8576275
+81,central psd ședință,0.8456612
+81,candidat alianță crin,0.8456148
+81,antonescu președinte,0.84428775
+81,marcel ciolacu declara,0.840783
+81,crin antonescu spune,0.8406116
+81,președinte psd marcel,0.8394346
+81,sine dori președinte,0.83406246
+81,psd menționa,0.83278203
+81,candidat decât,0.832387
+81,președinte respecta,0.8316611
+81,spune sorin grindeanu,0.8307953
+81,alegere prezidențial moment,0.82964426
+81,ședință consiliu politic,0.8289199
+82,incompetență,0.8442912
+82,membru partidul_național_liberal,0.83286285
+82,instituție public,0.828359
+82,județ mureș,0.827355
+82,aparținător,0.82636654
+82,apele român,0.82570815
+82,școlar,0.82187146
+82,funcție director,0.82162476
+82,politizare,0.82030207
+82,direcție silvic,0.8191196
+82,manager spital,0.81566346
+82,detașa,0.81035686
+82,limbă maghiar,0.81030077
+82,muncă parlament,0.8100126
+82,consiliu local,0.8094454
+83,finală prezidențial,0.83342314
+83,amenințările,0.81277966
+83,românia părea,0.8012075
+83,generație,0.797132
+83,anamaria gavrilă,0.79688585
+83,băsescu klaus iohannis,0.7939533
+83,explica george simion,0.7930908
+83,candidat înscris,0.7929201
+83,lider aur,0.79130125
+83,tur decât,0.79063165
+83,actualitate,0.790089
+83,adamescu,0.7885747
+83,capitală,0.788502
+83,alegere duminică,0.7873881
+83,moment electoral,0.78678584
+84,politic călin georgescu,0.8454354
+84,românia george simion,0.84187937
+84,aur alegere prezidențial,0.8376677
+84,george simion candidat,0.8298028
+84,reacție candidat,0.82974446
+84,nicușor dan contracandidat,0.82649064
+84,președinte numi premier,0.8264326
+84,jurnalist român,0.82521755
+84,ieși președinte,0.82456744
+84,uniune național,0.81688696
+84,simion răspunde,0.8139516
+84,candidat aur,0.8137433
+84,organizațiile,0.8094946
+84,lipsă respect,0.8091861
+84,persoană respectiv,0.80763054
+85,proiect hotărâre guvern,0.86770654
+85,proiect ordonanță urgență,0.8645897
+85,ședință guvern,0.85792005
+85,urgență privind,0.848856
+85,finanțare,0.84714764
+85,guvern privind,0.8451123
+85,achiziție,0.84170663
+85,ordine ședință,0.8386827
+85,plan național redresare,0.83823436
+85,aproba proiect,0.8342526
+85,privind aprobare,0.83363396
+85,economie digitalizării antreprenoriat,0.8304188
+85,guvern miercuri,0.83039975
+85,notă fundamentare,0.8299217
+85,întreprindere,0.8295548
+86,partidul_național_liberal ludovic orban,0.85813534
+86,sursă partidul_național_liberal,0.851035
+86,partidul_național_liberal afirma,0.85019135
+86,sediu partidul_național_liberal,0.84153473
+86,partidul_național_liberal rareș bogdan,0.8376673
+86,liberală,0.83710957
+86,eurodeputat partidul_național_liberal,0.8351233
+86,politolog andrei țăranu,0.834664
+86,premier florin cîțu,0.83168507
+86,orban spune,0.82874405
+86,președinte klaus iohannis,0.8267178
+86,politică monetar,0.8161087
+86,primar timișoara,0.8146729
+86,șefie,0.81395537
+86,ludovic orban declara,0.809847
+87,educație daniel david,0.8623162
+87,prezidențial daniel,0.8557775
+87,potențial candidat,0.8487699
+87,educației,0.84547603
+87,minister educație cercetări,0.8444085
+87,situație partid,0.8318981
+87,președinte asociație,0.8310411
+87,știință,0.82957554
+87,propunere guvern,0.8287818
+87,evaluare național,0.8275205
+87,președinție spune,0.82718635
+87,comisiile parlamentar,0.82482123
+87,spune daniel,0.8236004
+87,analizele,0.8225588
+87,literatură român,0.82254386
+88,psd partidul_național_liberal usr,0.83588815
+88,discuție formare executivului,0.8355811
+88,guvern minoritar,0.8288088
+88,formare majoritate parlamentar,0.82846385
+88,candidată usr prezidențial,0.8250839
+88,rupe coaliție,0.8233964
+88,majoritate stabil,0.8214522
+88,finală cotroceni,0.8211807
+88,partid vorbă,0.8179243
+88,posibil alianță,0.81768525
+88,parlament ciolacu,0.8170538
+88,maturitate politic,0.81642926
+88,partid afla guvernare,0.81637657
+88,udmr minoritate,0.8154039
+88,guvernare lua,0.8148819
+89,public informație publica,0.8721376
+89,preluare știrilor agerpres,0.8672062
+89,publica sită agerpres,0.86545885
+89,informație publica sită,0.86389506
+89,sită agerpres proteja,0.8634732
+89,proteja dispoziție legal,0.8619704
+89,știrilor agerpres ruga,0.8614668
+89,website informație transmis,0.86010075
+89,conținut website informație,0.8566401
+89,informație transmis prelua,0.8563391
+89,conformitate legislație aplicabil,0.855924
+89,știrilor,0.8549545
+89,secțiune condiție,0.85262585
+89,interesa preluare știrilor,0.851957
+89,condiție utilizare interesa,0.85117424
+90,candidatură călin georgescu,0.85258234
+90,călin georgescu transmite,0.835328
+90,piață victoria,0.82449734
+90,georgescu ajunge,0.82189
+90,contestație,0.8194116
+90,stradă,0.81024325
+90,protestatare,0.80760944
+90,poliție capitală,0.80589455
+90,bălcescu,0.80312103
+90,ședință bec,0.80285436
+90,circulație,0.80112803
+90,forță ordine,0.8005422
+90,sine depune candidatură,0.7985724
+90,văzuți,0.79658973
+90,piață,0.7965873
+91,ciucă lider partidul_național_liberal,0.84874284
+91,liberal președinte,0.8408712
+91,psd marcel ciolacu,0.8364789
+91,partid ciolacu,0.8358399
+91,candidat comun prezidențial,0.8335085
+91,ciolacu nicolae ciucă,0.8331791
+91,președinte vrea,0.8319031
+91,vicepreședinte partidul_național_liberal,0.83064973
+91,marcel ciolacu întreba,0.82612103
+91,ciucă lider,0.8244909
+91,nominalizare premier,0.82414895
+91,președinte psd marcel,0.82379365
+91,partidul_național_liberal nicolae,0.8206481
+91,ciucă spune,0.8187703
+91,actual coaliție,0.8183991
+92,președinte psd buzău,0.8687227
+92,consiliu județean buzău,0.84934926
+92,romașcanu președinte,0.8487245
+92,primar municipiu buzău,0.8448883
+92,buzău lucian romașcanu,0.84184873
+92,psd buzău lucian,0.8354097
+92,lucian romașcanu preciza,0.834134
+92,buzău constantin toma,0.83302367
+92,purtător cuvânt psd,0.82934964
+92,funcție președinte psd,0.82544565
+92,președinte organizație,0.8231962
+92,alege președinte,0.82303345
+92,sefiă psd,0.8229761
+92,parte românia,0.82147795
+92,organizație județean,0.8212395
+93,discuție marcel ciolacu,0.8473816
+93,președintă usr,0.8435843
+93,candidatură prezidențial,0.8286245
+93,udmr alegere prezidențial,0.8285321
+93,marcel ciolacu ministru,0.8268166
+93,psd partidul_național_liberal udmr,0.8200458
+93,usr elena lasconi,0.817667
+93,lasconi premier,0.81766665
+93,prezidențial schimb,0.8176272
+93,decizie usr,0.8169304
+93,candidat unic coaliție,0.815688
+93,funcție premier,0.8156657
+93,lasconi răspunde,0.81553066
+93,guvernare partidul_național_liberal,0.81488085
+93,oficial candidatură,0.8114462
+94,trump elon musk,0.8466836
+94,situație politic,0.8411051
+94,administrație donald trump,0.8397846
+94,georgescu alegere prezidențial,0.8383906
+94,apropiat președinte,0.8307624
+94,statele_unite_ale_americii donald,0.8281014
+94,președinte statele_unite_ale_americii,0.82795894
+94,emil hurezeanu ministru,0.82265484
+94,călin georgescu scrie,0.82128286
+94,extremă dreaptă,0.82031167
+94,interferență,0.8195958
+94,miliardar,0.817098
+94,platformă socializare,0.817086
+94,răspunde crin antonescu,0.815378
+94,uniunea_europeană încerca,0.81451625
+95,prezidențial nicușor dan,0.8681141
+95,independent prezidențial nicușor,0.8537958
+95,nicușor dan primar,0.8535414
+95,candida prezidențial,0.8442291
+95,dan primar capitală,0.84267634
+95,nicușor dan spune,0.84001756
+95,general capitală nicușor,0.83863664
+95,propunere premier,0.8327043
+95,forma coaliție,0.83151627
+95,președinție afirma,0.83149636
+95,independent alegere prezidențial,0.83049285
+95,conferință presă întreba,0.83010453
+95,câștiga președinție,0.8291682
+95,afirma nicușor,0.8269727
+95,contracandidat george simion,0.82653946
+96,prezență vot oră,0.8683764
+96,live alegeri prezidențial,0.8649082
+96,român vota,0.8625486
+96,alegător vota,0.8591314
+96,secție votare,0.8584306
+96,număr votant,0.85801756
+96,prezidențial oră,0.8542335
+96,live alegeri,0.8541144
+96,prezidențial tur,0.84674066
+96,vot înregistra,0.84542453
+96,prezenta urnă,0.84524363
+96,moldova vota,0.8400933
+96,vota milion român,0.83885914
+96,vot diaspora,0.8380481
+96,prezență țară,0.8361628
+97,minoritate național,0.8658386
+97,propunere legislativ privind,0.8493372
+97,lege educație,0.8457225
+97,comisie administrație,0.8437495
+97,parlament republicii moldova,0.8426875
+97,restricționare,0.8426563
+97,stat românia,0.84212774
+97,comunitate lgbt,0.8412607
+97,teritoriu ucraina,0.83697546
+97,ținut secuiesc,0.8359784
+97,partidul_național_liberal daniel,0.8353309
+97,puterii,0.83260393
+97,recensământ,0.8326036
+97,predare limbă,0.83119917
+97,înființare,0.83068854
+98,președinte pdl,0.87160206
+98,pdl vasile blaga,0.8433306
+98,funcție președinte partid,0.8407838
+98,discuție premier,0.8383745
+98,președinte traian băsescu,0.8383208
+98,partidul_dațional_liberal,0.8375031
+98,candidatură președinție,0.8321515
+98,întâlnire lider,0.83022547
+98,februarie președinte,0.83016944
+98,perspectivă alegere,0.8295511
+98,potrivit sursă partid,0.8261808
+98,băsescu susține,0.82535565
+98,șef organizație,0.82328665
+98,declara vicepreședinte,0.8220323
+98,filială,0.820559
+99,știință politic,0.87633204
+99,identitate politic,0.8478049
+99,reprezentant secție votare,0.84406596
+99,prudență,0.84206927
+99,societate civil,0.8385203
+99,ambiguitate,0.8328906
+99,județean psd buzău,0.832662
+99,capitală românia,0.83122003
+99,implicare civic,0.82897496
+99,metropolă,0.8281206
+99,artă,0.8271707
+99,putea guverna,0.8251351
+99,clasă,0.82297945
+99,sferă,0.82288796
+99,fază,0.822399
+100,președinte ales nicușor,0.8258096
+100,partidul_național_liberal usr udmr,0.8159958
+100,parlamentar minoritate național,0.81564146
+100,situație bugetar,0.8121973
+100,președinte interimar ilie,0.8099866
+100,guvern președinte,0.80700827
+100,curte constituțional urma,0.8055233
+100,nicușor dan afirma,0.8053764
+100,lună conferință presă,0.7994548
+100,putea depune jurământ,0.79892015
+100,lună psd,0.79672086
+100,desfășurare,0.7961566
+100,promulgare legii,0.7961359
+100,usr udmr minoritate,0.79482913
+100,partid organizație,0.7947793
+101,preferință,0.8360431
+101,aur partidul_național_liberal usr,0.8339131
+101,partid listă,0.8334596
+101,intenție vot,0.8302988
+101,întâi alegere prezidențial,0.8280848
+101,votant psd,0.8248513
+101,alianță dreapta unită,0.82288516
+101,încredere,0.8180324
+101,aur sos românia,0.81666243
+101,românia îndrepta,0.8145639
+101,candidat naționalist,0.8138097
+101,românia udmr,0.8132581
+101,întrebare răspunde,0.81155515
+101,aproape român,0.8107099
+101,eșantionare,0.8105322
+102,votant călin georgescu,0.823853
+102,prezidențial confrunta,0.8221328
+102,candidată pusl,0.81048185
+102,capitală vot,0.8053204
+102,lideră usr elena,0.8032033
+102,susține psd partidul_național_liberal,0.7974031
+102,independent nicușor dan,0.7970586
+102,daniel funeriu candidat,0.7961487
+102,antonescu nicușor,0.78716433
+102,crin antonescu victor,0.786691
+102,simion câștiga,0.7839723
+102,respondent vârstă,0.78312457
+102,românia îndrepta,0.7824137
+102,vota lider,0.7804795
+102,georgescu merge,0.7804597
+103,prezidențial polonia,0.8582517
+103,opoziție,0.825059
+103,naționalist,0.8183994
+103,civică,0.81502664
+103,coaliție premier,0.8145275
+103,candidat formațiune,0.8139266
+103,principal partid,0.8104253
+103,președinte putere,0.80783004
+103,reformă justiție,0.8026655
+103,susține partid,0.8013193
+103,ieșire urnă,0.80070585
+103,candidat liberal,0.7995808
+103,varșovia,0.7978271
+103,polonezi,0.79776096
+103,confederație,0.7973187
+104,guvern interimar,0.8344498
+104,opozitiă,0.83081627
+104,politician extremă,0.8269366
+104,uniunea_europeană declara,0.8180592
+104,balcanii vest,0.8135574
+104,naționalizare,0.8134428
+104,urmă protestelor,0.81125253
+104,ministru britanic,0.81110847
+104,studenții,0.80916786
+104,comunelor,0.805148
+104,parte rusia,0.80361634
+104,discutie privind,0.8033378
+104,bulgar,0.80287766
+104,partid populist,0.8020618
+104,instabilitate,0.8020146
+105,nicușor dan primar,0.85550463
+105,primar general bucurești,0.8345935
+105,avere nicușor,0.83238333
+105,nicușor dan reuși,0.8274884
+105,matematică,0.82706285
+105,nicușor dan interviu,0.827023
+105,bucureștean,0.82271504
+105,primărie capitală,0.82129586
+105,partid uniune salvați,0.8204514
+105,asociație salvați bucurești,0.8204404
+105,fundație,0.8182831
+105,salvați românia usr,0.817477
+105,capitală obține,0.81678903
+105,bec respinge candidatură,0.8134923
+105,câștiga alegere local,0.81026185
+106,dezbatere prezidențial,0.847709
+106,seară dezbatere,0.8319864
+106,alegere prezidențial nicușor,0.8317496
+106,george simion dezbatere,0.8267261
+106,discuție reprezentant,0.8261837
+106,dezbaterii,0.8199932
+106,prezidențial george,0.81725526
+106,luptă electoral,0.8167859
+106,vreunul candidat,0.8156872
+106,echipă campanie,0.8142941
+106,candidat șansă real,0.8140943
+106,televiziunii,0.81084025
+106,refuza participa dezbatere,0.81062156
+106,simion nicușor dan,0.8100012
+106,dezbatere electoral organiza,0.806302
+107,vicepreședintă psd,0.8578137
+107,candidată,0.8499104
+107,șanse cursă prezidențial,0.8469377
+107,facultate științe politic,0.84339553
+107,filială partid,0.84303856
+107,șandru,0.83140904
+107,cadru conferință presă,0.82665825
+107,candidat pusl,0.82538486
+107,fond investiție,0.8252211
+107,relație putere,0.8246904
+107,politicienii român,0.8243835
+107,comisie cultură,0.8234841
+107,listă usr,0.8225539
+107,decizie consiliu,0.821357
+107,cursă fotoliu,0.8194189
+108,preluare știrilor agerpres,0.86236495
+108,știrilor agerpres ruga,0.8602048
+108,website informație,0.858714
+108,informație publica sită,0.8581069
+108,informare public informație,0.85736763
+108,publica sită agerpres,0.8563122
+108,informație transmis prelua,0.85548174
+108,sită agerpres proteja,0.8513185
+108,număr total alegător,0.8508653
+108,știrilor,0.85017127
+108,interesa preluare știrilor,0.84539866
+108,proteja dispoziție legal,0.84350777
+108,conținut website,0.8425428
+108,secțiune condiție utilizare,0.8417393
+108,interzice copiere reproducere,0.8396275
+109,creștin ortodox,0.8490271
+109,bisericii,0.8482288
+109,părinte,0.8449195
+109,credință dumnezeu,0.8413564
+109,ortodocși,0.83210576
+109,binecuvântare,0.831913
+109,local județean,0.8254961
+109,relație sexual,0.8252408
+109,popor român,0.8251989
+109,guvernator,0.8237933
+109,alegere local iunie,0.8220321
+109,față comunitate,0.821561
+109,fundație,0.8194507
+109,independent funcție,0.8188046
+109,purtător,0.8159268
+110,administrație trump,0.85456836
+110,diplomație,0.83868587
+110,relație comercial,0.83461773
+110,trump casă alb,0.8324469
+110,european politică,0.83223647
+110,statele_unite_ale_americii rusia,0.82707894
+110,strategic românia,0.8270532
+110,prezență militar,0.8164054
+110,fereastră,0.8094506
+110,ceaușescu,0.808982
+110,orientul,0.80793005
+110,ministru externe,0.8064271
+110,federație rus,0.8062928
+110,iranului,0.8062198
+110,față uniune,0.805292
+111,senator psd șerban,0.85915744
+111,guvern grindeanu,0.8400165
+111,psd problemă,0.83832633
+111,fapt corupție,0.83810544
+111,comisie anchetă,0.83693606
+111,firmă,0.83418846
+111,direcție generală,0.8339463
+111,discuție vedea,0.82923186
+111,viorica dăncilă,0.8283082
+111,incompatibilitate,0.8271462
+111,juridic senat,0.82492685
+111,fiscal spălare ban,0.8248482
+111,parteneriat strategic românia,0.8245356
+111,lider grup senator,0.8220408
+111,pușcărie,0.82201827
+112,ministru sănătății,0.868285
+112,partidul_național_liberal decizie,0.84441936
+112,spital românia,0.84119177
+112,voiculescu,0.83899105
+112,cîțu premier,0.8388003
+112,vota ridicare imunitate,0.8364855
+112,vaccinurilor,0.8363902
+112,influența politică,0.8300922
+112,orban florin cîțu,0.8294405
+112,filială pnl,0.8280623
+112,achiziție,0.8278487
+112,cătălin drulă,0.8266822
+112,sănătate,0.8263984
+112,deputat vota,0.82440215
+112,caz guvern,0.82380825
+113,decizie biroului electoral,0.84607476
+113,alegere președinte românia,0.84563744
+113,biroului electoral central,0.839271
+113,ccr respinge contestație,0.8352075
+113,înregistrăre candidature semnelor,0.83342683
+113,respingere înregistrăre candidature,0.8322524
+113,candidature semnelor electoral,0.8316765
+113,constituțional respinge,0.8304966
+113,președintelui,0.83029664
+113,presedinte romania,0.8280221
+113,contestație decizie,0.8278855
+113,candidatură george simion,0.8264458
+113,constituțional românia,0.8235067
+113,vot curte constituțional,0.82268596
+113,privind înregistrare,0.8203448
+114,primar capitală nicușor,0.8646369
+114,nicușor dan candidat,0.8510413
+114,președinte psd premier,0.84999985
+114,nicușor dan răspunde,0.8497925
+114,dan primar capitală,0.8489429
+114,președinte românia vrea,0.8439699
+114,usr nicușor dan,0.84217215
+114,acuza nicușor,0.8379781
+114,facebook primar capitală,0.83752596
+114,afirma nicușor,0.83499664
+114,nicușor dan facebook,0.8343843
+114,marcel ciolacu spune,0.83387506
+114,spune premier,0.83254516
+114,alegere prezidențial afirma,0.8310895
+114,vrea ajunge președinte,0.8289858
+115,reacție președinte,0.8485154
+115,guvern dăncilă,0.8435451
+115,președinte klaus iohannis,0.84016764
+115,consultăre cotroceni,0.83424777
+115,șef stat,0.83151674
+115,guvern minoritar,0.83090097
+115,propunere psd,0.8298781
+115,președint partid,0.8297479
+115,psd partidul_național_liberal udmr,0.8277744
+115,psd retrage masă,0.8254591
+115,guvern spune,0.8241561
+115,actual situație,0.8204719
+115,alegere parlamentar anticipat,0.8199799
+115,variantă,0.817744
+115,cadru discuție,0.81607145
+116,prezidențial crin antonescu,0.8861863
+116,antonescu alegere prezidențial,0.88134027
+116,antonescu candidat coaliție,0.8766466
+116,candidature crin antonescu,0.85807514
+116,coaliție guvernare crin,0.85579455
+116,alegere prezidențial lider,0.8548548
+116,susținător călin georgescu,0.85123
+116,crin antonescu alegere,0.84777474
+116,oficial candidatură,0.84422433
+116,lider partid coaliție,0.8420147
+116,coaliție alegere,0.8414169
+116,susținere candidature crin,0.8393724
+116,comun coaliție,0.8347697
+116,dosar candidatură alegere,0.8341217
+116,declara antonescu,0.834031
+117,partid extremă dreaptă,0.86184573
+117,președinte emmanuel macron,0.85215294
+117,franța,0.83390784
+117,parlament european,0.8308579
+117,economică,0.82723784
+117,majoritate absolut,0.8247763
+117,generația,0.82419807
+117,adunare național,0.82299125
+117,ascensiune partid,0.8215145
+117,migrație,0.8197123
+117,partid verde,0.81875277
+117,alianță forma,0.81796753
+117,organiza alegere parlamentar,0.8171384
+117,demitere guvern,0.8163225
+117,tinerilor,0.81517446
+118,deputată usr,0.84547424
+118,conducere cameră deputaților,0.84320784
+118,gen politică,0.840555
+118,femeie bărbat,0.8394419
+118,partidul_național_liberal alina gorghiu,0.8378171
+118,femeie funcție,0.83746564
+118,președinție comisie,0.8340455
+118,purtător cuvânt partidul_național_liberal,0.8297452
+118,reprezentativitate,0.82787514
+118,ultim alegere parlamentar,0.82620525
+118,nivel parlamentar,0.82382154
+118,colegă,0.81958055
+118,copreședint,0.8174032
+118,decât putea,0.81693554
+118,doamnelor,0.8144541
+119,formațiune parlamentar,0.84513533
+119,sediu aur,0.8325145
+119,grevă,0.82446253
+119,președinte academie român,0.8209481
+119,lovitură stat,0.82070124
+119,domn președinte,0.8199552
+119,altercație,0.8186381
+119,comisiilor,0.818578
+119,protestatare,0.81730735
+119,desfășura,0.8154441
+119,piață universitate,0.8152517
+119,bărbat,0.81398165
+119,poliție,0.81297505
+119,tur înapoi,0.8125236
+119,potrivit sursă judiciar,0.812495
+120,președinte interimar românia,0.86447906
+120,bolojan deveni președinte,0.85900295
+120,președinte interimar partidul_național_liberal,0.85769296
+120,președinte interimar partid,0.8525426
+120,președinte senat ilie,0.85006845
+120,demisie funcție președinte,0.8496882
+120,deveni președinte interimar,0.8397008
+120,ilie bolojan prelua,0.8396419
+120,șefie partidul_național_liberal,0.8384613
+120,februarie președinte,0.8358226
+120,demisionează,0.83259344
+120,ședință biroului politic,0.8325504
+120,senat ilie bolojan,0.82437557
+120,functie presedinte,0.8220816
+120,interimat funcție,0.82156336
+121,propunere partidul_sațional_diberal,0.84473777
+121,coaliție parlamentar,0.84039956
+121,partidul_național_liberal anunța,0.83394396
+121,ciolacu guvern,0.8328563
+121,ciolacu declara miercuri,0.83034205
+121,funcție prezidențial,0.83002967
+121,negociere formare guvern,0.82707006
+121,răspunde lider psd,0.82701313
+121,parlamentar propune,0.81987435
+121,depune moțiune cenzură,0.8190167
+121,sediu central psd,0.81779623
+121,cuvânt psd lucian,0.81757253
+121,minoritatilor national,0.8154713
+121,discuție privind,0.81435776
+121,sefiă senat,0.8135197
+122,candidature alegere prezidențial,0.8576042
+122,dosar candidatură,0.84007883
+122,georgescu candidat independent,0.8383733
+122,respinge candidatură,0.8360863
+122,termen limită depunere,0.8251896
+122,cristian terheș partid,0.82349646
+122,partid național conservator,0.8205614
+122,antonescu alianță,0.82035255
+122,partid ligă acțiunii,0.8201257
+122,înregistrare respingere,0.8197967
+122,rămânere definitiv,0.8188002
+122,popescu partid românie,0.81843853
+122,candidature semn electoral,0.818032
+122,conservator român,0.816623
+122,electoral central urma,0.81546557
+123,redresare reziliență pnrr,0.85033023
+123,ministru investiție proiectelor,0.8483761
+123,discuție ministru,0.8419076
+123,reformă fiscal,0.83283335
+123,național redresare,0.825952
+123,investiție proiectelor european,0.8254482
+123,discuție comisie,0.82294345
+123,început ședință guvern,0.8221785
+123,investiție,0.8221555
+123,premier interimar,0.82180625
+123,sursă guvernamental,0.82070243
+123,plan național,0.81719494
+123,ministru marcel,0.815397
+123,proiectelor,0.8139614
+123,reziliență,0.8117782
+124,declarație crin antonescu,0.8683289
+124,spune antonescu candidat,0.8371674
+124,nici_un informație,0.83464974
+124,colaborator securitate,0.8190425
+124,poliție politic,0.8168895
+124,poziție oficial,0.8136157
+124,spune crin,0.8132552
+124,persoană respectiv,0.81086063
+124,adeverință,0.80708456
+124,însă instituție,0.8067199
+124,cristian tudor popescu,0.80645144
+124,urmări,0.8054354
+124,laurențiu antonescu,0.8042048
+124,ști așa,0.8035371
+124,crin laurențiu,0.80349433
+125,privință vot,0.83540887
+125,sprijini călin georgescu,0.8333322
+125,președinte ultim,0.8255085
+125,politic lipsă,0.8240346
+125,nicușor dan george,0.81866074
+125,datorie uriaș,0.81693256
+125,rațional,0.81477517
+125,singur speranță,0.80872107
+125,nici_un situație,0.8068737
+125,românia ști,0.8053484
+125,deosebire george simion,0.8052981
+125,matematică,0.804169
+125,provocare confrunta,0.8036799
+125,parteneriat statele_unite_ale_americii,0.80282784
+125,simion spune,0.8021934
+126,psd președinție românia,0.8632661
+126,psd președinte cameră,0.86207396
+126,presedinte,0.8541715
+126,funcție președinte partid,0.8507198
+126,partid mircea,0.8484676
+126,formatiune politică,0.8442197
+126,parlamentar pdl,0.84383917
+126,partidul_național_liberal demisiona,0.8428278
+126,partidul_sațional_diberal,0.8411323
+126,senat spune,0.83926666
+126,linie partid,0.83680797
+126,popescu tariceanu,0.83566046
+126,parlament romania,0.83490574
+126,mircea geoana,0.8285359
+126,aduce partid,0.8277837
+127,candidat aur președinție,0.8363876
+127,ciucă președinte partidul_național_liberal,0.83379316
+127,alegere prezidențial lider,0.8258848
+127,ciucă întreba,0.8153602
+127,ucraina republică moldova,0.814458
+127,lider partidul_național_liberal iași,0.8126954
+127,partidul_național_liberal nicolae,0.81063807
+127,candidat partidul_național_liberal alegere,0.80973333
+127,cursă cotroceni,0.8095265
+127,george simion intra,0.80787945
+127,simion lider,0.8077839
+127,interdicție,0.80741876
+127,lider aur,0.80567455
+127,nicolae ciucă,0.8046051
+127,serviciu informație extern,0.8003111
+128,investiție,0.8410963
+128,deficit bugetar,0.83853614
+128,prioritate guvern,0.8361138
+128,reformă administrație,0.83115256
+128,alegere nicușor,0.8294759
+128,bancă național românia,0.82663
+128,austeritate,0.8238784
+128,majorare taxă,0.82207996
+128,salarizare,0.8209192
+128,alegere prezidențial însă,0.81864357
+128,economie,0.81360435
+128,potrivit analiză,0.81335336
+128,esențial,0.8130502
+128,perioadă ianuarie,0.81294215
+128,curs valutar,0.81289005
+129,primar capitală nicușor,0.8736863
+129,bucurești primar,0.86185026
+129,nicușor dan primar,0.8579383
+129,dan primar capitală,0.8549056
+129,general nicușor,0.8455943
+129,spune nicușor dan,0.84556746
+129,consiliu general capitală,0.8453399
+129,edil capitală,0.84491897
+129,primărie sector,0.84363186
+129,general municipiu bucurești,0.8410332
+129,bucureștean,0.838014
+129,capitală,0.8317394
+129,taxă impozit,0.8300648
+129,capitală declara,0.8291073
+129,autorizație construcție,0.8288809
+130,guvern grindeanu,0.86836493
+130,presedintă psd,0.8512471
+130,viorica dăncilă spune,0.83593494
+130,program guvernare,0.83553994
+130,oră premier,0.82837987
+130,miniștru,0.8256999
+130,membru guvern,0.8254547
+130,copreședinte,0.82372427
+130,lună ședință,0.82354337
+130,premier mihai tudose,0.8225771
+130,tăriceanu,0.8224675
+130,liviu dragnea declara,0.8200465
+130,grindeanu afirma,0.8200151
+130,sorin grindeanu,0.8184911
+130,retrage sprijin politic,0.81775033
+131,constituție președinte,0.8696348
+131,mandat președinte românia,0.86249053
+131,atribuție președinte,0.8614903
+131,președintelui,0.8544811
+131,senat președinte,0.849699
+131,jurământ președinte,0.84672594
+131,președinte românia desemna,0.8411735
+131,față președinte,0.83967614
+131,articol constituție românia,0.83502996
+131,curte constituțional,0.83337164
+131,potrivit articol constituție,0.83190095
+131,grupurilor parlamentar,0.8316921
+131,senat cameră deputatilor,0.8296865
+131,suspendare funcție,0.829371
+131,comun cameră deputaților,0.8284654
+132,presedintelui traian basescu,0.85924804
+132,opozitiă,0.8379013
+132,listă electoral,0.83587617
+132,motiune cenzură,0.83554566
+132,presedintă,0.8274977
+132,consiliu european,0.82267404
+132,ungureanu,0.82256085
+132,universitatii,0.8212385
+132,curte constitutională,0.82036245
+132,deputati,0.81875706
+132,iunie premier,0.8187567
+132,discutie,0.8157439
+132,jumatate,0.81563354
+132,referendum demitere,0.8146071
+132,victor ciorbea,0.8141067
+133,prezidențial marcel ciolacu,0.8646525
+133,viitor președinte românia,0.85828584
+133,mircea geoană candidat,0.8493551
+133,partidul_național_liberal aur,0.8293979
+133,ciolacu psd,0.82327044
+133,noiembrie marcel ciolacu,0.8177768
+133,intenție vot,0.8161006
+133,călin georgescu independent,0.81475794
+133,cristian terheș pncr,0.8075198
+133,geoană,0.80507463
+133,psd nicolae ciucă,0.8037852
+133,inovație,0.80261827
+133,eșantionare,0.80174786
+133,încredere sondaj,0.801012
+133,perioadă noiembrie,0.7975178
+134,partidul_național_liberal spune,0.8622718
+134,domn tăriceanu,0.85869384
+134,vicepreședintă partidul_național_liberal,0.8553758
+134,președinție consiliu,0.8518443
+134,apariție partid,0.84884197
+134,partidul_național_liberal dan motreanu,0.84776664
+134,democraților,0.8476318
+134,situație românia,0.8416094
+134,alianță liberalilor,0.84029317
+134,călin popescu tăriceanu,0.8388076
+134,român consiliu,0.83739126
+134,joi conferință,0.8369921
+134,retragere sprijin politic,0.835958
+134,partid călin,0.83480835
+134,discuție cadru,0.83404374
+135,cameră deputaților adopta,0.8231733
+135,sănătate alexandru rafila,0.8154557
+135,senator românia,0.8130367
+135,ministru sănătate,0.8127022
+135,interimar constituție,0.8087829
+135,rădăcinile,0.80866635
+135,judecător înalt curte,0.8076068
+135,moțiune,0.80614185
+135,expunere motiv proiect,0.8061119
+135,vota lună,0.80582446
+135,senat mircea abrudean,0.8050916
+135,evaluare,0.8034084
+135,dezbătu,0.8024435
+135,viată,0.80211675
+135,vulpescu,0.80169475
+136,anticorupție,0.8486098
+136,președinte trebui,0.8478871
+136,cadru coaliție,0.8418914
+136,discutabil,0.8357582
+136,românia aștepta,0.8297368
+136,revoluție român,0.82594156
+136,bun decât,0.81876194
+136,turbulență,0.818643
+136,spune analist,0.8184835
+136,funcție atât,0.81834114
+136,politic social,0.81712306
+136,instabilitate,0.8171043
+136,violență,0.81670374
+136,față partener,0.81607145
+136,oră actual,0.8145913
+137,președinte ucrainean,0.8526122
+137,președinte volodimir zelenski,0.82671964
+137,crimă război,0.81338346
+137,rus vladimir putin,0.81215274
+137,persoană răni,0.8067375
+137,duminică președinte,0.8027981
+137,scrie președinte,0.80234015
+137,președinte interimar ilie,0.801084
+137,parte statele_unite_ale_americii,0.7988452
+137,muniție,0.79863083
+137,centru oraș,0.7966719
+137,combatere dezinformăre,0.7961186
+137,ucrainean,0.7935308
+137,loc joacă,0.7926321
+137,casă alb,0.7922634
+138,sefiă psd,0.83754957
+138,sursă conducere partid,0.8366822
+138,primarie capitală,0.8140133
+138,organizație psd bucurești,0.81127256
+138,prelua șefie,0.8108953
+138,ministru transporturilor,0.80888426
+138,demisie marcel ciolacu,0.80542314
+138,vicepresedinti,0.8052005
+138,interimar psd,0.8037841
+138,cv sită,0.8029287
+138,viitor lider,0.8011512
+138,pîrvulescu politolog,0.8006872
+138,politic administrativ,0.800673
+138,grup parlamentar prietenie,0.80042356
+138,ciolacu intrebat,0.7993382
+139,tineret partid,0.86606604
+139,scenă politică,0.84312534
+139,organizatiă,0.8355681
+139,presedintă,0.8326995
+139,revistă,0.8325442
+139,romaneasca,0.8310219
+139,pdl bucuresti,0.8280228
+139,victor ciorbea,0.8275845
+139,membru uniune,0.82707477
+139,politiă,0.82685256
+139,diaconescu,0.8257564
+139,corneliu vadim,0.8242999
+139,petrecere,0.82317257
+139,varstă,0.8204137
+139,scriitor,0.8188702
+140,comisie agricultură,0.85895777
+140,amendamentă,0.846311
+140,spațiu verde,0.83511925
+140,vânătoare,0.834689
+140,animal sălbatic,0.82959247
+140,consorțiu,0.82827467
+140,incidență,0.82811964
+140,autoritate local,0.8273605
+140,procedură urgență,0.82732296
+140,minister mediului,0.82683194
+140,deșe,0.8243035
+140,proiect modificare,0.82419884
+140,grădină,0.82182336
+140,inițiator,0.82071245
+140,cotă,0.8201674
+141,comună,0.84151936
+141,haină,0.8308895
+141,niciunul,0.8301873
+141,măgurele,0.82952976
+141,liniștit,0.82919997
+141,piatră neamț,0.8283979
+141,bărbat an,0.82454014
+141,echipă psd,0.8239376
+141,braț,0.8230775
+141,geacă,0.8216176
+141,buzăului,0.82093096
+141,umbrelă,0.82065403
+141,ploaie,0.81907916
+141,târgoviște,0.81600094
+141,înjura,0.81204563
+142,democrație,0.86822116
+142,dăncilă,0.8450016
+142,blocaj politic,0.8413596
+142,românie puternic,0.8400437
+142,speranță,0.83889145
+142,societate civil,0.8384932
+142,aroganță,0.83781195
+142,așa câștiga,0.8350791
+142,președinte iohannis,0.83435196
+142,lipsă experiență,0.8325502
+142,rău,0.83117336
+142,partid vechi,0.8298462
+142,ion rațiu,0.8290428
+142,familie tradițional,0.8290217
+142,doamnă șoșoacă,0.8260938
+143,președinte psd buzău,0.85675395
+143,primar municipiu buzău,0.84857047
+143,consiliu județean buzău,0.8364876
+143,președinte filială județean,0.8345052
+143,buzău constantin toma,0.83286655
+143,alegere prezidențial primar,0.8309477
+143,romașcanu președinte,0.8231536
+143,psd buzău,0.8200476
+143,primar municipiu,0.8109094
+143,buzău lucian,0.8101139
+143,psd județ,0.80811584
+143,președinte organizație,0.80724436
+143,organizație municipal,0.80592257
+143,conducere partidul_sațional_diberal,0.8039559
+143,demisie marcel ciolacu,0.8034187
+144,educație daniel funeriu,0.89156497
+144,ministru educației,0.8442855
+144,funeriu ministru,0.83605564
+144,prezidențial întreba emisiune,0.8342068
+144,funeriu candidat independent,0.83413136
+144,prezidențial dori,0.8306205
+144,universitate tehnică,0.81767315
+144,șef stat major,0.8172158
+144,spune daniel,0.816888
+144,emisiune insider,0.8102343
+144,președinție afirma,0.8093301
+144,reprezenta instituție medie,0.8083229
+144,românie,0.80495226
+144,numi consilier,0.80474657
+144,dumneavoastră personal reprezenta,0.80299497
+145,primar capitală nicușor,0.8798182
+145,capitală nicușor dan,0.87249696
+145,primarul capitală,0.86623126
+145,primărie capitală spune,0.86604017
+145,nicușor dan primar,0.86509264
+145,nicușor dan candidat,0.85657257
+145,răspunde nicușor dan,0.8528476
+145,nicușor dan declara,0.8519503
+145,capitală declara,0.8505819
+145,candidatură alegere prezidențial,0.84804624
+145,renunța candidatură,0.8478794
+145,candidat dreptă,0.8447627
+145,spune nicușor,0.84400845
+145,consiliu general capitală,0.8434168
+145,sine dori președinte,0.8406451
+146,simion președinte aur,0.8644488
+146,aur președinție,0.83561695
+146,simion român,0.83217573
+146,lider aur candidat,0.82925713
+146,locuință social,0.8287513
+146,imobiliar,0.8272474
+146,promisiune electoral,0.826204
+146,cumpăra apartament,0.8237411
+146,casă euro,0.820279
+146,construcție,0.81792164
+146,propune aur,0.8168957
+146,plan simion,0.8166975
+146,guvernare propune,0.81415045
+146,locuire,0.813336
+146,singur politician,0.8125965
+147,candidatură călin georgescu,0.86097586
+147,georgescu alegere prezidențial,0.85373014
+147,respingere candidature călin,0.83803797
+147,candidatură nicușor dan,0.83692706
+147,participa alegere prezidențial,0.83295894
+147,decizie biroului electoral,0.83051103
+147,privind candidatură,0.82452667
+147,prezidențial lună,0.82407033
+147,cursă prezidențial,0.82363945
+147,formațiune george simion,0.8227685
+147,conducere aur,0.81738424
+147,georgescu transmite,0.8162588
+147,contestație,0.81523806
+147,george simion susține,0.8147311
+147,menține decizie biroului,0.813836
+148,material propagandă electoral,0.85296214
+148,birou electoral județean,0.84822506
+148,autoritate electoral permanent,0.83335745
+148,încheiere campanie electoral,0.83139974
+148,electoral arăta,0.8303884
+148,reclamație,0.8283005
+148,continuare propagandă,0.8278053
+148,președinte românia an,0.8209078
+148,legislație,0.8186518
+148,atrage atenție public,0.8166886
+148,sesizare,0.81240165
+148,activitate instituție,0.81191325
+148,aur anunța,0.8118753
+148,alianță unire românilor,0.8099614
+148,județean ilfov,0.8099084
+149,guvernare coaliție,0.8644186
+149,partidul_național_liberal usr udmr,0.84078926
+149,lider partidul_național_liberal psd,0.83946323
+149,schimbare premier,0.83272433
+149,secretar general guvern,0.83155155
+149,ministerelor,0.83113533
+149,modificare constituție,0.8281174
+149,jumătate mandat,0.8274352
+149,minoritatilor national,0.82439184
+149,negociere psd,0.8242897
+149,echipă negociere,0.8234584
+149,purtător cuvânt partid,0.82244635
+149,udmr minoritate,0.82204676
+149,premier cîțu,0.8219349
+149,decizie privință,0.8207892
+150,purtător cuvânt partidul_național_liberal,0.8435433
+150,variantă premier,0.8391544
+150,coaliție putea,0.83807755
+150,președinte partid social,0.83701205
+150,partid guvernare,0.83293116
+150,campanie alegere prezidențial,0.826725
+150,poziție ministru,0.82274973
+150,ședință discuta,0.8172434
+150,social democrație,0.8152653
+150,lucian romașcanu purtător,0.8136963
+150,guvern uniune național,0.8117334
+150,declara marcel ciolacu,0.8116578
+150,psd liberalii,0.8109194
+150,sediu central psd,0.809283
+150,cuvânt psd,0.8092182
+151,clotilde armand primar,0.8521062
+151,diferență candidat,0.8389081
+151,europarlamentar însă,0.8365612
+151,salubrizare,0.8282864
+151,politică românesc,0.825089
+151,funcție primar,0.82432044
+151,strânge vot,0.824274
+151,partidul_național_liberal primărie,0.823168
+151,locuitor sector,0.8212583
+151,reprezentantă,0.82019985
+151,prelua mandat,0.8182969
+151,usr bucurești,0.81625783
+151,curs desfășurare,0.8160341
+151,confruntare,0.81468296
+151,primar ales,0.81348455
+152,lulea vicepreședinte aur,0.83971214
+152,cheltuială electoral,0.8303465
+152,aur sumă,0.82645565
+152,băncilor,0.82465017
+152,împrumutură,0.81869704
+152,firmă controla,0.81729996
+152,campanie alegere europarlamentar,0.8171377
+152,partid alianță unire,0.81681085
+152,politic instituție,0.8149476
+152,finanțare,0.81478095
+152,autoritate electoral permanent,0.8140944
+152,lună aprilie,0.81286055
+152,declara sursă,0.81167394
+152,relație afacere,0.8106158
+152,aur parte,0.8104352
+153,președinte românia ministru,0.85001117
+153,politolog andrei țăranu,0.8479622
+153,românia condiție,0.83768106
+153,stabilitate politic,0.8375424
+153,consiliu național partidul_național_liberal,0.8370739
+153,general rezervă,0.8342825
+153,revistă pressei newsletter,0.8269272
+153,premier ciucă,0.8253752
+153,consecință,0.8221408
+153,parlament bucurești,0.8210711
+153,apărea partid,0.81937295
+153,masă discuție,0.81539875
+153,faliment,0.81528515
+153,spune situație,0.81371987
+153,ministru florin,0.81369066
+154,băsescu pdl,0.867079
+154,președinte traian băsescu,0.85998297
+154,partidul_dațional_liberal,0.83862084
+154,scrisoare președinte,0.83823526
+154,noiembrie alegere prezidențial,0.8370949
+154,electoral vorbă,0.83384764
+154,lider psd afirma,0.8306249
+154,parlamentar urma,0.83012366
+154,presedintă traian,0.8249583
+154,psd întâlni,0.8248033
+154,premier coaliție,0.8245168
+154,cristian pîrvulescu explica,0.82430977
+154,privi situație,0.8208193
+154,problemă intern,0.82063353
+154,masiv român vota,0.8198174
+155,începe vineri,0.84984577
+155,șoferilor,0.8492025
+155,secundă,0.84618574
+155,joi oră,0.8454766
+155,distanță față,0.84100425
+155,zăpadă,0.84034467
+155,valabil oră,0.83861965
+155,probabilitate,0.83692086
+155,galben,0.8351263
+155,alimentație,0.8349434
+155,deosebit,0.8338174
+155,curs lună,0.8324901
+155,notificare,0.82936525
+155,trecător,0.8291155
+155,județ giurgiu,0.8282815
+156,ilie bolojan președinte,0.8667413
+156,partidul_național_liberal sector,0.83231074
+156,prezidențial coaliție guvernare,0.8291964
+156,clientelă politic,0.8274895
+156,partid problemă,0.8209137
+156,program investiție,0.8207522
+156,crede președinte,0.8170195
+156,interimar liberal,0.8079918
+156,bolojan considera,0.8061389
+156,minister tineret,0.8059265
+156,reuși câștiga alegere,0.8050547
+156,mandat cotroceni,0.8048074
+156,gândiți,0.8040254
+156,an relație,0.800048
+156,parlament ține,0.7998532
+157,socialiștilor,0.85992527
+157,față partid,0.8430419
+157,președinte grup,0.8394207
+157,influență politic,0.8389154
+157,alegere prezidențial confrunta,0.83516645
+157,candidat finală,0.8325126
+157,lucru nicușor dan,0.83207977
+157,eurodeputat,0.82815564
+157,victoria stoiciu,0.8254676
+157,tradițional,0.82530487
+157,psd românia,0.8241
+157,căsătorie persoană sex,0.821711
+157,susține nici_un candidat,0.8201697
+157,activistă,0.8186468
+157,mandată,0.8162631
+158,terheș candidat,0.8614221
+158,cristian terheș,0.85482836
+158,președinte partid național,0.8516648
+158,participa președinte,0.8441032
+158,conservatorilor reformiștilor,0.8431355
+158,europarlamentar cristian,0.84175676
+158,poziție public,0.8381076
+158,conservator român,0.8378788
+158,candida alegere parlamentar,0.8360785
+158,intrare politică,0.8348539
+158,funcție președinte românia,0.8332254
+158,alegere europarlamentr iunie,0.83189845
+158,centru dreaptă,0.8312758
+158,dăncilă spune,0.8272292
+158,reprezenta românia,0.82645833
+159,intervenție chirurgical,0.84268665
+159,împrăștia,0.84125924
+159,stenogramă,0.83476543
+159,știi,0.83318627
+159,compoziție,0.8317952
+159,bătrân,0.83127344
+159,interminabil,0.83038944
+159,milion alegător,0.8294236
+159,vedea televizor,0.8293228
+159,coșmar,0.82890517
+159,scară,0.827043
+159,om rând,0.82461685
+159,cărămidă,0.8205173
+159,aventură,0.8203131
+159,cașcaval,0.81965744
+160,politică românesc,0.85967314
+160,atât psd pnl,0.85955393
+160,opoziție,0.8524753
+160,împreună partidul_național_liberal,0.8428849
+160,usr alianță,0.8400059
+160,premier ciolacu,0.8281585
+160,guvern moment,0.8277056
+160,dăncilă,0.8270577
+160,reformă,0.8266872
+160,degrabă,0.82493854
+160,absorbție fond,0.82262176
+160,crede șansă,0.81758964
+160,partid radical,0.81530905
+160,previzibil,0.81490225
+160,supraviețuire,0.8144473
+161,călin georgescu candidat,0.8698504
+161,investigație jurnalistic,0.81665206
+161,funcție ministru guvern,0.8137248
+161,georgescu apărea,0.8130207
+161,legătură politic,0.8125334
+161,georgescu critica,0.8119737
+161,consilier personal,0.8107307
+161,mircea geoană,0.81038934
+161,precum președinte,0.8095832
+161,călin,0.809551
+161,mediului,0.80580914
+161,geoană declara,0.8030256
+161,articol presă,0.8028729
+161,centru național,0.8026321
+161,dezvoltare durabil,0.8024334
+162,consiliu județean iași,0.87227845
+162,partidul_național_liberal iași,0.85604703
+162,membru biroului electoral,0.8445212
+162,psd iași,0.8420273
+162,local primărie,0.84188443
+162,urnă vot,0.8354564
+162,ieșean,0.833654
+162,listă usr,0.8314278
+162,candidat alegere local,0.83133805
+162,consiliu local,0.8311336
+162,partidul_național_liberal continua,0.8310251
+162,votare potrivit,0.82984376
+162,ocupare funcție public,0.82948565
+162,dosar corupție,0.8279959
+162,alianță dreapta,0.8237685
+163,crin antonescu președinte,0.88129854
+163,antonescu președinte partidul_național_liberal,0.87152445
+163,șefie partidul_național_liberal,0.84589326
+163,antonescu lider,0.8458877
+163,antonescu candidat comun,0.84333694
+163,prezidențiabil,0.84271705
+163,antonescu întreba emisiune,0.8383439
+163,antonescu ieși,0.8382272
+163,dragnea președinte,0.8379266
+163,psd președinte cameră,0.8373929
+163,ieșire guvernare,0.83478844
+163,spune antonescu,0.83169377
+163,mandat presedinte,0.8281467
+163,crin antonescu crin,0.8274398
+163,comun coaliție,0.82409656
+164,șef executivului spune,0.8665308
+164,președinte pmp,0.8627768
+164,președinte premier,0.85733956
+164,politic menționa,0.8502095
+164,coaliție politic,0.8488108
+164,europarlamentar victor negrescu,0.8445244
+164,conchide președinte,0.8416289
+164,important decât,0.8410221
+164,comentariu,0.8363738
+164,continua reclamă,0.835365
+164,românia uniune,0.83481383
+164,partid încheia,0.83443606
+164,postare facebook,0.8337986
+164,partidul_mațional_piberal,0.831278
+164,spune victor ponta,0.829656
+165,pnrr,0.8160993
+165,instituție public,0.81580055
+165,responsabil,0.8144685
+165,autorii,0.8118857
+165,bază,0.8111397
+165,detaliu,0.81011677
+165,deschis,0.8050231
+165,întreba măsură,0.80282897
+165,întreține,0.8024178
+165,propagandă,0.8006524
+165,tristețe,0.7887145
+165,realizare,0.78650075
+165,cîștiga,0.7864253
+165,frică frică,0.77874446
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+165,,0.7777024
+166,activitate parlamentar,0.8602356
+166,ședință plen,0.8511883
+166,indemnizație lunar,0.8438309
+166,primi interdicție,0.8425876
+166,consiliilor,0.8409052
+166,violență domestic,0.8374075
+166,persoanelor,0.83675534
+166,partidul_național_liberal psd udmr,0.8357142
+166,comisie muncă,0.83290076
+166,inspecție,0.8308298
+166,reținere,0.82969797
+166,persoană dizabilitate,0.82951915
+166,legii privind,0.82815015
+166,investiție străin,0.82743967
+166,propunere,0.8266884
+167,președinte cj timiș,0.8943836
+167,președinte consiliu județean,0.8819909
+167,personal președinte,0.860036
+167,timiș alfred simonis,0.8544687
+167,spune șef partid,0.85210884
+167,direcționa vot,0.8501004
+167,echipă consilier,0.849787
+167,județean,0.8473771
+167,uniune național consiliilor,0.8444468
+167,deputat gigel știrbu,0.83893967
+167,alegere local iunie,0.8382224
+167,mandat încheia,0.8376287
+167,joi conferință,0.8354653
+167,primar municipiu,0.8338232
+167,timiș,0.8333076
+168,referendum demitere președinte,0.8679213
+168,demisie președinte klaus,0.8623563
+168,funcție președinte interimar,0.8535605
+168,bolojan deveni președinte,0.8488216
+168,președinte klaus iohannis,0.8431222
+168,prezidențial veni,0.8370425
+168,trebui președinte,0.8342227
+168,discuta alegere prezidențial,0.8333914
+168,șef senat,0.8328599
+168,suspendare funcție,0.8324777
+168,încălca constituție,0.8321111
+168,klaus iohannis demisiona,0.8303961
+168,lună demisie,0.8277315
+168,românia declarație,0.82597715
+168,demisionez,0.8220812
+169,ședință guvern,0.8553306
+169,guvern ciolacu,0.84750825
+169,finanțelor,0.84275377
+169,ordonanță trenuleț,0.84220934
+169,candidat prezidențial,0.84142065
+169,înghețare pensie,0.837028
+169,prezidențial mircea geoană,0.8343841
+169,ofertă electoral,0.8334489
+169,urgență prevedea,0.83328074
+169,număr secretar stat,0.83151644
+169,direcție strategic,0.8302818
+169,autoritate instituție public,0.8285378
+169,construcție,0.8276215
+169,posturilor,0.82519495
+169,schemă ajutor,0.82420576
+170,influență rus,0.8441793
+170,alegere prezidential romania,0.82558346
+170,cuvânt kremlin,0.8199522
+170,agenție presă,0.8132798
+170,sugerează,0.811981
+170,franța,0.8085967
+170,maniunea_europeană,0.8043393
+170,interdicție părăsi,0.80349576
+170,aplicație mesagerie,0.80304193
+170,autenticitate,0.80216426
+170,dmitri peskov,0.8016059
+170,fondatorul,0.80111766
+170,conservator românia,0.8010057
+170,transmite duminică,0.80013037
+170,stat rus,0.7986642
+171,marcel ciolacu candidat,0.8534391
+171,ciolacu începe,0.83217275
+171,premier românia,0.83110213
+171,președinte cameră,0.8207711
+171,organizație municipal psd,0.8190853
+171,buzăul,0.8160949
+171,dezvoltare local,0.81508166
+171,finanțelor public,0.81394607
+171,colegiu național apărare,0.81236446
+171,cookie permite afișare,0.8122926
+171,luptător,0.8114996
+171,ieși stradă,0.8092129
+171,diploma bacalaureat,0.8087027
+171,indemnizație,0.808554
+171,perfecționare,0.8082379
+172,anulare alegere prezidențial,0.8591198
+172,invalida candidatură călin,0.855525
+172,curte constituțional anulare,0.85229814
+172,constituțional ccr,0.8470415
+172,decizie ccr anulare,0.8465431
+172,contestație decizie,0.8404163
+172,președinte aur george,0.8387661
+172,privind anulare,0.83185315
+172,judecător constituțional,0.82983387
+172,casație justiție,0.82950574
+172,mandată senator,0.8277471
+172,aur anamaria gavrilă,0.823352
+172,ccr privind,0.8233204
+172,anulare tur alegere,0.817407
+172,repetiție,0.8173717
+173,prezidențial nicușor,0.8520833
+173,capitală nicușor dan,0.838848
+173,formulă guvernare,0.83768964
+173,guvern psd partidul_național_liberal,0.83514434
+173,rămâne opoziție,0.8349327
+173,nicușor dan întreba,0.8274945
+173,cădea guvern,0.82735085
+173,președinte interimar alegere,0.8255762
+173,primarul capitală,0.8240008
+173,cadru coaliție,0.82104045
+173,explica situație,0.8193949
+173,emisiună politică,0.81931716
+173,potrivit nicușor,0.8190031
+173,ajunge președinte,0.818198
+173,nominalizare premier,0.8178588
+174,marcel ciolacu președinte,0.8510192
+174,lider partidul_național_liberal spune,0.8401822
+174,ciucă președinte partidul_național_liberal,0.8386924
+174,noiembrie alegere prezidențial,0.8295255
+174,parlamentar președinte,0.8259819
+174,candidat comun președinție,0.8242935
+174,candidat alegere europarlamentar,0.81926453
+174,partidul_național_liberal accepta,0.81826574
+174,românia coaliție,0.8171326
+174,prezidențial tur,0.8135084
+174,următor parlament,0.8110957
+174,europarlamentare loc,0.81032515
+174,purtător cuvânt psd,0.8087538
+174,alegere parlamentar psd,0.8069732
+174,listă alegere,0.806864
+175,antonescu funcție președinte,0.85727847
+175,crin antonescu candidat,0.8553304
+175,rămâne crin antonescu,0.8499217
+175,adresă crin antonescu,0.8434849
+175,spune marcel ciolacu,0.8433784
+175,alegere prezidențial ține,0.83919156
+175,antonescu întreba emisiune,0.83842796
+175,afirmație candidat,0.8382548
+175,președinte puternic,0.83353746
+175,ciolacu susține,0.82916063
+175,spune antonescu,0.82887256
+175,primărie capitală spune,0.8267102
+175,vârf psd,0.8236743
+175,candidat comun coaliție,0.8232047
+175,membru formațiune politic,0.820659
+176,justitiei radu marinescu,0.85349953
+176,privatizare,0.8465123
+176,investitii,0.8462131
+176,minister fondurilor european,0.8412924
+176,începe urmărire penal,0.8400923
+176,interes național,0.8380501
+176,trafic influență,0.83346987
+176,consiliu director,0.83346343
+176,înscrie unpr,0.83250684
+176,oficiului,0.82920754
+176,finantelor,0.8286222
+176,patriciu,0.82826626
+176,locuintă,0.82502675
+176,articol jurnal,0.8240811
+176,stat roman,0.82291806
+177,prezidențial crin antonescu,0.8654914
+177,antonescu candidat coaliție,0.8495475
+177,crin antonescu urmărește,0.8481091
+177,usr retrage sprijin,0.831061
+177,retrage sprijin elena,0.8280992
+177,elena lasconi candidat,0.82480854
+177,retragere sprijin politic,0.8243734
+177,preciza crin antonescu,0.82351744
+177,coaliție guvernare alegere,0.82300013
+177,nicușor dan contracandidat,0.8206365
+177,anulare alegere spune,0.817039
+177,decizie usr,0.8169397
+177,președinție românia,0.8165852
+177,potrivit antena cnn,0.8158505
+177,antonescu explica,0.8156323
+178,presedinte interimar,0.84834284
+178,partid forță,0.84700346
+178,natională,0.82854253
+178,frontului,0.82145166
+178,parteneriat strategic stat,0.8172004
+178,cetatean,0.8154464
+178,retrogradare,0.8145593
+178,romania,0.8140521
+178,piată,0.8102561
+178,formatiune,0.80788136
+178,aproximativ miliard,0.8065733
+178,presedinti,0.8064656
+178,popor roman,0.80429065
+178,vremelnic,0.8016765
+178,economica,0.80116343
+179,suspendare președinte,0.8739934
+179,curte constituțional președinte,0.84866244
+179,președinte senat ilie,0.84418726
+179,grupurilor parlamentar,0.84378123
+179,președinte klaus iohannis,0.8416557
+179,reuni cameră deputaților,0.83699405
+179,funcție președinte klaus,0.8358382
+179,guvern ciucă,0.8278675
+179,cerere suspendare,0.8278108
+179,deputat senatore,0.82629704
+179,constituțional spune,0.82496506
+179,suspendare klaus,0.8208107
+179,semna parlamentar aur,0.8182827
+179,sesiune,0.8173579
+179,armistițiu,0.8137826
+180,coaliție asigura,0.84492326
+180,formatiune politic,0.8267114
+180,uniune democrată maghiar,0.82387817
+180,minorităților,0.8213698
+180,semnatar,0.8158237
+180,democrate,0.81548417
+180,românia reprezentant,0.8154307
+180,partid national liberal,0.81369877
+180,european reformă,0.8106154
+180,aliantă,0.8095726
+180,semna miercuri,0.8094522
+180,obiectivele,0.80854106
+180,psd pnl udmr,0.8073431
+180,conformitate prevedere,0.8063743
+180,componentă,0.80421275
+181,național românia,0.8493426
+181,deputaților for,0.848966
+181,cultural românesc,0.84631956
+181,proiect hotărâre guvern,0.84223676
+181,autoritate instituție public,0.8402178
+181,desființare,0.8401693
+181,propunere legislativ,0.8386823
+181,zilei,0.83829665
+181,condiție lege,0.8347203
+181,doamnă ministru,0.8336237
+181,situație dramatic,0.8319092
+181,inițiator proiect,0.8316935
+181,aprilie,0.83053243
+181,președinte asociație,0.8294698
+181,radio televiziune,0.82672745
+182,iliescu președinte,0.8679681
+182,candida președinție,0.8452462
+182,președinte psd mircea,0.841558
+182,candidat partidul_sațional_diberal,0.8331919
+182,onoare psd,0.8277683
+182,psd candidat propriu,0.8259002
+182,situație intern,0.8195438
+182,afirma șef stat,0.8175386
+182,adrian năstase ion,0.8135562
+182,problemă securitate,0.81283045
+182,românia viitor,0.81254363
+182,marcel ciolacu întrebat,0.8112049
+182,vedea politică,0.8078793
+182,diaconescu spune,0.80747813
+182,comentează,0.80738926
+183,poliție român,0.84831154
+183,închisoare executare,0.84820867
+183,proiect lege,0.8421205
+183,permis conducere,0.84155536
+183,deputaților for,0.84133816
+183,traficant drog,0.8378949
+183,cod penal,0.83596617
+183,șofer,0.8359167
+183,pedepsei,0.835891
+183,prescripție,0.83458257
+183,sânge,0.8251103
+183,pedepsă,0.8192208
+183,interzicere,0.81901765
+183,analiză,0.8175749
+183,daniel fenechiu,0.81615967
+184,administrație public local,0.8565408
+184,perioadă electoral,0.8496992
+184,deputaților vot,0.8449924
+184,reformă administrativ,0.8435056
+184,președint consiliu județean,0.8416252
+184,democrație românesc,0.8363939
+184,decizional,0.82945776
+184,listă partid,0.82700574
+184,privind migrație,0.82647735
+184,procedură urgență,0.8255979
+184,comunelor,0.82417226
+184,bucurești primar,0.8228351
+184,ordonanță,0.8219266
+184,consilier local consilier,0.82136005
+184,traseism politic,0.8211628
+185,nicușor dan câștiga,0.85053015
+185,câștiga județ,0.8366596
+185,george simion câștiga,0.83497345
+185,candidat coaliție,0.8322844
+185,antonescu câștiga,0.8304867
+185,număr total alegător,0.82940555
+185,aur obține vot,0.8275587
+185,vot bucurești,0.8260653
+185,partidul_național_liberal george,0.82251775
+185,crin antonescu nicușor,0.8215874
+185,alegere majoritate,0.82129014
+185,simion diferență,0.8203336
+185,câștigă,0.8191111
+185,câștiga psd,0.8168216
+185,loc nicușor,0.8167473
+186,judecatoreasca,0.8653457
+186,superior magistraturii,0.8577076
+186,casatie justitie,0.84314716
+186,lege privind statut,0.8419599
+186,privind cod fiscal,0.83551943
+186,hotarare,0.8317723
+186,asociatiă,0.83026886
+186,impozit,0.82869416
+186,resursă uman,0.8277415
+186,urgentă,0.8256886
+186,cod procedură,0.8253982
+186,indeplinire,0.8229827
+186,competentă,0.82266223
+186,prezent proiect,0.82067204
+186,fond rezervă,0.82011825
+187,prezidențiabil,0.84423864
+187,național investiție,0.83630013
+187,partid șansă,0.8333136
+187,politică schimba,0.8250723
+187,guvern tăriceanu,0.82278174
+187,alegere europarlamentar,0.8223541
+187,partid national liberal,0.82087284
+187,prag electoral,0.81619316
+187,fragmentare,0.8145181
+187,puternic decât,0.8135051
+187,ambiție,0.8110282
+187,dreptă,0.8092401
+187,societate civil,0.807848
+187,om credință,0.8062989
+187,trebui merge vot,0.8038784
+188,poziție marcel ciolacu,0.84652436
+188,discuta președinte,0.8373625
+188,marți ședință,0.8307272
+188,formulă guvernare,0.8302113
+188,europarlamentar victor negrescu,0.8273694
+188,eventual coaliție,0.8267491
+188,consiliu politic,0.82469565
+188,ședință informal,0.8180901
+188,sursă conducere,0.81695294
+188,potrivit europarlamentar,0.8165399
+188,psd discuta,0.8159164
+188,vedea discuție,0.8151858
+188,afirma vicepreședinte,0.81460476
+188,viitoare guvernare,0.8142917
+188,frunte partid,0.81378216
+189,președinte ion iliescu,0.88976383
+189,iliescu spune,0.8505744
+189,ionescu,0.8413217
+189,revoluționar,0.8404113
+189,general instituție,0.8282695
+189,rețea social,0.81999886
+189,informație arăta,0.8176516
+189,spune ion,0.81418175
+189,încă decembrie,0.8117975
+189,românia economie,0.81116426
+189,comunism,0.8101994
+189,emil constantinescu,0.80860543
+189,vulpescu,0.8083002
+189,voiculescu,0.8070742
+189,spune întâmpla,0.805417
+190,votant călin georgescu,0.8677503
+190,vota alegere prezidențial,0.85476613
+190,autorității electoral permanent,0.84597194
+190,susținător declarat,0.8328804
+190,dan câștigător,0.83074427
+190,gazetar cristian tudor,0.8293247
+190,ccr anulare,0.8264451
+190,ajunge președinte țară,0.8244426
+190,popescu declara,0.82303953
+190,alegere călin,0.8201961
+190,decât elena,0.81580293
+190,stat străin,0.8131559
+190,vot exprima,0.81313044
+190,susține victorie,0.81292945
+190,prelua ștafetă,0.81264824
+191,desfășurare proces electoral,0.86855626
+191,secție votare,0.86812735
+191,organizare alegere prezidențial,0.8503601
+191,telecomunicații special,0.84399164
+191,scrutin duminică,0.8434461
+191,tehnologie informație,0.841761
+191,vot rămâne,0.8409803
+191,buletină vot,0.8396014
+191,prevenire vot ilegal,0.8393433
+191,administrație prezidențială,0.83774686
+191,cere renumărare vot,0.833183
+191,alegere funcție președinte,0.83268094
+191,cetățenilor român,0.83217347
+191,transparență,0.8316519
+191,monitorizare prezență,0.8314831
+192,prezidențial nicușor dan,0.86769855
+192,primar capitală nicușor,0.85397387
+192,nicușor dan candidat,0.8479851
+192,explica nicușor dan,0.8409487
+192,capitală candidat independent,0.8401082
+192,candidat prezidențial parte,0.8367871
+192,cotroceni nicușor dan,0.83441335
+192,electoral alegere prezidențial,0.8343555
+192,lasconi primar capitală,0.83312654
+192,independent prezidențial,0.83299106
+192,edil capitală,0.83091843
+192,sublinia nicușor dan,0.8300175
+192,retrage cursă cotroceni,0.8259015
+192,prezidențial lună potrivit,0.82375515
+192,cursă prezidențial,0.82039833
+193,soluție guvernare,0.85496736
+193,marius lulea vicepreședinte,0.8455397
+193,guvern minoritar,0.8408568
+193,român alege președinte,0.8317119
+193,majoritate parlamentar,0.8306255
+193,național conducere aur,0.8275739
+193,prezidențial trebui,0.8271062
+193,reducere taxă,0.823678
+193,partidul_național_liberal accepta,0.82337195
+193,spune vicepreședinte,0.8217716
+193,aur călin georgescu,0.82160383
+193,premier călin,0.8194872
+193,adăuga aur,0.8187361
+193,șef interimar stat,0.8181819
+193,părere psd,0.8169199
+194,privind alegere președinte,0.84553695
+194,democrație,0.8333605
+194,primar președint,0.8209784
+194,finanțare ilegal,0.8165779
+194,emisiune politică ioana,0.8156537
+194,instabilitate politic,0.81394553
+194,război hibrid,0.81002736
+194,român conduce,0.80768013
+194,semna candidatură,0.8073729
+194,exista nici_un dovadă,0.8072659
+194,cadru emisiune modera,0.80695224
+194,înțelege întâmpla,0.8037424
+194,partid anumit,0.8027023
+194,stat spune,0.8017626
+194,lucru complica,0.8009366
+195,lider extremă dreaptă,0.8567405
+195,următor guvern,0.8421539
+195,opozitiă,0.8355837
+195,elită politic,0.83360845
+195,partid liberal,0.82639736
+195,politică migrație,0.8263676
+195,urnă vot,0.8244593
+195,bancă central,0.8241242
+195,ministru finant,0.82351065
+195,guvernator,0.82188964
+195,alegere legislativ anticipat,0.8177104
+195,majoritate absolut,0.81766695
+195,deputat declara,0.8111273
+195,directoare,0.8109187
+195,revendicare,0.809272
+196,bolojan lider partidul_național_liberal,0.865072
+196,eurodeputat partidul_național_liberal,0.8566763
+196,partidul_național_liberal rareș,0.8519485
+196,filială partidul_național_liberal,0.84786695
+196,partidul_național_liberal moment,0.8419869
+196,europarlamentar rareș,0.84111243
+196,intra opoziție,0.84084177
+196,partid situație,0.83420575
+196,vot cameră deputaților,0.83356607
+196,afirma europarlamentar,0.83045125
+196,membru pnl,0.8263149
+196,echipă conducere partid,0.8258182
+196,declara rareș bogdan,0.82564414
+196,pierde funcție,0.824883
+196,vicepresedintă,0.8230932
+197,românia președinție,0.8595177
+197,președinte klaus iohannis,0.8466373
+197,criză guvern,0.84590614
+197,alegere prezidențial situație,0.8414395
+197,credibilitate românia,0.84121895
+197,afirma șef,0.8398809
+197,trecut președinte,0.8378041
+197,modificare constituție,0.8308748
+197,conferință presă palat,0.83070636
+197,românia plan extern,0.83047205
+197,președinție rotativ consiliu,0.829485
+197,stat spune,0.82711947
+197,austeritate,0.8259499
+197,situație complica,0.8255544
+197,instituție public trebui,0.8253882
+198,politolog george jiglău,0.82930416
+198,percepție public,0.8253097
+198,celălalt candidat,0.82498753
+198,rând alegător,0.8193892
+198,propagandă rus,0.8180269
+198,spune cristian pîrvulescu,0.8167246
+198,șefei usr,0.8127469
+198,spune sociolog,0.8111187
+198,socializare,0.80934685
+198,principal candidat alegere,0.8090304
+198,analist politic cristian,0.80783266
+198,formațiune susține,0.8072595
+198,atât nicușor,0.8046452
+198,lasconi mircea geoană,0.8044481
+198,campanie derula,0.8025491
+199,georgescu lider,0.8563123
+199,dictatură,0.84419346
+199,bolșevic,0.8423809
+199,credință,0.841125
+199,trump câștiga,0.83937216
+199,decât vot,0.8381052
+199,putere președinte,0.8369144
+199,celălalt candidat,0.8338932
+199,popoarelor,0.8337396
+199,rușii,0.83362305
+199,simion român,0.8334226
+199,înclinație,0.83306754
+199,loviture stat,0.83032894
+199,execuție,0.82786185
+199,turnător,0.8265632
+200,democratizare,0.8606388
+200,presedintelui,0.8485295
+200,problemă romania,0.83514595
+200,ceausescu,0.8336835
+200,calin georgescu,0.8248988
+200,antisistem,0.8197305
+200,romania,0.8159858
+200,jumatate,0.81545293
+200,mână stâng,0.81474507
+200,matei udrea,0.81242573
+200,infiinta,0.8115077
+200,european democratic,0.8091052
+200,municipiu constanța,0.80901027
+200,fortă,0.8088564
+200,suveranisti,0.80839735
+201,polițienesc,0.84443384
+201,percheziție,0.8415997
+201,politic politică,0.8361994
+201,polemică,0.83008385
+201,cătălin predoiu,0.82369614
+201,declara călin georgescu,0.82360446
+201,violență fizic,0.8234256
+201,stat paralel,0.82252145
+201,telefoanelor,0.8224531
+201,cetățean românia,0.82213557
+201,explicație,0.8219845
+201,candidat spune,0.82087976
+201,ministru afacere interne,0.8196728
+201,mascație,0.81474984
+201,procuror caz,0.81461704
+202,președinte românia klaus,0.8496219
+202,relație bilateral,0.8469692
+202,iohannis președinte,0.83881664
+202,palat cotroceni președinte,0.8329778
+202,totodată președinte,0.8230479
+202,vizită,0.81977755
+202,politică extern politică,0.81309986
+202,atribuție constituțional,0.8129732
+202,șef misiune,0.8121439
+202,consiliu uniune european,0.81113315
+202,relevanță,0.81043696
+202,potrivit administrație,0.8096928
+202,stat membră uniune,0.80936354
+202,declarație comun,0.80885565
+202,premier republicii,0.8078152
+203,român ieși vot,0.8533101
+203,vot esențial,0.84708047
+203,comunitate românesc,0.8307972
+203,apel român,0.8267137
+203,influența direcție,0.8251099
+203,exista românia,0.8226266
+203,uniunea_europeană românia,0.8218569
+203,românia merge,0.8195553
+203,întoarce,0.81513155
+203,valoare democratic,0.813226
+203,lucru gândi,0.8111458
+203,politic opinie,0.80991685
+203,daniel băluță,0.80924845
+203,fondurile,0.8086145
+203,rațional,0.808169
+204,călin georgescu susține,0.8475299
+204,consiliu național conducere,0.8372682
+204,partid alegere prezidențial,0.83484745
+204,președinte românia președinte,0.83472025
+204,public poziție,0.8217538
+204,aur reacție,0.82120085
+204,susținere george simion,0.8203571
+204,simion anamaria gavrilă,0.8182063
+204,președinție declara,0.81818455
+204,georgescu cadru,0.8173584
+204,deputat spune,0.8164017
+204,simion claudiu târziu,0.8157147
+204,veni explicație,0.81518984
+204,târziu,0.8110448
+204,românia republică moldova,0.81097496
+205,pacientă,0.85916173
+205,sănătate mintal,0.85262287
+205,instituționaliza,0.84564364
+205,minister sănătății,0.8425591
+205,bolnav,0.84034574
+205,asistență,0.838896
+205,psihiatrie,0.8381124
+205,persoană dizabilitate,0.83765745
+205,cronică,0.8367739
+205,rezidențial,0.8350977
+205,monitorizare,0.82958376
+205,țară vest,0.8249624
+205,îngriji,0.82444453
+205,serviciu sănătate,0.8241776
+205,asistent social,0.82127714
+206,partid extremist aur,0.86160946
+206,susținător partid,0.85477537
+206,alianță unire românilor,0.8505714
+206,ultranaționalist,0.8490643
+206,parlament listă,0.835268
+206,agresivitate,0.8344552
+206,aur față,0.8319111
+206,românesc,0.831077
+206,expertă,0.8287158
+206,uniune european,0.82563055
+206,criminal război,0.8251358
+206,conspirație,0.8246417
+206,avorturilor,0.8235291
+206,bucurești partid,0.82207716
+206,neamțu,0.82183325
+207,psd paul stănescu,0.855491
+207,șef consiliu județean,0.8351518
+207,alegere prezidențial loc,0.83249974
+207,candidature crin antonescu,0.83173966
+207,psd apărea,0.8299664
+207,marcel ciolacu lider,0.82698095
+207,greșeală strategic,0.826651
+207,coaliție întâlni,0.8248733
+207,partid menționa,0.8245874
+207,partidul_național_liberal domn,0.8237287
+207,lider psd cere,0.822871
+207,antonescu susține,0.8214825
+207,ușilor închis,0.81868464
+207,declara sursă politic,0.81857264
+207,psd candidat,0.8180888
