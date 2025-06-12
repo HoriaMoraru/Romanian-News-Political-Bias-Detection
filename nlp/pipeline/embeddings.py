@@ -51,13 +51,6 @@ def get_article_embeddings_vector(
         return torch.stack(chunk_embeddings, dim=0).mean(dim=0)
     return chunk_embeddings[0]
 
-
-def skip_article(text: str, min_words: int = 30) -> bool:
-    if not text or not text.strip():
-        return True
-    return len(re.findall(r"\w+", text)) < min_words
-
-
 def get_word_embeddings(
     vocab: list[str],
     tokenizer: AutoTokenizer,
@@ -109,7 +102,6 @@ if __name__ == "__main__":
     urls, sources, art_embs = [], [], []
     for url, src, text in tqdm(zip(df['url'], df['source_domain'], df['cleantext']),
                                 total=len(df), desc="Article embeddings"):
-        if skip_article(text): continue
         try:
             vec = get_article_embeddings_vector(text, tokenizer, model, device)
             arr = vec.cpu().numpy()
