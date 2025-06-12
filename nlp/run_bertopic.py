@@ -15,7 +15,7 @@ from nlp.pipeline.clustering import create_hdbscan
 from nlp.pipeline.dimensionality_reduce import create_umap
 from nlp.pipeline.tfidf import create_tfidf
 from nlp.pipeline.vectorizer import TextVectorizer
-from nlp.pipeline.fine_tunning import create_representation_model
+from nlp.pipeline.finetune.fine_tunning import create_representation_model_precomputed_embeddings
 
 # ───────────────────────────────────────────────────────────────────────────────
 # CONFIGURATIONS
@@ -43,24 +43,27 @@ if __name__ == "__main__":
     documents = df["cleantext"].astype(str).tolist()
 
     doc_embeddings   = np.load(EMBEDDINGS_DOC_NPY)         # (n_docs, D)
-    word_embeddingss  = np.load(EMBEDDINGS_WORD_NPY)        # (vocab_size, D)
+    word_embeddings  = np.load(EMBEDDINGS_WORD_NPY)        # (vocab_size, D)
     token_to_idx = json.load(open(EMBEDDINGS_WORD_JSON, "r"))
 
     vectorizer = TextVectorizer()
 
     topic_model = BERTopic(
-        embedding_model = MODEL_NAME,
+        embedding_model = None,
         umap_model = create_umap(),
         hdbscan_model = create_hdbscan(),
         vectorizer_model = vectorizer,
         ctfidf_model = create_tfidf(),
-        representation_model = create_representation_model(),
+        representation_model = create_representation_model_precomputed_embeddings(
+            doc_embeddings,
+            word_embeddings,
+            token_to_idx),
         calculate_probabilities=True,
         verbose=True
     )
 
     logging.info(f"Fitting topic model...")
-    topics, probs = topic_model.fit_transform(documents)
+    topics, probs = topic_model.fit_transform(documents=documents, embeddings=doc_embeddings)
 
     logging.info("Adding topic assignments to dataset...")
     df["topic"] = topics

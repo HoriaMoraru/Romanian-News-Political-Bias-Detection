@@ -17,10 +17,9 @@ class MMRWithPrecomputed(MaximalMarginalRelevance):
         doc_embeddings: np.ndarray,
         word_embs: np.ndarray,
         token_to_idx: Mapping[str, int],
-        diversity: float = 0.1,
-        top_n_words: int = 10
+        **kwargs
     ):
-        super().__init__(diversity=diversity, top_n_words=top_n_words)
+        super().__init__(**kwargs)
         self.doc_embeddings = doc_embeddings
         self.word_embs      = word_embs
         self.token_to_idx   = token_to_idx
