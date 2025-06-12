@@ -7,10 +7,9 @@ from typing import List, Mapping, Tuple
 
 class MMRWithPrecomputed(MaximalMarginalRelevance):
     """
-    Extend the original MMR so that embeddings come from precomputed arrays:
-      - doc_embeddings: np.ndarray, shape (n_docs, dim)
-      - word_embs:      np.ndarray, shape (vocab_size, dim)
-      - token_to_idx:   Dict[str,int], mapping each token → row in word_embs
+    MMR that uses:
+      • precomputed doc embeddings
+      • precomputed word embeddings
     """
     def __init__(
         self,
@@ -20,9 +19,10 @@ class MMRWithPrecomputed(MaximalMarginalRelevance):
         **kwargs
     ):
         super().__init__(**kwargs)
-        self.doc_embeddings = doc_embeddings
-        self.word_embs      = word_embs
+        self.doc_embeddings = doc_embeddings    # (n_docs, D)
+        self.word_embs      = word_embs         # (vocab, D)
         self.token_to_idx   = token_to_idx
+        self._mean_word_emb = word_embs.mean(axis=0)
 
     def extract_topics(
         self,
@@ -31,47 +31,42 @@ class MMRWithPrecomputed(MaximalMarginalRelevance):
         c_tf_idf: csr_matrix,
         topics: Mapping[str, List[Tuple[str, float]]],
     ) -> Mapping[str, List[Tuple[str, float]]]:
-        """
-        For each topic:
-          1. Build topic embedding from doc_embeddings (mean of repr docs)
-          2. Lookup each candidate word in word_embs via token_to_idx
-          3. Call inherited mmr(...) to pick the top_n_words diversified
-          4. Return the filtered (word, score) list
-        """
-        updated_topics = {}
-        repr_docs_mappings, _, repr_doc_indices, _ = topic_model._extract_representative_docs(c_tf_idf, documents, topics)
+        updated = {}
 
-        for topic, topic_words in topics.items():
-            words = [word[0] for word in topic_words]
+        # 1) Unpack all four outputs correctly
+        repr_mapping, repr_docs, repr_indices, repr_ids = \
+            topic_model._extract_representative_docs(c_tf_idf, documents, topics)
 
-            doc_texts = repr_docs_mappings.get(topic, [])
-            if not doc_texts:
-                warnings.warn(f"No representative docs for topic {topic}, skipping MMR.")
-                updated_topics[topic] = topic_words
+        # For ordering, get sorted topic IDs
+        topic_order = list(topics.keys())
+
+        for tid, word_scores in topics.items():
+            words = [w for w, _ in word_scores]
+
+            # 2) Get doc indices for this topic
+            idx_in_order = topic_order.index(tid)
+            doc_idxs     = repr_indices[idx_in_order]
+            if not doc_idxs:
+                warnings.warn(f"No repr docs for topic {tid}; skipping MMR.")
+                updated[tid] = word_scores
                 continue
 
-            topic_list = list(topics.keys())
-            idx = topic_list.index(topic)
-            doc_idxs = repr_doc_indices[idx]
+            topic_emb = self.doc_embeddings[doc_idxs].mean(axis=0, keepdims=True)
 
-            topic_embedding = self.doc_embeddings[doc_idxs].mean(axis=0, keepdims=True)
+            # 3) Batch-lookup word embeddings
+            idxs = np.array([ self.token_to_idx.get(w, -1) for w in words ], dtype=int)
+            safe = idxs.copy()
+            mask = (safe == -1)
+            safe[mask] = 0
+            word_embeddings = self.word_embs[safe]
+            if mask.any():
+                word_embeddings[mask] = self._mean_word_emb
 
-            word_emb_list = []
-            for word in words:
-                idx = self.token_to_idx.get(word)
-                if idx is None:
-                    word_emb_list.append(np.zeros(self.word_embs.shape[1]))
-                else:
-                    word_emb_list.append(self.word_embs[idx])
-            word_embeddings = np.vstack(word_emb_list)
+            # 4) Run MMR
+            picks = mmr(topic_emb, word_embeddings, words,
+                        self.diversity, self.top_n_words)
 
-            topic_words = mmr(
-                topic_embedding,
-                word_embeddings,
-                words,
-                self.diversity,
-                self.top_n_words,
-            )
-            updated_topics[topic] = [(word, value) for word, value in topics[topic] if word in topic_words]
+            # 5) Filter original scores
+            updated[tid] = [(w, s) for w, s in word_scores if w in picks]
 
-        return updated_topics
+        return updated

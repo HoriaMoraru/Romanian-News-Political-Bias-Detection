@@ -11,6 +11,8 @@ from bertopic import BERTopic
 from gensim.corpora import Dictionary
 from gensim.models.coherencemodel import CoherenceModel
 
+from sentence_transformers import SentenceTransformer
+
 from nlp.pipeline.clustering import create_hdbscan
 from nlp.pipeline.dimensionality_reduce import create_umap
 from nlp.pipeline.tfidf import create_tfidf
@@ -49,7 +51,7 @@ if __name__ == "__main__":
     vectorizer = TextVectorizer()
 
     topic_model = BERTopic(
-        embedding_model = None,
+        embedding_model = SentenceTransformer(MODEL_NAME),
         umap_model = create_umap(),
         hdbscan_model = create_hdbscan(),
         vectorizer_model = vectorizer,
