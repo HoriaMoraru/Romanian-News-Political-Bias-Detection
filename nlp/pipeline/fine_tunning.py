@@ -12,9 +12,5 @@ def create_representation_model():
         top_n_words=15
     )
 
-    pos=PartOfSpeech(
-        'ro_core_news_lg'
-    )
-
-    return [keybert, mmr, pos]
+    return [keybert, mmr]
 
