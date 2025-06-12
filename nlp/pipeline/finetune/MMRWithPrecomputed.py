@@ -39,7 +39,7 @@ class MMRWithPrecomputed(MaximalMarginalRelevance):
           4. Return the filtered (word, score) list
         """
         updated_topics = {}
-        repr_docs = topic_model._extract_representative_docs(c_tf_idf, topics)
+        repr_docs = topic_model._extract_representative_docs(c_tf_idf, documents, topics)
 
         for topic, topic_words in topics.items():
             words = [word[0] for word in topic_words]
