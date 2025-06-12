@@ -51,18 +51,21 @@ if __name__ == "__main__":
     vectorizer = TextVectorizer()
 
     topic_model = BERTopic(
-        embedding_model = SentenceTransformer(MODEL_NAME),
+        embedding_model = None,
         umap_model = create_umap(),
         hdbscan_model = create_hdbscan(),
         vectorizer_model = vectorizer,
         ctfidf_model = create_tfidf(),
-        representation_model = create_representation_model(),
+        representation_model = create_representation_model_precomputed_embeddings(
+            doc_embeddings=doc_embeddings,
+            word_embeddings=word_embeddings,
+            token_to_idx=token_to_idx),
         calculate_probabilities=True,
         verbose=True
     )
 
     logging.info(f"Fitting topic model...")
-    topics, probs = topic_model.fit_transform(documents=documents)
+    topics, probs = topic_model.fit_transform(documents=documents, embeddings=doc_embeddings)
 
     logging.info("Adding topic assignments to dataset...")
     df["topic"] = topics

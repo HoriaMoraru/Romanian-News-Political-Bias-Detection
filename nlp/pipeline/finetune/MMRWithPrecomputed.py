@@ -63,8 +63,11 @@ class MMRWithPrecomputed(MaximalMarginalRelevance):
                 word_embeddings[mask] = self._mean_word_emb
 
             # 4) Run MMR
-            picks = mmr(topic_emb, word_embeddings, words,
-                        self.diversity, self.top_n_words)
+            picks = mmr(topic_emb,
+                        word_embeddings,
+                        words,
+                        self.diversity,
+                        self.top_n_words)
 
             # 5) Filter original scores
             updated[tid] = [(w, s) for w, s in word_scores if w in picks]
