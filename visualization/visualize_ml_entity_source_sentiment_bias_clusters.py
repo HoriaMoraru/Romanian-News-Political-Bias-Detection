@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 # ───────────────────────────────────────────────────────────────────────────────
 # CONFIGURATION
 # ───────────────────────────────────────────────────────────────────────────────
-INPUT_CLUSTERS = "dataset/ml/domain_pca_clusters.csv"
+INPUT_CLUSTERS = "dataset/ml/entity_source_pca_clusters.csv"
 OUTPUT_PLOT    = "visualization/plots/entity_source_sentiment_pca_clusters.png"
 FIG_SIZE       = (10, 7)
 POINT_SIZE     = 80

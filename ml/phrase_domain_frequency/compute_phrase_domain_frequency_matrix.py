@@ -116,6 +116,7 @@ def filter_redundant_ngrams(phrase_frequency_matrix, df, threshold=0.7):
     redundant_unigrams_trigrams = purger_uni_vs_tri.find_redundant(phrase_frequency_matrix)
     redundant_bigrams_trigrams = purger_bi_vs_tri.find_redundant(phrase_frequency_matrix)
     to_delete = redundant_unigrams_bigrams + redundant_unigrams_trigrams + redundant_bigrams_trigrams
+    logging.info(f"Deleting {len(to_delete)} redundant n-grams...")
 
     return phrase_frequency_matrix.drop(index=to_delete, errors='ignore')
 
