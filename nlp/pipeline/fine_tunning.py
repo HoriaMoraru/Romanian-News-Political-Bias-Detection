@@ -1,6 +1,5 @@
 from bertopic.representation import MaximalMarginalRelevance
 from bertopic.representation import KeyBERTInspired
-from bertopic.representation import PartOfSpeech
 
 def create_representation_model():
     keybert = KeyBERTInspired(

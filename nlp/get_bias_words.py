@@ -10,7 +10,7 @@ from ml.NGramPurger import NGramPurger
 # CONFIGURATION
 # ───────────────────────────────────────────────────────────────────────────────
 TOPIC_WORDS_FILE      = "dataset/nlp/topic_words.csv"
-DATASET_FILE          = "dataset/romanian_political_articles_v2_nlp_with_topics.csv"
+DATASET_FILE          = "dataset/romanian_political_articles_v2_nlp.csv"
 OUTPUT_DATASET_FILE   = "dataset/romanian_political_articles_v2_nlp_with_topicswords.csv"
 OUTPUT_FILE           = "dataset/nlp/phrase_source_bias_words.csv"
 NORMALIZED_ENTITIES_MAP = "dataset/ml/normalized_entities.json"
@@ -50,9 +50,9 @@ if __name__ == "__main__":
     df_topics_raw["source"] = df["source_domain"]
     source_freq_raw = df_topics_raw.groupby("source").sum().drop(columns="source", errors="ignore")
 
-    purger_uni_vs_bi  = NGramPurger(longer_phrases=bigrams, shorter_phrases=monograms, ngram_size=1, threshold=0.7)
-    purger_uni_vs_tri = NGramPurger(longer_phrases=trigrams, shorter_phrases=monograms, ngram_size=1, threshold=0.7)
-    purger_bi_vs_tri  = NGramPurger(longer_phrases=trigrams, shorter_phrases=bigrams, ngram_size=2, threshold=0.7)
+    purger_uni_vs_bi  = NGramPurger(longer_phrases=bigrams, shorter_phrases=monograms, ngram_size=1, threshold=0.5)
+    purger_uni_vs_tri = NGramPurger(longer_phrases=trigrams, shorter_phrases=monograms, ngram_size=1, threshold=0.5)
+    purger_bi_vs_tri  = NGramPurger(longer_phrases=trigrams, shorter_phrases=bigrams, ngram_size=2, threshold=0.5)
 
     redundant_unigrams_bigrams = purger_uni_vs_bi.find_redundant(source_freq_raw)
     redundant_unigrams_trigrams = purger_uni_vs_tri.find_redundant(source_freq_raw)
@@ -87,7 +87,11 @@ if __name__ == "__main__":
         entity_map = json.load(f)
     entity_names = {ent.lower() for ent in entity_map.values()}
 
-    cols_to_keep = [c for c in source_freq_pruned.columns if c not in entity_names]
+    all_cols = set(source_freq_pruned.columns)
+    to_drop_entities = {c for c in all_cols if c.lower() in entity_names}
+    logging.info(f"Dropping {len(to_drop_entities)} entity-name phrases: {sorted(to_drop_entities)}")
+
+    cols_to_keep = [c for c in source_freq_pruned.columns if c not in to_drop_entities]
     source_freq_pruned = source_freq_pruned[cols_to_keep]
 
     source_freq_pruned.to_csv(OUTPUT_FILE)
