@@ -58,10 +58,23 @@ if __name__ == "__main__":
 
     logging.info("Adding topic assignments to dataset...")
     df["topic"] = topics
+
+    topic_info = topic_model.get_topic_info()
+    topic_ids  = topic_info["Topic"].tolist()
+
+    prob_df = pd.DataFrame(
+        probs,
+        columns=[f"topic_{tid}" for tid in topic_ids],
+        index=df.index
+    )
+
+    prob_df.drop(columns=["topic_-1"], inplace=True, errors="ignore")
+
+    df = pd.concat([df, prob_df], axis=1)
+
     df.to_csv(DATASET_WITH_TOPICS, index=False)
     logging.info(f"Saved dataset with topics to {DATASET_WITH_TOPICS}…")
 
-    topic_info = topic_model.get_topic_info()
     n_topics = len(topic_info) - 1  # subtract the “-1” outlier row
     n_outliers = topics.count(-1)
     logging.info(f"Number of topics discovered: {n_topics}")
