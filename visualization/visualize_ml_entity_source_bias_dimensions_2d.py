@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 DOMAIN_EMBEDDINGS_FILE = "dataset/ml/domain_entity_embeddings.csv"
-PLOT_OUTPUT_FILE = "visualization/plots/entity_media_domains_bias_space.png"
+PLOT_OUTPUT_FILE = "visualization/plots/entity_source_bias_space_2d.png"
 
 domain_embeddings = pd.read_csv(DOMAIN_EMBEDDINGS_FILE, index_col="domain")
 
