@@ -108,9 +108,9 @@ def filter_redundant_ngrams(phrase_frequency_matrix, df, threshold=0.7):
         if tri in phrase_frequency_matrix.index
     }
 
-    purger_uni_vs_bi  = NGramPurger(longer_phrases=bigrams, shorter_phrases=monograms, ngram_size=1, threshold=0.5)
-    purger_uni_vs_tri = NGramPurger(longer_phrases=trigrams, shorter_phrases=monograms, ngram_size=1, threshold=0.5)
-    purger_bi_vs_tri  = NGramPurger(longer_phrases=trigrams, shorter_phrases=bigrams, ngram_size=2, threshold=0.5)
+    purger_uni_vs_bi  = NGramPurger(longer_phrases=bigrams, shorter_phrases=monograms, ngram_size=1, threshold=threshold)
+    purger_uni_vs_tri = NGramPurger(longer_phrases=trigrams, shorter_phrases=monograms, ngram_size=1, threshold=threshold)
+    purger_bi_vs_tri  = NGramPurger(longer_phrases=trigrams, shorter_phrases=bigrams, ngram_size=2, threshold=threshold)
 
     redundant_unigrams_bigrams = purger_uni_vs_bi.find_redundant(phrase_frequency_matrix)
     redundant_unigrams_trigrams = purger_uni_vs_tri.find_redundant(phrase_frequency_matrix)
