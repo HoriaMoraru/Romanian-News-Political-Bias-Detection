@@ -12,11 +12,11 @@ from gensim.models.coherencemodel import CoherenceModel
 
 from sentence_transformers import SentenceTransformer
 
-from nlp.pipeline.clustering import create_hdbscan
-from nlp.pipeline.dimensionality_reduce import create_umap
-from nlp.pipeline.tfidf import create_tfidf
-from nlp.pipeline.vectorizer import TextVectorizer
-from nlp.pipeline.fine_tunning import create_representation_model
+from nlp.bertopic_pipeline.clustering import create_hdbscan
+from nlp.bertopic_pipeline.dimensionality_reduce import create_umap
+from nlp.bertopic_pipeline.tfidf import create_tfidf
+from nlp.bertopic_pipeline.vectorizer import TextVectorizer
+from nlp.bertopic_pipeline.fine_tunning import create_representation_model
 
 # ───────────────────────────────────────────────────────────────────────────────
 # CONFIGURATIONS
