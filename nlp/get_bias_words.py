@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import logging
-import json
+from nlp.ignore_words import ignore_words
 
 from nlp.pipeline.vectorizer import TextVectorizer
 from ml.NGramPurger import NGramPurger
@@ -83,16 +83,23 @@ if __name__ == "__main__":
         .drop(columns="source", errors="ignore")
     )
 
-    with open(NORMALIZED_ENTITIES_MAP, "r", encoding="utf-8") as f:
-        entity_map = json.load(f)
-    entity_names = {ent.lower() for ent in entity_map.values()}
+    # with open(NORMALIZED_ENTITIES_MAP, "r", encoding="utf-8") as f:
+    #     entity_map = json.load(f)
+    # entity_names = {ent.lower() for ent in entity_map.values()}
 
-    all_cols = set(source_freq_pruned.columns)
-    to_drop_entities = {c for c in all_cols if c.lower() in entity_names}
-    logging.info(f"Dropping {len(to_drop_entities)} entity-name phrases: {sorted(to_drop_entities)}")
+    # all_cols = set(source_freq_pruned.columns)
+    # to_drop_entities = {c for c in all_cols if c.lower() in entity_names}
+    # logging.info(f"Dropping {len(to_drop_entities)} entity-name phrases: {sorted(to_drop_entities)}")
 
-    cols_to_keep = [c for c in source_freq_pruned.columns if c not in to_drop_entities]
-    source_freq_pruned = source_freq_pruned[cols_to_keep]
+    # cols_to_keep = [c for c in source_freq_pruned.columns if c not in to_drop_entities]
+
+    before = len(source_freq_pruned.columns) + len([c for c in ignore_words if c in source_freq_pruned.columns])
+    source_freq_pruned = source_freq_pruned.drop(
+        columns=ignore_words,
+        errors="ignore"
+    )
+    after = len(source_freq_pruned.columns)
+    logging.info(f"Dropped {before - after} ignored phrases, {after} phrases remain.")
 
     source_freq_pruned.to_csv(OUTPUT_FILE)
     logging.info(f"Saved pruned source-level phrase frequencies to {OUTPUT_FILE}")

@@ -3,7 +3,7 @@ from umap import UMAP
 def create_umap(
     n_neighbors: int = 15,
     n_components: int = 10,
-    min_dist: float = 0.00,
+    min_dist: float = 0.05,
     metric: str = "cosine",
     random_state: int = 42
 ) -> UMAP:

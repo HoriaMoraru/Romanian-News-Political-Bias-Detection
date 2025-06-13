@@ -1,7 +1,7 @@
 import logging
 import numpy as np
 import pandas as pd
-import torch
+import spacy
 
 INPUT_DATASET = "dataset/romanian_political_articles_v2_nlp_with_topicswords.csv"
 OUTPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel"
@@ -140,8 +140,35 @@ def feature_negative_polarity(df: pd.DataFrame) -> pd.Series:
     logging.info("Computed negative polarity feature")
     return scores
 
+def feature_first_person_pronouns(df: pd.DataFrame, nlp) -> pd.Series:
+    """Count occurrences of first-person pronouns (using spaCy morphological features)."""
+    def count_first(text):
+        doc = nlp(text)
+        return sum(1 for token in doc
+                   if token.pos_ == "PRON" and
+                   token.morph.get("Person") and
+                   "1" in token.morph.get("Person"))
 
-def assemble_feature_matrix(df: pd.DataFrame) -> pd.DataFrame:
+    counts = df['cleantext'].fillna("").apply(count_first)
+    logging.info("Computed first-person pronoun count feature")
+    return counts
+
+
+def feature_second_person_pronouns(df: pd.DataFrame, nlp) -> pd.Series:
+    """Count occurrences of second-person pronouns (using spaCy morphological features)."""
+    def count_second(text):
+        doc = nlp(text)
+        return sum(1 for token in doc
+                   if token.pos_ == "PRON" and
+                   token.morph.get("Person") and
+                   "2" in token.morph.get("Person"))
+
+    counts = df['cleantext'].fillna("").apply(count_second)
+    logging.info("Computed second-person pronoun count feature")
+    return counts
+
+
+def assemble_feature_matrix(df: pd.DataFrame, nlp) -> pd.DataFrame:
     df['text_length'] = feature_text_length(df)
     df['avg_sentence_length'] = feature_avg_sentence_length(df)
     df['bias_word_count'] = feature_bias_word_count(df)
@@ -160,7 +187,10 @@ def main():
     df = pd.read_csv(INPUT_DATASET, parse_dates=['date_publish'])
     logging.info(f"Loaded {len(df)} articles from {INPUT_DATASET}")
 
-    feat_matrix = assemble_feature_matrix(df)
+    logging.info("Loading romanian nlp model...")
+    nlp = spacy.load("ro_core_news_lg")
+
+    feat_matrix = assemble_feature_matrix(df, nlp)
 
     feat_matrix.to_csv(OUTPUT_DATASET, index=False)
     logging.info(f"Saved feature matrix to {OUTPUT_DATASET}")
