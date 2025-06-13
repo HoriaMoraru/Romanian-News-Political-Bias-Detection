@@ -3,7 +3,7 @@ import numpy as np
 import logging
 from nlp.ignore_words import ignore_words
 
-from nlp.pipeline.vectorizer import TextVectorizer
+from nlp.bertopic_pipeline.vectorizer import TextVectorizer
 from ml.NGramPurger import NGramPurger
 
 # ───────────────────────────────────────────────────────────────────────────────

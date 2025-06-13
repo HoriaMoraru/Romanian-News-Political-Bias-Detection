@@ -2,7 +2,7 @@ import logging
 import pandas as pd
 from tqdm import tqdm
 import spacy
-from collections import defaultdict
+from ml.NGramPurger import NGramPurger
 from collections import Counter
 from preprocessing.Preprocessor import Preprocessor
 
@@ -68,66 +68,6 @@ def create_phrase_frequency_matrix(df: pd.DataFrame) -> pd.DataFrame:
 
     return nij_matrix
 
-def build_reverse_index_by_ngram(longer_phrases, ngram_size):
-    """
-    Builds a reverse index where keys are subphrases (of size `ngram_size`)
-    and values are lists of longer phrases that contain them.
-
-    For example, if `longer_phrases` contains:
-        ["partid social democrat", "statul paralel corupt"],
-    and `ngram_size = 2`, then one of the index entries will be:
-        "partid social" → ["partid social democrat"]
-
-    Returns:
-        A dictionary mapping each subphrase to a list of longer phrases that contain it
-    """
-    reverse_index = defaultdict(list)
-
-    for phrase in longer_phrases:
-        tokens = phrase.split()
-        for i in range(len(tokens) - ngram_size + 1):
-            subphrase = ' '.join(tokens[i:i+ngram_size])
-            reverse_index[subphrase].append(phrase)
-
-    return reverse_index
-
-def find_phrases_to_delete_fast(shorter_phrases, reverse_index, nij_matrix, threshold):
-    """
-    Identifies and returns a list of shorter phrases that should be deleted because they are
-    heavily subsumed by longer phrases in terms of frequency.
-
-    This is an optimized version that avoids O(n^2) comparisons by using a reverse index:
-    - `reverse_index` is a dictionary mapping each shorter phrase to a list of longer phrases that contain it.
-    - For each shorter phrase, the function compares its total count (across all domains) to that of longer phrases.
-    - If any longer phrase has a frequency >= `threshold` * shorter phrase frequency, the shorter one is flagged for deletion.
-
-    Parameters:
-        shorter_phrases: List or set of shorter phrases (e.g. unigrams or bigrams)
-        reverse_index: Maps shorter phrases to the longer phrases that contain them
-        nij_matrix: Phrase-domain frequency matrix (rows = phrases, columns = domains)
-        threshold: Proportion threshold to consider a shorter phrase redundant
-
-    Returns:
-        Phrases to delete (those that are likely redundant due to being contained in more dominant longer phrases)
-    """
-    phrases_to_delete = []
-
-    for short in shorter_phrases:
-        short_count = nij_matrix.loc[short].sum()
-
-        candidates = reverse_index.get(short)
-
-        if not candidates:
-            continue
-
-        for long_phrase in candidates:
-            long_count = nij_matrix.loc[long_phrase].sum()
-            if long_count / short_count >= threshold:
-                phrases_to_delete.append(short)
-                break
-
-    return phrases_to_delete
-
 def remove_period_ngrams(ngrams):
     return {phrase for phrase in ngrams if "PERIOD" not in phrase}
 
@@ -168,15 +108,14 @@ def filter_redundant_ngrams(phrase_frequency_matrix, df, threshold=0.7):
         if tri in phrase_frequency_matrix.index
     }
 
-    reverse_index_bigrams = build_reverse_index_by_ngram(bigrams, 1)
-    reverse_index_trigrams = build_reverse_index_by_ngram(trigrams, 1)
-    reverse_index_bigrams_in_trigrams = build_reverse_index_by_ngram(trigrams, 2)
+    purger_uni_vs_bi  = NGramPurger(longer_phrases=bigrams, shorter_phrases=monograms, ngram_size=1, threshold=0.5)
+    purger_uni_vs_tri = NGramPurger(longer_phrases=trigrams, shorter_phrases=monograms, ngram_size=1, threshold=0.5)
+    purger_bi_vs_tri  = NGramPurger(longer_phrases=trigrams, shorter_phrases=bigrams, ngram_size=2, threshold=0.5)
 
-    monograms_in_bigrams_to_delete = find_phrases_to_delete_fast(monograms, reverse_index_bigrams, phrase_frequency_matrix, threshold)
-    monograms_in_trigrams_to_delete = find_phrases_to_delete_fast(monograms, reverse_index_trigrams, phrase_frequency_matrix, threshold)
-    bigrams_to_delete = find_phrases_to_delete_fast(bigrams, reverse_index_bigrams_in_trigrams, phrase_frequency_matrix, threshold)
-
-    to_delete = monograms_in_bigrams_to_delete + monograms_in_trigrams_to_delete + bigrams_to_delete
+    redundant_unigrams_bigrams = purger_uni_vs_bi.find_redundant(phrase_frequency_matrix)
+    redundant_unigrams_trigrams = purger_uni_vs_tri.find_redundant(phrase_frequency_matrix)
+    redundant_bigrams_trigrams = purger_bi_vs_tri.find_redundant(phrase_frequency_matrix)
+    to_delete = redundant_unigrams_bigrams + redundant_unigrams_trigrams + redundant_bigrams_trigrams
 
     return phrase_frequency_matrix.drop(index=to_delete, errors='ignore')
 
