@@ -83,8 +83,14 @@ if __name__ == "__main__":
     all_topics = topic_model.get_topics()
     topic_words_list = []
     for topic_id, word_scores in all_topics.items():
+        if topic_id == -1:
+            continue
         for word, score in word_scores:
-            topic_words_list.append({"topic_id": topic_id, "word": word, "c_tf_idf": score})
+            topic_words_list.append({
+                "topic_id": topic_id,
+                "word": word,
+                "c_tf_idf": score
+            })
     pd.DataFrame(topic_words_list).to_csv(TOPIC_WORDS, index=False)
     logging.info(f"Saved topic words to {TOPIC_WORDS}")
 

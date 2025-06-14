@@ -10,7 +10,7 @@ from ml.NGramPurger import NGramPurger
 # CONFIGURATION
 # ───────────────────────────────────────────────────────────────────────────────
 TOPIC_WORDS_FILE      = "dataset/nlp/topic_words.csv"
-DATASET_FILE          = "dataset/romanian_political_articles_v2_nlp.csv"
+DATASET_FILE          = "dataset/romanian_political_articles_v2_nlp_with_topics.csv"
 OUTPUT_DATASET_FILE   = "dataset/romanian_political_articles_v2_nlp_with_topicswords.csv"
 OUTPUT_FILE           = "dataset/nlp/phrase_source_bias_words.csv"
 NORMALIZED_ENTITIES_MAP = "dataset/ml/normalized_entities.json"

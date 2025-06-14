@@ -124,5 +124,9 @@ ignore_words = ['adamescu',
                 'zilei',
                 'publicația',
                 'ziarul cotidianul',
-                'rugăm trimiteți'
+                'rugăm trimiteți',
+                'partide',
+                'partidele',
+                'poți',
+                'altă'
                 ]
