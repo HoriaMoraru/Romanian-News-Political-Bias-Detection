@@ -129,7 +129,9 @@ def feature_doc_sentiment(df, sentiment_pipe, nlp):
 
         return float(np.mean(scores)) if scores else 0.0
 
-    return df["cleantext"].fillna("").apply(doc_score)
+    doc_sentiment = df["cleantext"].fillna("").apply(doc_score)
+    logging.info("Computed doc sentiment feeature.")
+    return doc_sentiment
 # ──────────────────────────────────────────────────────────────────────────────
 # LEXICAL FEATURES
 # ──────────────────────────────────────────────────────────────────────────────
@@ -139,7 +141,9 @@ def feature_conditional_mood_count(df, nlp):
         doc = nlp(text)
         return sum(1 for t in doc
                    if t.pos_ == "AUX" and ("Cnd" in t.morph.get("Mood") or "Sub" in t.morph.get("Mood")))
-    return df["cleantext"].fillna("").apply(count_conditional)
+    cc = df["cleantext"].fillna("").apply(count_conditional)
+    logging.info("Completed conditial mood count feature.")
+    return cc
 
 
 def feature_passive_sentence_ratio(df, nlp):
@@ -154,7 +158,9 @@ def feature_passive_sentence_ratio(df, nlp):
             if any("Pass" in tok.morph.get("Voice") for tok in sent):
                 passive += 1
         return passive / len(sents)
-    return df["cleantext"].fillna("").apply(passive_ratio)
+    passive = df["cleantext"].fillna("").apply(passive_ratio)
+    logging.info("Computed passive sentence ratio feature.")
+    return passive
 
 
 def feature_question_exclam_count(df):
@@ -168,7 +174,9 @@ def feature_question_exclam_count(df):
     e_counts = counts.apply(lambda x: x[1])
     df["question_count"] = q_counts
     df["exclaim_count"] = e_counts
-    return df[["question_count", "exclaim_count"]]
+    qe = df[["question_count", "exclaim_count"]]
+    logging.info("Computed question-exclamation count feature.")
+    return qe
 
 
 def feature_first_person_pronouns(df: pd.DataFrame, nlp) -> pd.Series:
@@ -227,14 +235,18 @@ def feature_bias_word_ratio(df: pd.DataFrame) -> pd.Series:
 
 def feature_source_bias_flag(df):
     """Binary flag if source is in known_source_bias and labeled 'biased'."""
-    return df["source_domain"].apply(lambda s: 1 if known_bias.get(s) == "biased" else 0)
+    bias = df["source_domain"].apply(lambda s: 1 if known_bias.get(s) == "biased" else 0)
+    logging.info("Computed source bias flag feature")
+    return bias
 # ──────────────────────────────────────────────────────────────────────────────
 # TOPIC FEATURES
 # ──────────────────────────────────────────────────────────────────────────────
 def feature_topic_similarity_to_biased(df, topic_cols, biased_centroid):
     """Cosine similarity of each article's topic vector to the biased-source centroid."""
     sims = cosine_similarity(df[topic_cols].values, biased_centroid)
-    return pd.Series(sims.flatten(), index=df.index)
+    ts = pd.Series(sims.flatten(), index=df.index)
+    logging.info("Computed feature topic similarity feature.")
+    return ts
 
 
 def feature_topic_entropy(df, topic_cols):
@@ -242,7 +254,9 @@ def feature_topic_entropy(df, topic_cols):
     def entropy(probs):
         probs = probs[probs > 0]
         return -np.sum(probs * np.log2(probs))
-    return df[topic_cols].apply(entropy, axis=1)
+    te = df[topic_cols].apply(entropy, axis=1)
+    logging.info("Computed topic entropy feature.")
+    return te
 # ──────────────────────────────────────────────────────────────────────────────
 # FEATURES END
 # ──────────────────────────────────────────────────────────────────────────────
@@ -272,6 +286,7 @@ def assemble_feature_matrix(df: pd.DataFrame, nlp, sentiment, topic_cols) -> pd.
     df['topic_entropy']         = feature_topic_entropy(df, topic_cols)
     df['source_known_biased']   = feature_source_bias_flag(df)
     biased_centroid             = compute_biased_topic_centroid(df, topic_cols)
+    logging.info("Computed biased centroid.")
     df["topic_sim_bias"]        = feature_topic_similarity_to_biased(df, topic_cols, biased_centroid)
 
     logging.info("Assembled feature matrix with features")
