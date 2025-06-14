@@ -60,7 +60,7 @@ if __name__ == "__main__":
     df["topic"] = topics
 
     topic_info = topic_model.get_topic_info()
-    topic_ids  = topic_info["Topic"].tolist()
+    topic_ids = [tid for tid in topic_info["Topic"].tolist() if tid != -1]
 
     prob_df = pd.DataFrame(
         probs,
