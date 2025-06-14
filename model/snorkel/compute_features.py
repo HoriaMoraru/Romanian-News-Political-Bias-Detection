@@ -108,19 +108,26 @@ def feature_positive_polarity(df: pd.DataFrame) -> pd.Series:
     return scores
 
 
-def feature_doc_sentiment(df, sentiment_pipe):
-    """
-    Compute a document-level sentiment score for the full `cleantext`.
-    Returns a pandas Series of floats in [-1, +1], where positive means overall positive tone,
-    negative means overall negative tone.
-    """
+def feature_doc_sentiment(df, sentiment_pipe, nlp):
     def doc_score(text):
-        if not text or not text.strip():
+        if not text.strip():
             return 0.0
-        # sentiment_pipe returns e.g. [{'label':'POSITIVE','score':0.98}]
-        res = sentiment_pipe(text)[0]
-        sign = 1 if res["label"].startswith("POS") else -1
-        return sign * res["score"]
+
+        doc = nlp(text)
+        scores = []
+        for sent in doc.sents:
+            sent_txt = sent.text.strip()
+            if not sent_txt:
+                continue
+            res = sentiment_pipe(
+                sent_txt,
+                truncation=True,
+                max_length=512,
+            )[0]
+            sign = 1 if res["label"].startswith("POS") else -1
+            scores.append(sign * res["score"])
+
+        return float(np.mean(scores)) if scores else 0.0
 
     return df["cleantext"].fillna("").apply(doc_score)
 # ──────────────────────────────────────────────────────────────────────────────
