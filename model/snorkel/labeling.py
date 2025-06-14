@@ -2,8 +2,7 @@ import pandas as pd
 import json
 import logging
 
-from snorkel.labeling import LFAnalysis, labeling_function, PandasLFApplier, ABSTAIN
-
+from snorkel.labeling import LFAnalysis, labeling_function, PandasLFApplier
 INPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel.csv"
 LABEL_MATRIX   = "dataset/snorkel/label_matrix.csv"
 
@@ -11,7 +10,7 @@ LABEL_MATRIX   = "dataset/snorkel/label_matrix.csv"
 # 1. LABEL ENUMERATIONS
 # ───────────────────────────────────────────────────────────────────────────────
 BIASED    = -1
-NEUTRAL   = 0
+ABSTAIN   = 0
 UNBIASED  = 1
 
 # ───────────────────────────────────────────────────────────────────────────────
