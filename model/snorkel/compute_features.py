@@ -268,7 +268,7 @@ def assemble_feature_matrix(df: pd.DataFrame, nlp, sentiment, topic_cols) -> pd.
     df["passive_ratio"]         = feature_passive_sentence_ratio(df, nlp)
     q_e                         = feature_question_exclam_count(df)
     df = pd.concat([df, q_e], axis=1)
-    df['overall_sentiment']     = feature_doc_sentiment(df, sentiment)
+    df['overall_sentiment']     = feature_doc_sentiment(df, sentiment, nlp)
     df['topic_entropy']         = feature_topic_entropy(df, topic_cols)
     df['source_known_biased']   = feature_source_bias_flag(df)
     biased_centroid             = compute_biased_topic_centroid(df, topic_cols)
