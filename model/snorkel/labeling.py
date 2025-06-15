@@ -16,95 +16,81 @@ ARTICLE_LABELS = "dataset/snorkel/article_labels.csv"
 # ───────────────────────────────────────────────────────────────────────────────
 # 1. LABEL ENUMERATIONS
 # ───────────────────────────────────────────────────────────────────────────────
-ABSTAIN = -1
-BIASED   = 0
-UNBIASED = 1
+ABSTAIN = -0
+BIASED   = 1
+UNBIASED = 2
 
 # ───────────────────────────────────────────────────────────────────────────────
 # 2. LABELING FUNCTIONS
 # ───────────────────────────────────────────────────────────────────────────────
 
 @labeling_function()
-def lf_source_known_biased(x):
-    """If the article’s source is flagged as biased → BIASED."""
-    return BIASED if x.source_known_biased == 1 else ABSTAIN
-
-@labeling_function()
 def lf_high_bias_word_ratio(x):
-    """Lots of bias words relative to text length → BIASED."""
-    return BIASED if x.bias_word_ratio > 0.03 else ABSTAIN
+    return BIASED if x.bias_word_ratio > 0.07 else ABSTAIN
 
 @labeling_function()
-def lf_high_topic_similarity(x):
-    """Article’s topic mix is very similar to known-biased centroid → BIASED."""
-    return BIASED if x.topic_sim_bias > 0.7 else ABSTAIN
+def lf_excessive_exclaims(x):
+    return BIASED if x.exclaim_count > 1 else ABSTAIN
 
 @labeling_function()
-def lf_low_topic_entropy(x):
-    """Very low topic entropy (overly focused on one topic) → BIASED."""
-    return BIASED if x.topic_entropy < 1.0 else ABSTAIN
-
-@labeling_function()
-def lf_excess_exclamations(x):
-    """More than 2 exclamation marks outside quotes → BIASED."""
-    return BIASED if x.exclaim_count > 2 else ABSTAIN
-
-@labeling_function()
-def lf_excess_questions(x):
-    """More than 2 rhetorical questions outside quotes → BIASED."""
-    return BIASED if x.question_count > 2 else ABSTAIN
+def lf_excessive_questions(x):
+    return BIASED if x.question_count > 1 else ABSTAIN
 
 @labeling_function()
 def lf_strong_sentiment(x):
-    """Overall document sentiment very strong → BIASED."""
-    return BIASED if abs(x.overall_sentiment) > 0.6 else ABSTAIN
+    return BIASED if abs(x.overall_sentiment) > 0.65 else ABSTAIN
 
 @labeling_function()
-def lf_first_person_voice(x):
-    """Any first-person pronoun in narrative (not quotes) → BIASED."""
-    return BIASED if x.first_pronouns > 0 else ABSTAIN
+def lf_low_topic_entropy(x):
+    return BIASED if x.topic_entropy < 1.5 else ABSTAIN
 
 @labeling_function()
-def lf_second_person_voice(x):
-    """Any second-person pronoun in narrative → BIASED."""
-    return BIASED if x.second_pronouns > 0 else ABSTAIN
+def lf_conditional_hedging(x):
+    return BIASED if x.cond_mood_count > 2 else ABSTAIN
 
 @labeling_function()
-def lf_unbiased_clean(x):
-    """
-    No bias words, no emphatic punctuation, and near‐neutral sentiment → UNBIASED.
-    (a strict “safe” rule)
-    """
+def lf_passive_overuse(x):
+    return BIASED if x.passive_ratio > 0.5 else ABSTAIN
+
+@labeling_function()
+def lf_topic_sim_to_biased(x):
+    return BIASED if x.topic_sim_bias > 0.60 else ABSTAIN
+
+@labeling_function()
+def lf_high_entropy_unbiased(x):
+    return UNBIASED if x.topic_entropy > 3.0 else ABSTAIN
+
+@labeling_function()
+def lf_near_zero_sentiment_unbiased(x):
+    return UNBIASED if abs(x.overall_sentiment) < 0.05 else ABSTAIN
+
+@labeling_function()
+def lf_clean_unbiased(x):
     if (
         x.bias_word_ratio == 0
-        and x.exclaim_count == 0
-        and x.question_count == 0
-        and abs(x.overall_sentiment) < 0.1
-        and x.cond_mood_count == 0
+        and x.exclaim_count   == 0
+        and x.question_count  == 0
+        and x.cond_mood_count <= 1
+        and abs(x.overall_sentiment) < 0.10
     ):
         return UNBIASED
     return ABSTAIN
 
 labeling_functions = [
-    lf_source_known_biased,
     lf_high_bias_word_ratio,
-    lf_high_topic_similarity,
-    lf_low_topic_entropy,
-    lf_excess_exclamations,
-    lf_excess_questions,
+    lf_excessive_exclaims,
+    lf_excessive_questions,
     lf_strong_sentiment,
-    lf_first_person_voice,
-    lf_second_person_voice,
-    lf_unbiased_clean,
+    lf_low_topic_entropy,
+    lf_conditional_hedging,
+    lf_passive_overuse,
+    lf_topic_sim_to_biased,
+    lf_high_entropy_unbiased,
+    lf_near_zero_sentiment_unbiased,
+    lf_clean_unbiased,
 ]
 
 if __name__ == "__main__":
-    import snorkel
-    print("Version:", snorkel.__version__)
-
-    import pkgutil
-    print([m.name for m in pkgutil.iter_modules(snorkel.labeling.__path__)])
-
     logging.info("Reading dataset...")
     df = pd.read_csv(INPUT_DATASET)
 

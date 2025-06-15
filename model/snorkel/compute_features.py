@@ -55,7 +55,7 @@ def feature_stance_polarity(df: pd.DataFrame) -> pd.Series:
             st_list = eval(stance_str)
         except:
             return 0
-        pos = sum(1 for e in st_list if e['stance'].upper() == 'POSITIV')
+        pos = sum(1 for e in st_list if e['stance'].upper() == 'POZITIV')
         neg = sum(1 for e in st_list if e['stance'].upper() == 'NEGATIV')
         neu = sum(1 for e in st_list if e['stance'].upper() == 'NEUTRU')
         total = pos + neg + neu
@@ -75,7 +75,7 @@ def feature_negative_polarity(df: pd.DataFrame) -> pd.Series:
             st_list = eval(stance_str)
         except:
             return 0
-        pos = sum(1 for e in st_list if e['stance'].upper() == 'POSITIV')
+        pos = sum(1 for e in st_list if e['stance'].upper() == 'POZITIV')
         neg = sum(1 for e in st_list if e['stance'].upper() == 'NEGATIV')
         neu = sum(1 for e in st_list if e['stance'].upper() == 'NEUTRU')
         total = pos + neg + neu
@@ -95,7 +95,7 @@ def feature_positive_polarity(df: pd.DataFrame) -> pd.Series:
             st_list = eval(stance_str)
         except:
             return 0
-        pos = sum(1 for e in st_list if e['stance'].upper() == 'POSITIV')
+        pos = sum(1 for e in st_list if e['stance'].upper() == 'POZITIV')
         neg = sum(1 for e in st_list if e['stance'].upper() == 'NEGATIV')
         neu = sum(1 for e in st_list if e['stance'].upper() == 'NEUTRU')
         total = pos + neg + neu
