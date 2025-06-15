@@ -2,14 +2,10 @@ import pandas as pd
 import logging
 import torch
 
-from snorkel.labeling import (
-    LFAnalysis,
-    labeling_function,
-    PandasLFApplier,
-    MajorityLabelVoter,
-    LabelModel,
-    ABSTAIN,
-)
+from snorkel.labeling.model.label_model import LabelModel
+from snorkel.labeling.analysis import LFAnalysis
+from snorkel.labeling import labeling_function
+from snorkel.labeling import PandasLFApplier
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -103,6 +99,12 @@ labeling_functions = [
 ]
 
 if __name__ == "__main__":
+    import snorkel
+    print("Version:", snorkel.__version__)
+
+    import pkgutil
+    print([m.name for m in pkgutil.iter_modules(snorkel.labeling.__path__)])
+
     logging.info("Reading dataset...")
     df = pd.read_csv(INPUT_DATASET)
 
