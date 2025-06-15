@@ -1,17 +1,26 @@
 import pandas as pd
-import json
 import logging
+import torch
 
-from snorkel.labeling import LFAnalysis, labeling_function, PandasLFApplier
+from snorkel.labeling import (
+    LFAnalysis,
+    labeling_function,
+    PandasLFApplier,
+    MajorityLabelVoter,
+    LabelModel,
+    ABSTAIN,
+)
+
 INPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel.csv"
 LABEL_MATRIX   = "dataset/snorkel/label_matrix.csv"
+ARTICLE_LABELS = "dataset/snorkel/article_labels.csv"
 
 # ───────────────────────────────────────────────────────────────────────────────
 # 1. LABEL ENUMERATIONS
 # ───────────────────────────────────────────────────────────────────────────────
-BIASED    = -1
-ABSTAIN   = 0
-UNBIASED  = 1
+ABSTAIN = -1
+BIASED   = 0
+UNBIASED = 1
 
 # ───────────────────────────────────────────────────────────────────────────────
 # 2. LABELING FUNCTIONS
@@ -95,14 +104,38 @@ if __name__ == "__main__":
     logging.info("Reading dataset...")
     df = pd.read_csv(INPUT_DATASET)
 
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    logging.info(f"Using device: {device}")
+
     applier = PandasLFApplier(lfs=labeling_functions)
     L_train = applier.apply(df)
 
     analysis = LFAnalysis(L=L_train, lfs=labeling_functions).lf_summary()
     logging.info("\n%s", analysis)
 
-    pd.DataFrame(L_train, columns=[lf.name for lf in labeling_functions]).to_csv(
-        LABEL_MATRIX, index=False
-    )
+    label_matrix_df = pd.DataFrame(L_train, columns=[lf.name for lf in labeling_functions])
+    label_matrix_df["url"] = df["url"]
+    label_matrix_df.to_csv(LABEL_MATRIX, index=False)
+    logging.info(f"Saved {LABEL_MATRIX}")
 
     print(f"Labeling functions applied; label matrix saved to {LABEL_MATRIX}")
+
+    label_model = LabelModel(cardinality=2, device="gpu", verbose=True)
+
+    label_model.fit(
+        L_train=L_train,
+        device=device,
+        n_epochs=300,
+        lr=0.01,
+        log_freq=50,
+        seed = 123,
+        optimizer="adam"
+    )
+
+    preds = label_model.predict(L=L_train)
+
+    df["snorkel_label"] = preds
+
+    out = df[["url", "snorkel_label"]]
+    out.to_csv(ARTICLE_LABELS, index=False)
+    logging.info(f"Saved final article→label file to {ARTICLE_LABELS}")
