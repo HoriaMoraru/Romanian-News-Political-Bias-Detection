@@ -11,6 +11,8 @@ from snorkel.labeling import (
     ABSTAIN,
 )
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 INPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel.csv"
 LABEL_MATRIX   = "dataset/snorkel/label_matrix.csv"
 ARTICLE_LABELS = "dataset/snorkel/article_labels.csv"
@@ -118,7 +120,7 @@ if __name__ == "__main__":
     label_matrix_df.to_csv(LABEL_MATRIX, index=False)
     logging.info(f"Saved {LABEL_MATRIX}")
 
-    print(f"Labeling functions applied; label matrix saved to {LABEL_MATRIX}")
+    logging.info(f"Labeling functions applied; label matrix saved to {LABEL_MATRIX}")
 
     label_model = LabelModel(cardinality=2, device="gpu", verbose=True)
 
