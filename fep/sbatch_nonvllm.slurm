@@ -17,6 +17,6 @@ apptainer exec --nv \
     source /venv/bin/activate
 
     echo "[INFO] Running script..."
-    python3 compute_phrase_domain_frequency_matrix.py
+    python3 labeling.py
 '
 
