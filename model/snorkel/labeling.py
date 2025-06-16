@@ -114,7 +114,6 @@ if __name__ == "__main__":
 
     label_model.fit(
         L_train=L_train,
-        device=device,
         n_epochs=300,
         lr=0.01,
         log_freq=50,
