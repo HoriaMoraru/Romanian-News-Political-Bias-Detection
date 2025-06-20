@@ -14,7 +14,8 @@ MAX_CONTEXT_TOKENS = 8000
 INPUT_FILE = "dataset/romanian_political_articles_v2_snorkel.csv"
 
 def build_prompt(text):
-    prompt = f"""Text: "{text[:(MAX_CONTEXT_TOKENS - 200)].replace('\n', ' ')}"
+    preprocessed_text = text[:(MAX_CONTEXT_TOKENS - 200)].replace('\n', ' ')
+    prompt = f"""Text: "{preprocessed_text}"
 
 Ești un model care etichetează sentimente în limba română.
 
