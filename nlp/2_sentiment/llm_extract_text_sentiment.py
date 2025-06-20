@@ -76,8 +76,8 @@ if __name__ == "__main__":
 
     logging.info("Processing rows...")
     tqdm.pandas(desc=f"[Part {split_part}] Rows {start}-{end}")
-    results = df["cleantext"].fillna("").apply(lambda text: query_llama_sentiment(text, client))
-    df["sentiment_llama"] = results.apply(lambda x: x[0])
+    results = df["cleantext"].progress_apply(lambda text: query_llama_sentiment(text, client))
+    df["text_sentiment_llama"] = results.apply(lambda x: x[0])
     df["sentiment_confidence"] = results.apply(lambda x: x[1])
 
     output_file = f"dataset/romanian_political_articles_v2_sentiment_part{split_part}.csv"
