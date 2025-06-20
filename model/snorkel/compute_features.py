@@ -4,7 +4,7 @@ import pandas as pd
 import spacy
 from transformers import pipeline
 from sklearn.metrics.pairwise import cosine_similarity
-from model.snorkel.known_sources_bias import known_bias
+from model.prelabeled.known_sources_bias import known_bias
 
 INPUT_DATASET = "dataset/romanian_political_articles_v2_nlp_with_topicswords.csv"
 OUTPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel.csv"
@@ -145,24 +145,6 @@ def feature_conditional_mood_count(df, nlp):
     logging.info("Completed conditial mood count feature.")
     return cc
 
-
-def feature_passive_sentence_ratio(df, nlp):
-    """Ratio of sentences using passive-voice constructions."""
-    def passive_ratio(text):
-        doc = nlp(text)
-        sents = list(doc.sents)
-        if not sents:
-            return 0.0
-        passive = 0
-        for sent in sents:
-            if any("Pass" in tok.morph.get("Voice") for tok in sent):
-                passive += 1
-        return passive / len(sents)
-    passive = df["cleantext"].fillna("").apply(passive_ratio)
-    logging.info("Computed passive sentence ratio feature.")
-    return passive
-
-
 def feature_question_exclam_count(df):
     """Count of question marks and exclamation points outside quotes."""
     import re
@@ -279,7 +261,6 @@ def assemble_feature_matrix(df: pd.DataFrame, nlp, sentiment, topic_cols) -> pd.
     df['first_pronouns']        = feature_first_person_pronouns(df, nlp)
     df['second_pronouns']       = feature_second_person_pronouns(df, nlp)
     df['cond_mood_count']       = feature_conditional_mood_count(df, nlp)
-    df["passive_ratio"]         = feature_passive_sentence_ratio(df, nlp)
     q_e                         = feature_question_exclam_count(df)
     df = pd.concat([df, q_e], axis=1)
     df['overall_sentiment']     = feature_doc_sentiment(df, sentiment, nlp)

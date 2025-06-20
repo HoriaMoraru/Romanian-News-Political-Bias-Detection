@@ -16,9 +16,9 @@ ARTICLE_LABELS = "dataset/snorkel/article_labels.csv"
 # ───────────────────────────────────────────────────────────────────────────────
 # 1. LABEL ENUMERATIONS
 # ───────────────────────────────────────────────────────────────────────────────
-ABSTAIN = -0
-BIASED   = 1
-UNBIASED = 2
+ABSTAIN = -1
+BIASED   = 0
+UNBIASED = 1
 
 # ───────────────────────────────────────────────────────────────────────────────
 # 2. LABELING FUNCTIONS
@@ -49,29 +49,25 @@ def lf_conditional_hedging(x):
     return BIASED if x.cond_mood_count > 2 else ABSTAIN
 
 @labeling_function()
-def lf_passive_overuse(x):
-    return BIASED if x.passive_ratio > 0.5 else ABSTAIN
-
-@labeling_function()
 def lf_topic_sim_to_biased(x):
-    return BIASED if x.topic_sim_bias > 0.60 else ABSTAIN
+    return BIASED if x.topic_sim_bias > 0.5 else ABSTAIN
 
 @labeling_function()
 def lf_high_entropy_unbiased(x):
-    return UNBIASED if x.topic_entropy > 3.0 else ABSTAIN
+    return UNBIASED if x.topic_entropy > 1.5 else ABSTAIN
 
 @labeling_function()
 def lf_near_zero_sentiment_unbiased(x):
-    return UNBIASED if abs(x.overall_sentiment) < 0.05 else ABSTAIN
+    return UNBIASED if abs(x.overall_sentiment) < 0.2 else ABSTAIN
 
 @labeling_function()
 def lf_clean_unbiased(x):
     if (
-        x.bias_word_ratio == 0
+        x.bias_word_ratio <= 0.5
         and x.exclaim_count   == 0
         and x.question_count  == 0
-        and x.cond_mood_count <= 1
-        and abs(x.overall_sentiment) < 0.10
+        and x.cond_mood_count <= 2
+        and abs(x.overall_sentiment) < 0.2
     ):
         return UNBIASED
     return ABSTAIN
@@ -83,7 +79,6 @@ labeling_functions = [
     lf_strong_sentiment,
     lf_low_topic_entropy,
     lf_conditional_hedging,
-    lf_passive_overuse,
     lf_topic_sim_to_biased,
     lf_high_entropy_unbiased,
     lf_near_zero_sentiment_unbiased,
@@ -110,7 +105,7 @@ if __name__ == "__main__":
 
     logging.info(f"Labeling functions applied; label matrix saved to {LABEL_MATRIX}")
 
-    label_model = LabelModel(cardinality=2, device="gpu", verbose=True)
+    label_model = LabelModel(cardinality=3, device="cpu", verbose=True)
 
     label_model.fit(
         L_train=L_train,
