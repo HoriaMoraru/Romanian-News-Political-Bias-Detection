@@ -15,7 +15,7 @@ INPUT_FILE = "dataset/romanian_political_articles_v2_snorkel.csv"
 
 def build_prompt(text):
     prompt = f"""
-    Text: "{text[:MAX_CONTEXT_TOKENS].replace('\n', ' ')}"
+    Text: "{text[:(MAX_CONTEXT_TOKENS -200)].replace('\n', ' ')}"
         Ești un model care etichetează sentimente în limba română.
 
         Întrebare: Care este sentimentul general (pozitiv, negativ, neutru)?
