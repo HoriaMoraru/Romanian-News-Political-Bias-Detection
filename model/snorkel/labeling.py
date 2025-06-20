@@ -30,11 +30,11 @@ def lf_high_bias_word_ratio(x):
 
 @labeling_function()
 def lf_excessive_exclaims(x):
-    return BIASED if x.exclaim_count > 1 else ABSTAIN
+    return BIASED if x.exclaim_count > 5 else ABSTAIN
 
 @labeling_function()
 def lf_excessive_questions(x):
-    return BIASED if x.question_count > 1 else ABSTAIN
+    return BIASED if x.question_count > 5 else ABSTAIN
 
 @labeling_function()
 def lf_strong_sentiment(x):
