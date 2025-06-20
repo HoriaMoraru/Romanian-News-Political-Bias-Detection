@@ -4,13 +4,12 @@ import pandas as pd
 import spacy
 from transformers import pipeline
 from sklearn.metrics.pairwise import cosine_similarity
-from model.prelabeled.known_sources_bias import known_bias
+from manual_labeling.known_sources_bias import known_bias
 
 INPUT_DATASET = "dataset/romanian_political_articles_v2_nlp_with_topicswords.csv"
 OUTPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel.csv"
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
 
 # ──────────────────────────────────────────────────────────────────────────────
 # TEXTUAL FEATURES
