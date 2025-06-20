@@ -1,2 +1,2 @@
 dataset/ml/*.csv filter=lfs diff=lfs merge=lfs -text
-visualization/plots/bertopics_topics.html linguist-vendored
+visualization/plots/bertopic_topics.html linguist-vendored
