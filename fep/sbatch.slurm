@@ -39,6 +39,6 @@ apptainer exec --nv \
     curl http://localhost:8000/v1/models
 
     echo "[INFO] vLLM server is up. Running inference script..."
-    python3 llm_extract_text_sentiment.py
+    python3 llm_extract_text_sentiment.py 1
 '
 
