@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-DOMAIN_EMBEDDINGS_FILE = "dataset/ml/domain_embeddings.csv"
+DOMAIN_EMBEDDINGS_FILE = "dataset/ml/phrase_domain_domain_embeddings.csv"
 PLOT_OUTPUT_FILE = "visualization/plots/phrase_source_bias_space_2d.png"
 
 # Load the domain embeddings

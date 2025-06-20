@@ -38,42 +38,55 @@ class PoissonBiasEmbedder:
         U, V, w = self._unpack_params(x)
 
         W = np.diag(w)
-        N = self.nij_matrix.values
-        N_hat = np.exp(U @ W @ V.T)
-
         logits = U @ W @ V.T
         logits = np.clip(logits, -20, 20)
 
+        N = self.nij_matrix.values
         N_hat = np.exp(logits)
-        eps = 1e-10
-        loss = np.sum(N_hat - N * np.log(N_hat + eps))
 
-        # Add L2 regularization
-        loss += self.l2_regularization * (np.sum(U ** 2) + np.sum(V ** 2) + np.sum(w ** 2))
+        loss = np.sum(N_hat - N * logits)
+
+        # L2 regularization
+        loss += self.l2_regularization * (np.sum(U**2) + np.sum(V**2) + np.sum(w**2))
 
         # Gradient
-        D = N_hat - N                                           # (m, n)
+        D = N_hat - N  # Shape (m, n)
 
-        grad_U = D @ V @ W.T + 2 * self.l2_regularization * U   # (m, r)
-        grad_V = D.T @ U @ W + 2 * self.l2_regularization * V   # (n, r)
-        grad_w = np.array([(U[:, k][:, None] * D) @ V[:, k] for k in range(self.rank)])
-        grad_w = grad_w.sum(axis=1) + 2 * self.l2_regularization * w
-        grad = np.concatenate([grad_U.ravel(), grad_V.ravel(), grad_w.ravel()])
+        grad_U = D @ V @ W.T + 2 * self.l2_regularization * U
+        grad_V = D.T @ U @ W + 2 * self.l2_regularization * V
 
+        grad_w = np.array([
+            np.sum(U[:, k][:, None] * D * V[:, k][None, :])
+            for k in range(self.rank)
+        ])
+        grad_w += 2 * self.l2_regularization * w
+
+        grad = np.concatenate([grad_U.ravel(), grad_V.ravel(), grad_w])
         return loss, grad
 
-    def fit(self, max_iter: int = 100):
+
+    def fit(self, max_iter: int = 500):
         x0 = self._init_params()
+
+        bound_limit = 10.0
+        bounds = [(None, None)] * (self.m * self.rank + self.n * self.rank) + \
+                [(-bound_limit, bound_limit)] * self.rank
+
         result = minimize(
-            fun=lambda x: self._loss_and_grad(x),
+            fun=self._loss_and_grad,
             x0=x0,
             jac=True,
             method="L-BFGS-B",
-            options={"maxiter": max_iter, "disp": True}
+            bounds=bounds,
+            options={
+                "maxiter": max_iter,
+                "disp": True,
+                "gtol": 1e-5
+            }
         )
 
         self.U, self.V, self.w = self._unpack_params(result.x)
-        self.N_hat = np.exp(self.U @ np.diag(self.w) @ self.V.T)
+        self.N_hat = np.exp(np.clip(self.U @ np.diag(self.w) @ self.V.T, -20, 20))
         return result
 
     def get_phrase_embeddings(self):

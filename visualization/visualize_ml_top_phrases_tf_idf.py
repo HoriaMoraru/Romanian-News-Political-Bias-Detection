@@ -42,7 +42,6 @@ if __name__ == "__main__":
     logging.info(f"Loading TF-IDF matrix from {PHRASE_TFIDF_FILE}...")
     phrase_tfidf = pd.read_csv(PHRASE_TFIDF_FILE, index_col=0)
 
-    # Compute each phrase's highest TF–IDF across all media sources
     logging.info("Computing max TF-IDF per phrase...")
     max_tfidf = phrase_tfidf.max(axis=1).rename("tfidf")
 
@@ -60,5 +59,5 @@ if __name__ == "__main__":
     top_100_dim1_by_tfidf = get_top_n_by_dim(top_500_dim1, "tfidf", n=100)
     top_100_dim2_by_tfidf = get_top_n_by_dim(top_500_dim2, "tfidf", n=100)
 
-    print_top_phrases(top_100_dim1_by_tfidf, dim="tfidf", n=50)
-    print_top_phrases(top_100_dim2_by_tfidf, dim="tfidf", n=50)
+    print_top_phrases(top_100_dim1_by_tfidf, dim="tfidf", n=10)
+    print_top_phrases(top_100_dim2_by_tfidf, dim="tfidf", n=10)
