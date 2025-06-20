@@ -37,8 +37,10 @@ def lf_excessive_questions(x):
     return BIASED if x.question_count > 5 else ABSTAIN
 
 @labeling_function()
-def lf_strong_sentiment(x):
-    return BIASED if abs(x.overall_sentiment) > 0.65 else ABSTAIN
+def lf_strong_llama_sentiment_biased(x):
+    if x.text_sentiment_llama_sentiment in ["pozitiv", "negativ"] and x.sentiment_confidence >= 0.65:
+        return BIASED
+    return ABSTAIN
 
 @labeling_function()
 def lf_low_topic_entropy(x):
@@ -57,8 +59,10 @@ def lf_high_entropy_unbiased(x):
     return UNBIASED if x.topic_entropy > 1.5 else ABSTAIN
 
 @labeling_function()
-def lf_near_zero_sentiment_unbiased(x):
-    return UNBIASED if abs(x.overall_sentiment) < 0.2 else ABSTAIN
+def lf_neutral_llama_sentiment_unbiased(x):
+    if x.llama_sentiment == "neutru" and x.llama_confidence >= 0.6:
+        return UNBIASED
+    return ABSTAIN
 
 @labeling_function()
 def lf_clean_unbiased(x):
@@ -72,17 +76,32 @@ def lf_clean_unbiased(x):
         return UNBIASED
     return ABSTAIN
 
+@labeling_function()
+def lf_high_first_pronouns(x):
+    return BIASED if x.first_pronouns > 4 else ABSTAIN
+
+@labeling_function()
+def lf_high_second_pronouns(x):
+    return BIASED if x.second_pronouns > 2 else ABSTAIN
+
+@labeling_function()
+def lf_short_sentences_unbiased(x):
+    return UNBIASED if 5 < x.avg_sentence_length < 12 else ABSTAIN
+
 labeling_functions = [
     lf_high_bias_word_ratio,
     lf_excessive_exclaims,
     lf_excessive_questions,
-    lf_strong_sentiment,
+    lf_strong_llama_sentiment_biased,
     lf_low_topic_entropy,
     lf_conditional_hedging,
     lf_topic_sim_to_biased,
     lf_high_entropy_unbiased,
-    lf_near_zero_sentiment_unbiased,
+    lf_neutral_llama_sentiment_unbiased,
     lf_clean_unbiased,
+    lf_high_first_pronouns,
+    lf_high_second_pronouns,
+    lf_short_sentences_unbiased
 ]
 
 if __name__ == "__main__":

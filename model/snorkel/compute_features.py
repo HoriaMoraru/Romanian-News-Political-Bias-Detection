@@ -2,7 +2,6 @@ import logging
 import numpy as np
 import pandas as pd
 import spacy
-from transformers import pipeline
 from sklearn.metrics.pairwise import cosine_similarity
 from manual_labeling.known_sources_bias import known_bias
 
@@ -48,7 +47,6 @@ def feature_entity_count(df: pd.DataFrame) -> pd.Series:
 # SENTIMENT FEATURES
 # ──────────────────────────────────────────────────────────────────────────────
 def feature_stance_polarity(df: pd.DataFrame) -> pd.Series:
-    """Aggregate stance polarities: (positive - negative) / total entities."""
     def stance_score(stance_str):
         try:
             st_list = eval(stance_str)
@@ -67,8 +65,7 @@ def feature_stance_polarity(df: pd.DataFrame) -> pd.Series:
     return scores
 
 
-def feature_negative_polarity(df: pd.DataFrame) -> pd.Series:
-    """Aggregate stance polarities: (positive - negative) / total entities."""
+def feature_negative_stance_polarity(df: pd.DataFrame) -> pd.Series:
     def stance_score(stance_str):
         try:
             st_list = eval(stance_str)
@@ -87,8 +84,7 @@ def feature_negative_polarity(df: pd.DataFrame) -> pd.Series:
     return scores
 
 
-def feature_positive_polarity(df: pd.DataFrame) -> pd.Series:
-    """Aggregate stance polarities: (positive - negative) / total entities."""
+def feature_positive_stance_polarity(df: pd.DataFrame) -> pd.Series:
     def stance_score(stance_str):
         try:
             st_list = eval(stance_str)
@@ -105,32 +101,6 @@ def feature_positive_polarity(df: pd.DataFrame) -> pd.Series:
     scores = df['stance'].fillna('[]').apply(stance_score)
     logging.info("Computed positive polarity feature")
     return scores
-
-
-def feature_doc_sentiment(df, sentiment_pipe, nlp):
-    def doc_score(text):
-        if not text.strip():
-            return 0.0
-
-        doc = nlp(text)
-        scores = []
-        for sent in doc.sents:
-            sent_txt = sent.text.strip()
-            if not sent_txt:
-                continue
-            res = sentiment_pipe(
-                sent_txt,
-                truncation=True,
-                max_length=512,
-            )[0]
-            sign = 1 if res["label"].startswith("POS") else -1
-            scores.append(sign * res["score"])
-
-        return float(np.mean(scores)) if scores else 0.0
-
-    doc_sentiment = df["cleantext"].fillna("").apply(doc_score)
-    logging.info("Computed doc sentiment feeature.")
-    return doc_sentiment
 # ──────────────────────────────────────────────────────────────────────────────
 # LEXICAL FEATURES
 # ──────────────────────────────────────────────────────────────────────────────
@@ -248,26 +218,25 @@ def compute_biased_topic_centroid(df, topic_cols):
     )]
     return biased[topic_cols].mean().values.reshape(1, -1)
 
-def assemble_feature_matrix(df: pd.DataFrame, nlp, sentiment, topic_cols) -> pd.DataFrame:
-    df['text_length']           = feature_text_length(df)
-    df['avg_sentence_length']   = feature_avg_sentence_length(df)
-    df['bias_word_count']       = feature_bias_word_count(df)
-    df['bias_word_ratio']       = feature_bias_word_ratio(df)
-    df['entity_count']          = feature_entity_count(df)
-    df['polarity']              = feature_stance_polarity(df)
-    df['positive_polarity']     = feature_positive_polarity(df)
-    df['negative_polarity']     = feature_negative_polarity(df)
-    df['first_pronouns']        = feature_first_person_pronouns(df, nlp)
-    df['second_pronouns']       = feature_second_person_pronouns(df, nlp)
-    df['cond_mood_count']       = feature_conditional_mood_count(df, nlp)
-    q_e                         = feature_question_exclam_count(df)
+def assemble_feature_matrix(df: pd.DataFrame, nlp, topic_cols) -> pd.DataFrame:
+    df['text_length']                   = feature_text_length(df)
+    df['avg_sentence_length']           = feature_avg_sentence_length(df)
+    df['bias_word_count']               = feature_bias_word_count(df)
+    df['bias_word_ratio']               = feature_bias_word_ratio(df)
+    df['entity_count']                  = feature_entity_count(df)
+    df['stance_polarity']               = feature_stance_polarity(df)
+    df['positive_stance_polarity']      = feature_positive_stance_polarity(df)
+    df['negative_stance_polarity']      = feature_negative_stance_polarity(df)
+    df['first_pronouns']                = feature_first_person_pronouns(df, nlp)
+    df['second_pronouns']               = feature_second_person_pronouns(df, nlp)
+    df['cond_mood_count']               = feature_conditional_mood_count(df, nlp)
+    q_e                                 = feature_question_exclam_count(df)
     df = pd.concat([df, q_e], axis=1)
-    df['overall_sentiment']     = feature_doc_sentiment(df, sentiment, nlp)
-    df['topic_entropy']         = feature_topic_entropy(df, topic_cols)
-    df['source_known_biased']   = feature_source_bias_flag(df)
-    biased_centroid             = compute_biased_topic_centroid(df, topic_cols)
-    logging.info("Computed biased centroid.")
-    df["topic_sim_bias"]        = feature_topic_similarity_to_biased(df, topic_cols, biased_centroid)
+    df['topic_entropy']                 = feature_topic_entropy(df, topic_cols)
+    df['source_known_biased']           = feature_source_bias_flag(df)
+    biased_centroid                     = compute_biased_topic_centroid(df, topic_cols)
+    logging.info("Computed biased centroid")
+    df["topic_sim_bias"]                = feature_topic_similarity_to_biased(df, topic_cols, biased_centroid)
 
     logging.info("Assembled feature matrix with features")
     return df
@@ -281,12 +250,9 @@ def main():
     logging.info("Loading romanian nlp model...")
     nlp = spacy.load("ro_core_news_lg")
 
-    logging.info("Loading sentiment pipeline (romanian)...")
-    sentiment = pipeline("sentiment-analysis", model="readerbench/RoBERT-large")
-
     topic_cols = [c for c in df.columns if c.startswith("topic_")]
 
-    feat_matrix = assemble_feature_matrix(df, nlp, sentiment, topic_cols)
+    feat_matrix = assemble_feature_matrix(df, nlp, topic_cols)
 
     feat_matrix.to_csv(OUTPUT_DATASET, index=False)
     logging.info(f"Saved feature matrix to {OUTPUT_DATASET}")

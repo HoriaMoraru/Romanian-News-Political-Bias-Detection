@@ -24,10 +24,10 @@ def main():
     bins = KBinsDiscretizer(n_bins=4, encode='ordinal', strategy='quantile')
     binned = bins.fit_transform(features)
 
-    df["bias_bin"] = binned[:, 0]
+    df["topic_bin"] = binned[:, 0]
     df["sentiment_bin"] = binned[:, 1]
 
-    df_diverse = df.groupby(["bias_bin", "sentiment_bin"]).apply(lambda x: x.sample(n=2, random_state=42)).reset_index(drop=True)
+    df_diverse = df.groupby(["bias_bin", "topic_bin"]).apply(lambda x: x.sample(n=2, random_state=42)).reset_index(drop=True)
 
     combined = pd.concat([df_by_source, df_diverse], ignore_index=True)
     final_sample = combined.drop_duplicates(subset=["url"], keep="first").sample(n=100, random_state=42)
