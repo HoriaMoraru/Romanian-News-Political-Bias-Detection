@@ -14,17 +14,17 @@ MAX_CONTEXT_TOKENS = 8000
 INPUT_FILE = "dataset/romanian_political_articles_v2_snorkel.csv"
 
 def build_prompt(text):
-    prompt = f"""
-    Text: "{text[:(MAX_CONTEXT_TOKENS -200)].replace('\n', ' ')}"
-        Ești un model care etichetează sentimente în limba română.
+    prompt = f"""Text: "{text[:(MAX_CONTEXT_TOKENS - 200)].replace('\n', ' ')}"
 
-        Întrebare: Care este sentimentul general (pozitiv, negativ, neutru)?
-        Și menționează un scor de încredere între 0 și 1.
+Ești un model care etichetează sentimente în limba română.
 
-        Format răspuns:
-        Sentiment: <pozitiv/negativ/neutru>
-        Încredere: <număr între 0.0-1.0>
-    """
+Întrebare: Care este sentimentul general (pozitiv, negativ, neutru)?
+Și menționează un scor de încredere între 0 și 1.
+
+Format răspuns:
+Sentiment: <pozitiv/negativ/neutru>
+Încredere: <număr între 0.0-1.0>
+"""
     return prompt
 
 def query_llama_sentiment(text, client):
