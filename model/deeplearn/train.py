@@ -80,6 +80,9 @@ def main():
     train_ds = train_ds.map(tokenize, batched=False)
     eval_ds = eval_ds.map(tokenize, batched=False)
 
+    train_ds.set_format("torch", columns=["input_ids", "attention_mask", "labels", "loss_weight"])
+    eval_ds.set_format("torch", columns=["input_ids", "attention_mask", "labels", "loss_weight"])
+
     logging.info(f"Loading model {MODEL_NAME}")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
