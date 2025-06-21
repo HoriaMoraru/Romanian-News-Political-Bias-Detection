@@ -39,7 +39,7 @@ def lf_excessive_questions(x):
 
 @labeling_function()
 def lf_strong_llama_sentiment_biased(x):
-    if x.text_sentiment_llama in ["pozitiv", "negativ"] and x.sentiment_confidence >= 0.8:
+    if x.text_sentiment_llama in ["pozitiv", "negativ"] and x.sentiment_confidence > 0.8:
         return BIASED
     return ABSTAIN
 
@@ -169,6 +169,6 @@ if __name__ == "__main__":
     df["snorkel_label"] = preds
     df["snorkel_label"] = df["snorkel_label"].map(label_mapping)
 
-    out = df[["url", "snorkel_label"]]
+    out = df[["url", "cleantext", "snorkel_label"]]
     out.to_csv(ARTICLE_LABELS, index=False)
     logging.info(f"Saved final article→label file to {ARTICLE_LABELS}")

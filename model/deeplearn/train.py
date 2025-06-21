@@ -1,0 +1,116 @@
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
+from datasets import Dataset
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+from sklearn.model_selection import train_test_split
+from model.deeplearn.WeightedLossTrainer import WeightedLossTrainer
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+GOLD_LABELS = "dataset/manual_labels.csv"
+WEAK_LABELS = "dataset/snorkel/articles_labels.csv"
+MODEL_OUTPUT_DIR = "./xlmr-finetuned-weighted"
+LOGS_DIR = "./model_logs"
+
+MODEL_NAME = "xlm-roberta-large"
+MAX_LEN = 512
+NUM_LABELS = 2
+
+logging.info(f"Loading tokenizer from {MODEL_NAME}")
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
+
+def compute_metrics(eval_pred):
+    logits, labels = eval_pred
+    preds = np.argmax(logits, axis=-1)
+    return {
+        "accuracy": accuracy_score(labels, preds),
+        "f1": f1_score(labels, preds, average='weighted'),
+        "precision": precision_score(labels, preds, average='weighted'),
+        "recall": recall_score(labels, preds, average='weighted')
+    }
+
+def tokenize(example):
+    tokens = tokenizer(example["maintext"], padding="max_length", truncation=True, max_length=MAX_LEN)
+    tokens["labels"] = example["label"]
+    tokens["weight"] = example["weight"]
+    return tokens
+
+def main():
+    logging.info("Loading gold and weak datasets...")
+    gold_df = pd.read_csv(GOLD_LABELS)
+    weak_df = pd.read_csv(WEAK_LABELS)
+
+    logging.info(f"Gold samples: {len(gold_df)}, Weak samples before deduplication: {len(weak_df)}")
+
+    gold_df = gold_df.rename(columns={"label": "label_text"})
+    weak_df = weak_df.rename(columns={"snorkel_label": "label_text", "cleantext": "maintext"})
+
+    gold_urls = set(gold_df["url"])
+    weak_df = weak_df[~weak_df["url"].isin(gold_urls)]
+
+    logging.info(f"Weak samples after removing duplicates with gold: {len(weak_df)}")
+
+    gold_df["weight"] = 2.0
+    weak_df["weight"] = 1.0
+
+    combined_df = pd.concat([gold_df, weak_df], ignore_index=True)
+
+    le = LabelEncoder()
+    combined_df["label"] = le.fit_transform(combined_df["label_text"])
+    logging.info(f"Label distribution: {np.bincount(combined_df['label'])}")
+
+    logging.info("Splitting into train and eval sets...")
+    train_df, eval_df = train_test_split(
+        combined_df,
+        test_size=0.1,
+        random_state=42,
+        stratify=combined_df["label"]
+    )
+
+    logging.info(f"Train size: {len(train_df)}, Eval size: {len(eval_df)}")
+
+    train_ds = Dataset.from_pandas(train_df[["maintext", "label", "weight"]])
+    eval_ds = Dataset.from_pandas(eval_df[["maintext", "label", "weight"]])
+
+    logging.info("Tokenizing datasets...")
+    train_ds = train_ds.map(tokenize, batched=False)
+    eval_ds = eval_ds.map(tokenize, batched=False)
+
+    logging.info(f"Loading model {MODEL_NAME}")
+    model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
+
+    args = TrainingArguments(
+        output_dir=MODEL_OUTPUT_DIR,
+        eval_strategy="epoch",
+        save_strategy="epoch",
+        per_device_train_batch_size=8,
+        per_device_eval_batch_size=8,
+        num_train_epochs=4,
+        load_best_model_at_end=True,
+        metric_for_best_model="f1",
+        logging_dir=LOGS_DIR,
+    )
+
+    logging.info("Initializing Trainer...")
+    trainer = WeightedLossTrainer(
+        model=model,
+        args=args,
+        train_dataset=train_ds,
+        eval_dataset=eval_ds,
+        compute_metrics=compute_metrics,
+    )
+
+    logging.info("Starting training...")
+    trainer.train()
+
+    logging.info("Saving final model and tokenizer...")
+    trainer.save_model(MODEL_OUTPUT_DIR)
+    tokenizer.save_pretrained(MODEL_OUTPUT_DIR)
+
+    logging.info("Training complete.")
+
+if __name__ == "__main__":
+    main()
