@@ -1,17 +1,15 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import KBinsDiscretizer
-from snorkel.labeling import LFAnalysis
-from model.snorkel.labeling import labeling_functions
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 INPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel.csv"
-OUTPUT_FILE = "dataset/manual_labels_sample.csv"
+OUTPUT_FILE = "dataset/manual_labels.csv"
 
 def main():
-    logging.info("Loading dataset and label matrix...")
+    logging.info("Loading dataset...")
     df = pd.read_csv(INPUT_DATASET)
 
     df_by_source = df.groupby("source_domain", group_keys=False).apply(
@@ -27,10 +25,12 @@ def main():
     df["topic_bin"] = binned[:, 0]
     df["sentiment_bin"] = binned[:, 1]
 
-    df_diverse = df.groupby(["bias_bin", "topic_bin"]).apply(lambda x: x.sample(n=2, random_state=42)).reset_index(drop=True)
+    df_diverse = df.groupby(["sentiment_bin", "topic_bin"]).apply(lambda x: x.sample(n=2, random_state=42)).reset_index(drop=True)
 
     combined = pd.concat([df_by_source, df_diverse], ignore_index=True)
     final_sample = combined.drop_duplicates(subset=["url"], keep="first").sample(n=100, random_state=42)
+    final_sample = final_sample[["url", "maintext"]]
+    final_sample["label"] = "abstain"
 
     final_sample.to_csv(OUTPUT_FILE, index=False)
     logging.info(f"Saved {len(final_sample)}-sample set to {OUTPUT_FILE}")

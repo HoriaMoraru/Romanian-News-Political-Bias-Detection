@@ -6,6 +6,7 @@ from snorkel.labeling.model.label_model import LabelModel
 from snorkel.labeling.analysis import LFAnalysis
 from snorkel.labeling import labeling_function
 from snorkel.labeling import PandasLFApplier
+from snorkel.analysis import get_label_buckets
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -38,7 +39,7 @@ def lf_excessive_questions(x):
 
 @labeling_function()
 def lf_strong_llama_sentiment_biased(x):
-    if x.text_sentiment_llama_sentiment in ["pozitiv", "negativ"] and x.sentiment_confidence >= 0.65:
+    if x.text_sentiment_llama in ["pozitiv", "negativ"] and x.sentiment_confidence >= 0.8:
         return BIASED
     return ABSTAIN
 
@@ -48,7 +49,7 @@ def lf_low_topic_entropy(x):
 
 @labeling_function()
 def lf_conditional_hedging(x):
-    return BIASED if x.cond_mood_count > 2 else ABSTAIN
+    return BIASED if x.cond_mood_count > 4 else ABSTAIN
 
 @labeling_function()
 def lf_topic_sim_to_biased(x):
@@ -56,23 +57,37 @@ def lf_topic_sim_to_biased(x):
 
 @labeling_function()
 def lf_high_entropy_unbiased(x):
-    return UNBIASED if x.topic_entropy > 1.5 else ABSTAIN
+    return UNBIASED if x.topic_entropy > 4.0 else ABSTAIN
 
 @labeling_function()
 def lf_neutral_llama_sentiment_unbiased(x):
-    if x.llama_sentiment == "neutru" and x.llama_confidence >= 0.6:
+    if x.text_sentiment_llama == "neutru" and x.sentiment_confidence >= 0.8:
         return UNBIASED
     return ABSTAIN
 
 @labeling_function()
 def lf_clean_unbiased(x):
     if (
-        x.bias_word_ratio <= 0.5
+        x.bias_word_ratio <= 0.8
         and x.exclaim_count   == 0
         and x.question_count  == 0
         and x.cond_mood_count <= 2
-        and abs(x.overall_sentiment) < 0.2
+        and x.text_sentiment_llama == "neutru"
     ):
+        return UNBIASED
+    return ABSTAIN
+
+@labeling_function()
+def lf_excess_positive_stance_biased(x):
+    return BIASED if x.positive_stance_polarity > 0.2 else ABSTAIN
+
+@labeling_function()
+def lf_excess_negative_stance_biased(x):
+    return BIASED if x.negative_stance_polarity > 0.6 else ABSTAIN
+
+@labeling_function()
+def lf_balanced_stance_unbiased(x):
+    if x.positive_stance_polarity < 0.1 and x.negative_stance_polarity < 0.2:
         return UNBIASED
     return ABSTAIN
 
@@ -92,16 +107,19 @@ labeling_functions = [
     lf_high_bias_word_ratio,
     lf_excessive_exclaims,
     lf_excessive_questions,
-    lf_strong_llama_sentiment_biased,
+    # lf_strong_llama_sentiment_biased,
     lf_low_topic_entropy,
     lf_conditional_hedging,
     lf_topic_sim_to_biased,
     lf_high_entropy_unbiased,
-    lf_neutral_llama_sentiment_unbiased,
-    lf_clean_unbiased,
+    # lf_neutral_llama_sentiment_unbiased,
+    # lf_clean_unbiased,
     lf_high_first_pronouns,
     lf_high_second_pronouns,
-    lf_short_sentences_unbiased
+    lf_short_sentences_unbiased,
+    lf_balanced_stance_unbiased,
+    lf_excess_positive_stance_biased,
+    lf_excess_negative_stance_biased
 ]
 
 if __name__ == "__main__":
@@ -124,7 +142,7 @@ if __name__ == "__main__":
 
     logging.info(f"Labeling functions applied; label matrix saved to {LABEL_MATRIX}")
 
-    label_model = LabelModel(cardinality=3, device="cpu", verbose=True)
+    label_model = LabelModel(cardinality=2, device="cpu", verbose=True)
 
     label_model.fit(
         L_train=L_train,
@@ -137,7 +155,19 @@ if __name__ == "__main__":
 
     preds = label_model.predict(L=L_train)
 
+    label_mapping = {
+        -1: "abstain",
+        0 : "biased",
+        1 : "unbiased"
+    }
+
+    lb = get_label_buckets(preds)
+    for (label_val,), indices in lb.items():
+        label_str = label_mapping.get(label_val, f"unknown({label_val})")
+        logging.info(f"Label: {label_str} → {len(indices)} articles")
+
     df["snorkel_label"] = preds
+    df["snorkel_label"] = df["snorkel_label"].map(label_mapping)
 
     out = df[["url", "snorkel_label"]]
     out.to_csv(ARTICLE_LABELS, index=False)
