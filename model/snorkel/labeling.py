@@ -45,7 +45,7 @@ def lf_strong_llama_sentiment_biased(x):
 
 @labeling_function()
 def lf_low_topic_entropy(x):
-    return BIASED if x.topic_entropy < 1.5 else ABSTAIN
+    return BIASED if x.topic_entropy < 1.0 else ABSTAIN
 
 @labeling_function()
 def lf_conditional_hedging(x):
@@ -53,11 +53,11 @@ def lf_conditional_hedging(x):
 
 @labeling_function()
 def lf_topic_sim_to_biased(x):
-    return BIASED if x.topic_sim_bias > 0.5 else ABSTAIN
+    return BIASED if x.topic_sim_bias > 0.6 else ABSTAIN
 
 @labeling_function()
 def lf_high_entropy_unbiased(x):
-    return UNBIASED if x.topic_entropy > 4.0 else ABSTAIN
+    return UNBIASED if x.topic_entropy > 5.0 else ABSTAIN
 
 @labeling_function()
 def lf_neutral_llama_sentiment_unbiased(x):
@@ -107,13 +107,13 @@ labeling_functions = [
     lf_high_bias_word_ratio,
     lf_excessive_exclaims,
     lf_excessive_questions,
-    # lf_strong_llama_sentiment_biased,
+    lf_strong_llama_sentiment_biased,
     lf_low_topic_entropy,
     lf_conditional_hedging,
     lf_topic_sim_to_biased,
     lf_high_entropy_unbiased,
-    # lf_neutral_llama_sentiment_unbiased,
-    # lf_clean_unbiased,
+    lf_neutral_llama_sentiment_unbiased,
+    lf_clean_unbiased,
     lf_high_first_pronouns,
     lf_high_second_pronouns,
     lf_short_sentences_unbiased,
