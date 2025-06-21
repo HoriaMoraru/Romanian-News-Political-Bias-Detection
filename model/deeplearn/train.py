@@ -80,6 +80,9 @@ def main():
     train_ds = train_ds.map(tokenize, batched=False)
     eval_ds = eval_ds.map(tokenize, batched=False)
 
+    for i in range(3):
+        logging.info(f"Sample {i}: {train_ds[i]}")
+
     train_ds.set_format("torch", columns=["input_ids", "attention_mask", "labels", "loss_weight"])
     eval_ds.set_format("torch", columns=["input_ids", "attention_mask", "labels", "loss_weight"])
 
