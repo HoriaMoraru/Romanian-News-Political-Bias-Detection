@@ -11,7 +11,7 @@ import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 GOLD_LABELS = "dataset/manual_labels.csv"
-WEAK_LABELS = "dataset/snorkel/articles_labels.csv"
+WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./xlmr-finetuned-weighted"
 LOGS_DIR = "./model_logs"
 
