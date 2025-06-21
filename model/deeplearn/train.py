@@ -35,7 +35,7 @@ def compute_metrics(eval_pred):
 def tokenize(example):
     tokens = tokenizer(example["maintext"], padding="max_length", truncation=True, max_length=MAX_LEN)
     tokens["labels"] = example["label"]
-    tokens["weight"] = example["weight"]
+    tokens["loss_weight"] = example["weight"]
     return tokens
 
 def main():

@@ -4,7 +4,7 @@ import torch
 class WeightedLossTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.pop("labels")
-        weights = inputs.pop("weight")
+        weights = inputs.pop("loss_weight")
 
         outputs = model(**inputs)
         logits = outputs.logits
