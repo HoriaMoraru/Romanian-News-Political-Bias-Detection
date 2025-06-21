@@ -27,7 +27,7 @@ UNBIASED = 1
 
 @labeling_function()
 def lf_high_bias_word_ratio(x):
-    return BIASED if x.bias_word_ratio > 0.07 else ABSTAIN
+    return BIASED if x.bias_word_ratio > 0.06 else ABSTAIN
 
 @labeling_function()
 def lf_excessive_exclaims(x):
@@ -45,7 +45,7 @@ def lf_strong_llama_sentiment_biased(x):
 
 @labeling_function()
 def lf_low_topic_entropy(x):
-    return BIASED if x.topic_entropy < 1.0 else ABSTAIN
+    return BIASED if x.topic_entropy < 2 else ABSTAIN
 
 @labeling_function()
 def lf_conditional_hedging(x):
@@ -68,7 +68,7 @@ def lf_neutral_llama_sentiment_unbiased(x):
 @labeling_function()
 def lf_clean_unbiased(x):
     if (
-        x.bias_word_ratio <= 0.8
+        x.bias_word_ratio <= 0.1
         and x.exclaim_count   == 0
         and x.question_count  == 0
         and x.cond_mood_count <= 2
@@ -153,7 +153,7 @@ if __name__ == "__main__":
         optimizer="adam"
     )
 
-    preds = label_model.predict(L=L_train)
+    preds = label_model.predict(L=L_train, tie_break_policy="random")
 
     label_mapping = {
         -1: "abstain",

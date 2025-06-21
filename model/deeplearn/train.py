@@ -56,7 +56,8 @@ def main():
     gold_df["weight"] = 2.0
     weak_df["weight"] = 1.0
 
-    combined_df = pd.concat([gold_df, weak_df], ignore_index=True)
+    # combined_df = pd.concat([gold_df, weak_df], ignore_index=True)
+    combined_df = weak_df
 
     le = LabelEncoder()
     combined_df["label"] = le.fit_transform(combined_df["label_text"])
