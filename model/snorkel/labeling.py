@@ -32,7 +32,7 @@ UNBIASED = 1
 
 @labeling_function()
 def lf_high_bias_word_ratio(x):
-    return BIASED if x.bias_word_ratio > 0.06 else ABSTAIN
+    return BIASED if x.bias_word_ratio > 0.09 else ABSTAIN
 
 @labeling_function()
 def lf_excessive_exclaims(x):
@@ -50,15 +50,15 @@ def lf_strong_llama_sentiment_biased(x):
 
 @labeling_function()
 def lf_low_topic_entropy(x):
-    return BIASED if x.topic_entropy < 2 else ABSTAIN
+    return BIASED if x.topic_entropy < 3 else ABSTAIN
 
 @labeling_function()
 def lf_conditional_hedging(x):
-    return BIASED if x.cond_mood_count > 4 else ABSTAIN
+    return BIASED if x.cond_mood_count > 6 else ABSTAIN
 
 @labeling_function()
 def lf_topic_sim_to_biased(x):
-    return BIASED if x.topic_sim_bias > 0.6 else ABSTAIN
+    return BIASED if x.topic_sim_bias > 0.5 else ABSTAIN
 
 @labeling_function()
 def lf_high_entropy_unbiased(x):
@@ -66,7 +66,7 @@ def lf_high_entropy_unbiased(x):
 
 @labeling_function()
 def lf_neutral_llama_sentiment_unbiased(x):
-    if x.text_sentiment_llama == "neutru" and x.sentiment_confidence >= 0.8:
+    if x.text_sentiment_llama == "neutru" and x.sentiment_confidence > 0.7:
         return UNBIASED
     return ABSTAIN
 
@@ -84,15 +84,15 @@ def lf_clean_unbiased(x):
 
 @labeling_function()
 def lf_excess_positive_stance_biased(x):
-    return BIASED if x.positive_stance_polarity > 0.2 else ABSTAIN
+    return BIASED if x.positive_stance_polarity > 0.3 else ABSTAIN
 
 @labeling_function()
 def lf_excess_negative_stance_biased(x):
-    return BIASED if x.negative_stance_polarity > 0.6 else ABSTAIN
+    return BIASED if x.negative_stance_polarity > 0.5 else ABSTAIN
 
 @labeling_function()
 def lf_balanced_stance_unbiased(x):
-    if x.positive_stance_polarity < 0.1 and x.negative_stance_polarity < 0.2:
+    if x.positive_stance_polarity < 0.3 and x.negative_stance_polarity < 0.5:
         return UNBIASED
     return ABSTAIN
 
@@ -185,10 +185,13 @@ if __name__ == "__main__":
     merged = pd.merge(gold_df, snorkel_labels, on="url", how="inner")
 
     logging.info(f"Merged dataset size: {len(merged)}")
+    out = merged[["url", "label", "snorkel_label"]]
+
+    out.to_csv("dataset/snorkel/merged_labels.csv", index=False)
 
     le = LabelEncoder()
     y_true = le.fit_transform(merged["label"])
-    y_pred = le.transform(merged["snorkel_label"])
+    y_pred = le.fit_transform(merged["snorkel_label"])
 
     metrics = {
         "accuracy": accuracy_score(y_true, y_pred),

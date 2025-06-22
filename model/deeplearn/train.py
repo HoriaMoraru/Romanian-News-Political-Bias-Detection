@@ -19,7 +19,7 @@ GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "dumitrescustefan/bert-base-romanian-cased-v1"
+MODEL_NAME = "readerbench/RoBERT-small"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -36,22 +36,6 @@ def compute_metrics(eval_pred):
         "precision": precision_score(labels, preds),
         "recall": recall_score(labels, preds)
     }
-
-# def tokenize(example):
-#     result = tokenizer(
-#         example["cleantext"],
-#         padding="max_length",
-#         truncation=True,
-#         max_length=MAX_LEN,
-#         stride=256,
-#         return_overflowing_tokens=True,
-#         )
-
-#     sample_map = result.pop("overflow_to_sample_mapping")
-#     for key, values in example.items():
-#         result[key] = [values[i] for i in sample_map]
-
-#     return result
 
 def tokenize(example):
     tokens = tokenizer(
@@ -80,9 +64,8 @@ def main():
 
     logging.info(f"Weak samples after removing duplicates with gold: {len(weak_df)}")
 
-    # combined_df = pd.concat([gold_df, weak_df], ignore_index=True)
-    combined_df = weak_df
-    # combined_df = combined_df.sample(frac=1.0, random_state=42).reset_index(drop=True)
+    combined_df = pd.concat([gold_df, weak_df], ignore_index=True)
+    combined_df = combined_df.sample(frac=1.0, random_state=42).reset_index(drop=True)
 
     le = LabelEncoder()
     combined_df["label"] = le.fit_transform(combined_df["label_text"])
@@ -115,7 +98,7 @@ def main():
         learning_rate=5e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
-        num_train_epochs=10,
+        num_train_epochs=15,
         label_names=["labels"],
         eval_strategy="epoch",
         save_strategy="epoch",
