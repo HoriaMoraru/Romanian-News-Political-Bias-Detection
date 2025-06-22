@@ -90,21 +90,23 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        output_dir=MODEL_OUTPUT_DIR,
-        eval_strategy="epoch",
-        save_strategy="epoch",
-        label_names=["labels"],
+        num_train_epochs=10,
+        warmup_ratio=0.1,
+        learning_rate=2e-5,
+        weight_decay=0.01,
+        lr_scheduler_type="linear",
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
-        num_train_epochs=10,
-        warmup_steps=100,
-        weight_decay=0.01,
-        load_best_model_at_end=True,
+        eval_strategy="epoch",
+        save_strategy="epoch",
         metric_for_best_model="f1",
+        load_best_model_at_end=True,
+        label_names=["labels"],
         logging_steps=50,
         logging_strategy="steps",
         report_to="wandb",
-        run_name="political-media-bias-detection"
+        run_name="political-media-bias-detection",
+        output_dir=MODEL_OUTPUT_DIR
     )
 
     logging.info("Initializing Trainer...")
