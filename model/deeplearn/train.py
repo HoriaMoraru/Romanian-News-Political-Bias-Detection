@@ -46,12 +46,11 @@ def tokenize(example):
         return_overflowing_tokens=True,
     )
 
-    result["labels"] = [example["label"]] * len(result["input_ids"])
-    return {
-        "input_ids": result["input_ids"],
-        "attention_mask": result["attention_mask"],
-        "labels": result["labels"]
-    }
+    sample_map = result.pop("overflow_to_sample_mapping")
+    for key, values in example.items():
+        result[key] = [values[i] for i in sample_map]
+
+    return result
 
 def main():
     logging.info("Loading gold and weak datasets...")
@@ -94,8 +93,8 @@ def main():
     eval_ds = Dataset.from_pandas(eval_df[["cleantext", "label"]])
 
     logging.info("Tokenizing datasets...")
-    train_ds = train_ds.map(tokenize, batched=True, remove_columns=["cleantext", "label"])
-    eval_ds = eval_ds.map(tokenize, batched=True, remove_columns=["cleantext", "label"])
+    train_ds = train_ds.map(tokenize, batched=True)
+    eval_ds = eval_ds.map(tokenize, batched=True)
 
     logging.info(train_ds[0])
     logging.info(eval_ds[0])
