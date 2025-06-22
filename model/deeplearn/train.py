@@ -92,11 +92,10 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        learning_rate=2e-5,
-        warmup_ratio=0.06,
-        weight_decay=0.01,
+        learning_rate=5e-5,
         lr_scheduler_type="linear",
-        num_train_epochs=5,
+        optim="adamw_torch",
+        num_train_epochs=6,
         label_names=["labels"],
         eval_strategy="epoch",
         save_strategy="epoch",
