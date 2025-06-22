@@ -28,6 +28,8 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
+    logging.info("Logits shape:", logits.shape)
+    logging.info("Logits: ", logits)
     preds = np.argmax(logits, axis=-1)
     logging.info(f"Predictions: {preds}, Labels: {labels}")
     return {
