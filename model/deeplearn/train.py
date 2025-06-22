@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
-MODEL_OUTPUT_DIR = "./xlmr-finetuned-weighted"
+MODEL_OUTPUT_DIR = "./xlmr-finetuned"
 LOGS_DIR = "./model_logs"
 
 MODEL_NAME = "xlm-roberta-large"
@@ -58,6 +58,9 @@ def main():
     combined_df["label"] = le.fit_transform(combined_df["label_text"])
     logging.info(f"Label distribution: {np.bincount(combined_df['label'])}")
 
+    num_classes = len(np.unique(combined_df["label"]))
+    assert num_classes == NUM_LABELS, f"Expected {NUM_LABELS} classes, but found {num_classes}"
+
     logging.info("Splitting into train and eval sets...")
     train_df, eval_df = train_test_split(
         combined_df,
@@ -87,7 +90,9 @@ def main():
         num_train_epochs=4,
         load_best_model_at_end=True,
         metric_for_best_model="f1",
-        logging_dir=LOGS_DIR,
+        logging_steps=50,
+        report_to="wandb",
+        run_name="political-media-bias-detection"
     )
 
     logging.info("Initializing Trainer...")
