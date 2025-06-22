@@ -18,7 +18,7 @@ GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "readerbench/RoBERT-small"
+MODEL_NAME = "readerbench/RoBERT-large"
 MAX_LEN = 512
 NUM_LABELS = 2
 
