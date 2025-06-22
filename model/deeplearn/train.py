@@ -16,9 +16,9 @@ wandb.login(key=os.getenv("WANDB_API_KEY"))
 
 GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
-MODEL_OUTPUT_DIR = "./xlmr-finetuned"
+MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "xlm-roberta-base"
+MODEL_NAME = "readerbench/RoBERT-small"
 MAX_LEN = 512
 NUM_LABELS = 2
 
