@@ -37,9 +37,17 @@ def compute_metrics(eval_pred):
     }
 
 def tokenize(example):
-    tokens = tokenizer(example["cleantext"], padding="max_length", truncation=True, max_length=MAX_LEN)
-    tokens["labels"] = example["label"]
-    return tokens
+    encodings = tokenizer(
+        example["cleantext"],
+        padding="max_length",
+        truncation=True,
+        max_length=MAX_LEN,
+        stride=128,
+        return_overflowing_tokens=True,
+        return_offsets_mapping=False
+    )
+    encodings["labels"] = [example["label"]] * len(encodings["input_ids"])
+    return encodings
 
 def main():
     logging.info("Loading gold and weak datasets...")
@@ -81,12 +89,12 @@ def main():
     train_ds = Dataset.from_pandas(train_df[["cleantext", "label"]])
     eval_ds = Dataset.from_pandas(eval_df[["cleantext", "label"]])
 
+    logging.info("Tokenizing datasets...")
+    train_ds = train_ds.map(tokenize, batched=True, remove_columns=["cleantext", "label"])
+    eval_ds = eval_ds.map(tokenize, batched=True, remove_columns=["cleantext", "label"])
+
     logging.info(train_ds[0])
     logging.info(eval_ds[0])
-
-    logging.info("Tokenizing datasets...")
-    train_ds = train_ds.map(tokenize, batched=False)
-    eval_ds = eval_ds.map(tokenize, batched=False)
 
     logging.info(f"Loading model {MODEL_NAME}")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
