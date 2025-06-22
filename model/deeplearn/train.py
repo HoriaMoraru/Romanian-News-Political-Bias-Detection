@@ -93,7 +93,7 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     sample = train_ds[0]
-    inputs = {k: torch.tensor([v]) for k, v in sample.items() if k != "labels"}
+    inputs = {k: torch.tensor(sample[k]) for k in ['input_ids', 'attention_mask']}
     model.eval()
     with torch.no_grad():
         output = model(**inputs)
