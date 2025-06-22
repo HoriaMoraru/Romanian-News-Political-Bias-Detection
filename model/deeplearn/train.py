@@ -103,7 +103,7 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        learning_rate=2e-5,
+        learning_rate=5e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
         num_train_epochs=6,
