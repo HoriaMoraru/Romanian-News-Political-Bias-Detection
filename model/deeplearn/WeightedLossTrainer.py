@@ -1,9 +1,12 @@
 from transformers import Trainer
 import torch
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class WeightedLossTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
-        print("DEBUG input keys:", inputs.keys())
+        logging.info("DEBUG input keys:", inputs.keys())
         labels = inputs.pop("labels")
         weights = inputs.pop("loss_weight")
 
