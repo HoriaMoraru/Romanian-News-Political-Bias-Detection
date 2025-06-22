@@ -88,11 +88,11 @@ def lf_excess_positive_stance_biased(x):
 
 @labeling_function()
 def lf_excess_negative_stance_biased(x):
-    return BIASED if x.negative_stance_polarity > 0.5 else ABSTAIN
+    return BIASED if x.negative_stance_polarity >= 0.6 else ABSTAIN
 
 @labeling_function()
 def lf_balanced_stance_unbiased(x):
-    if x.positive_stance_polarity < 0.3 and x.negative_stance_polarity < 0.5:
+    if x.positive_stance_polarity <= 0.3 and x.negative_stance_polarity < 0.6:
         return UNBIASED
     return ABSTAIN
 
