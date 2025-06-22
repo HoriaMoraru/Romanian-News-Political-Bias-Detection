@@ -18,7 +18,7 @@ GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./xlmr-finetuned"
 
-MODEL_NAME = "xlm-roberta-large"
+MODEL_NAME = "xlm-roberta-base"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -42,7 +42,7 @@ def tokenize(example):
         padding="max_length",
         truncation=True,
         max_length=MAX_LEN,
-        stride=128,
+        stride=256,
         return_overflowing_tokens=True,
     )
 
@@ -103,7 +103,7 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        learning_rate=5e-5,
+        learning_rate=2e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
         num_train_epochs=6,
