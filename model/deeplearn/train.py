@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import wandb
 import os
+import torch
 from dotenv import load_dotenv
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
@@ -17,9 +18,8 @@ wandb.login(key=os.getenv("WANDB_API_KEY"))
 GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./xlmr-finetuned"
-LOGS_DIR = "./model_logs"
 
-MODEL_NAME = "xlm-roberta-large"
+MODEL_NAME = "xlm-roberta-base"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -59,6 +59,8 @@ def main():
 
     # combined_df = pd.concat([gold_df, weak_df], ignore_index=True)
     combined_df = weak_df
+    # combined_df = combined_df.sample(frac=1.0, random_state=42).reset_index(drop=True)
+
 
     le = LabelEncoder()
     combined_df["label"] = le.fit_transform(combined_df["label_text"])
@@ -84,13 +86,26 @@ def main():
     train_ds = train_ds.map(tokenize, batched=False)
     eval_ds = eval_ds.map(tokenize, batched=False)
 
+    logging.info(train_ds[0])
+    logging.info(eval_ds[0])
+
     logging.info(f"Loading model {MODEL_NAME}")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
+
+    sample = train_ds[0]
+    inputs = {k: torch.tensor([v]) for k, v in sample.items() if k != "labels"}
+    model.eval()
+    with torch.no_grad():
+        output = model(**inputs)
+        pred = torch.argmax(output.logits, dim=1).item()
+
+    logging.info(f"Sample true label: {sample['labels']}, predicted: {pred}")
 
     args = TrainingArguments(
         output_dir=MODEL_OUTPUT_DIR,
         eval_strategy="epoch",
         save_strategy="epoch",
+        label_names=["labels"],
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
         num_train_epochs=4,
