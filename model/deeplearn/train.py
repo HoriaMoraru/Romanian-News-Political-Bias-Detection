@@ -100,7 +100,7 @@ def main():
         learning_rate=5e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
-        num_train_epochs=10,
+        num_train_epochs=15,
         max_grad_norm=1.0,
         label_names=["labels"],
         eval_strategy="epoch",

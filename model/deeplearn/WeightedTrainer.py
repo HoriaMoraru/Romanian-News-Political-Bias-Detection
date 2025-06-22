@@ -3,7 +3,7 @@ from torch import nn
 from transformers import Trainer
 
 class WeightedTrainer(Trainer):
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         labels = inputs.get("labels")
 
         outputs = model(**inputs)
