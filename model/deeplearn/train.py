@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-load_dotenv()
+load_dotenv("/app/.env")
 wandb.login(key=os.getenv("WANDB_API_KEY"))
 
 GOLD_LABELS = "dataset/manual_labels.csv"
