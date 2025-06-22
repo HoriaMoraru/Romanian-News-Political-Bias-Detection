@@ -19,7 +19,7 @@ GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "readerbench/RoBERT-base"
+MODEL_NAME = "Iulian277/ro-bert-tweet"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -106,8 +106,8 @@ def main():
     eval_ds = Dataset.from_pandas(eval_df[["cleantext", "label"]])
 
     logging.info("Tokenizing datasets...")
-    train_ds = train_ds.map(tokenize, batched=False)
-    eval_ds = eval_ds.map(tokenize, batched=False)
+    train_ds = train_ds.map(tokenize, batched=False, load_from_cache_file=False)
+    eval_ds = eval_ds.map(tokenize, batched=False, load_from_cache_file=False)
 
     logging.info(f"Loading model {MODEL_NAME}")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
