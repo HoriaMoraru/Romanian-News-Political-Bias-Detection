@@ -19,7 +19,7 @@ GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "Iulian277/ro-bert-tweet"
+MODEL_NAME = "dumitrescustefan/bert-base-romanian-cased-v1"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -83,7 +83,6 @@ def main():
     # combined_df = pd.concat([gold_df, weak_df], ignore_index=True)
     combined_df = weak_df
     # combined_df = combined_df.sample(frac=1.0, random_state=42).reset_index(drop=True)
-
 
     le = LabelEncoder()
     combined_df["label"] = le.fit_transform(combined_df["label_text"])

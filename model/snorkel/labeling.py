@@ -1,6 +1,7 @@
 import pandas as pd
 import logging
 import torch
+from pprint import pformat
 
 from snorkel.labeling.model.label_model import LabelModel
 from snorkel.labeling.analysis import LFAnalysis
@@ -8,11 +9,15 @@ from snorkel.labeling import labeling_function
 from snorkel.labeling import PandasLFApplier
 from snorkel.analysis import get_label_buckets
 
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, classification_report
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 INPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel.csv"
 LABEL_MATRIX   = "dataset/snorkel/label_matrix.csv"
 ARTICLE_LABELS = "dataset/snorkel/article_labels.csv"
+GOLD_LABELS   = "dataset/manual_labels.csv"
 
 # ───────────────────────────────────────────────────────────────────────────────
 # 1. LABEL ENUMERATIONS
@@ -169,6 +174,30 @@ if __name__ == "__main__":
     df["snorkel_label"] = preds
     df["snorkel_label"] = df["snorkel_label"].map(label_mapping)
 
-    out = df[["url", "cleantext", "snorkel_label"]]
-    out.to_csv(ARTICLE_LABELS, index=False)
+    snorkel_labels = df[["url", "cleantext", "snorkel_label"]]
+    snorkel_labels.to_csv(ARTICLE_LABELS, index=False)
     logging.info(f"Saved final article→label file to {ARTICLE_LABELS}")
+
+    logging.info("Computing evaluation metrics using gold labels...:")
+
+    gold_df = pd.read_csv(GOLD_LABELS)
+
+    merged = pd.merge(gold_df, snorkel_labels, on="url", how="inner")
+
+    logging.info(f"Merged dataset size: {len(merged)}")
+
+    le = LabelEncoder()
+    y_true = le.fit_transform(merged["label"])
+    y_pred = le.transform(merged["snorkel_label"])
+
+    metrics = {
+        "accuracy": accuracy_score(y_true, y_pred),
+        "f1_score": f1_score(y_true, y_pred),
+        "precision": precision_score(y_true, y_pred),
+        "recall": recall_score(y_true, y_pred),
+    }
+
+    logging.info("Final evaluation metrics:\n" + pformat(metrics))
+
+    report = classification_report(y_true, y_pred, target_names=le.classes_)
+    logging.info(f"\n{report}")
