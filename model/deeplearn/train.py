@@ -29,11 +29,12 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
     preds = np.argmax(logits, axis=-1)
+    logging.info(f"Predictions: {preds}, Labels: {labels}")
     return {
         "accuracy": accuracy_score(labels, preds),
-        "f1": f1_score(labels, preds, average='weighted'),
-        "precision": precision_score(labels, preds, average='weighted'),
-        "recall": recall_score(labels, preds, average='weighted')
+        "f1": f1_score(labels, preds),
+        "precision": precision_score(labels, preds),
+        "recall": recall_score(labels, preds)
     }
 
 def tokenize(example):
@@ -53,7 +54,6 @@ def main():
 
     gold_urls = set(gold_df["url"])
     weak_df = weak_df[~weak_df["url"].isin(gold_urls)]
-
 
     logging.info(f"Weak samples after removing duplicates with gold: {len(weak_df)}")
 
@@ -86,21 +86,8 @@ def main():
     train_ds = train_ds.map(tokenize, batched=False)
     eval_ds = eval_ds.map(tokenize, batched=False)
 
-    logging.info(train_ds[0])
-    logging.info(eval_ds[0])
-
     logging.info(f"Loading model {MODEL_NAME}")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
-
-    sample = train_ds[0]
-    inputs = tokenizer(sample["maintext"], return_tensors="pt", padding="max_length", truncation=True, max_length=MAX_LEN)
-
-    model.eval()
-    with torch.no_grad():
-        output = model(**inputs)
-        pred = torch.argmax(output.logits, dim=1).item()
-
-    logging.info(f"Sample true label: {sample['labels']}, predicted: {pred}")
 
     args = TrainingArguments(
         output_dir=MODEL_OUTPUT_DIR,
@@ -109,10 +96,14 @@ def main():
         label_names=["labels"],
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
-        num_train_epochs=4,
+        num_train_epochs=8,
+        learning_rate=2e-5,
+        warmup_steps=100,
+        weight_decay=0.01,
         load_best_model_at_end=True,
         metric_for_best_model="f1",
         logging_steps=50,
+        logging_strategy="steps",
         report_to="wandb",
         run_name="political-media-bias-detection"
     )
