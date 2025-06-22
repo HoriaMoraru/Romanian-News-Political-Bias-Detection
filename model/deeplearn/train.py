@@ -82,6 +82,9 @@ def main():
     train_ds = Dataset.from_pandas(train_df[["cleantext", "label"]])
     eval_ds = Dataset.from_pandas(eval_df[["cleantext", "label"]])
 
+    logging.info(train_ds[0])
+    logging.info(eval_ds[0])
+
     logging.info("Tokenizing datasets...")
     train_ds = train_ds.map(tokenize, batched=False)
     eval_ds = eval_ds.map(tokenize, batched=False)
@@ -90,8 +93,8 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        learning_rate=2e-5,
-        warmup_steps=100,
+        learning_rate=1e-5,
+        warmup_steps=500,
         weight_decay=0.01,
         lr_scheduler_type="linear",
         num_train_epochs=8,
