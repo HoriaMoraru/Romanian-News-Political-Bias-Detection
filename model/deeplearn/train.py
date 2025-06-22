@@ -2,12 +2,17 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trai
 from datasets import Dataset
 import pandas as pd
 import numpy as np
+import wandb
+import os
+from dotenv import load_dotenv
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from sklearn.model_selection import train_test_split
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+load_dotenv()
+wandb.login(key=os.getenv("WANDB_API_KEY"))
 
 GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
