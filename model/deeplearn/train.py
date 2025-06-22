@@ -1,4 +1,4 @@
-from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments, EarlyStoppingCallback
 from datasets import Dataset
 import pandas as pd
 import numpy as np
@@ -10,6 +10,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, classification_report
 from sklearn.model_selection import train_test_split
 import logging
+
+from model.deeplearn.WeightedTrainer import WeightedTrainer
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 load_dotenv("/app/.env")
@@ -98,7 +100,8 @@ def main():
         learning_rate=5e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
-        num_train_epochs=20,
+        num_train_epochs=10,
+        max_grad_norm=1.0,
         label_names=["labels"],
         eval_strategy="epoch",
         save_strategy="epoch",
@@ -115,12 +118,13 @@ def main():
     )
 
     logging.info("Initializing Trainer...")
-    trainer = Trainer(
+    trainer = WeightedTrainer(
         model=model,
         args=args,
         train_dataset=train_ds,
         eval_dataset=eval_ds,
         compute_metrics=compute_metrics,
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
     )
 
     logging.info("Starting training...")
