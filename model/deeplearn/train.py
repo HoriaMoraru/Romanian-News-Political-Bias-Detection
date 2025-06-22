@@ -3,6 +3,7 @@ from datasets import Dataset
 import pandas as pd
 import numpy as np
 import wandb
+from pprint import pformat
 import os
 from dotenv import load_dotenv
 from sklearn.preprocessing import LabelEncoder
@@ -18,7 +19,7 @@ GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "readerbench/RoBERT-large"
+MODEL_NAME = "readerbench/RoBERT-small"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -36,21 +37,33 @@ def compute_metrics(eval_pred):
         "recall": recall_score(labels, preds)
     }
 
+# def tokenize(example):
+#     result = tokenizer(
+#         example["cleantext"],
+#         padding="max_length",
+#         truncation=True,
+#         max_length=MAX_LEN,
+#         stride=256,
+#         return_overflowing_tokens=True,
+#         )
+
+#     sample_map = result.pop("overflow_to_sample_mapping")
+#     for key, values in example.items():
+#         result[key] = [values[i] for i in sample_map]
+
+#     return result
+
 def tokenize(example):
-    result = tokenizer(
+    tokens = tokenizer(
         example["cleantext"],
         padding="max_length",
         truncation=True,
-        max_length=MAX_LEN,
-        stride=256,
-        return_overflowing_tokens=True,
+        max_length=MAX_LEN
     )
+    tokens["labels"] = example["label"]
 
-    sample_map = result.pop("overflow_to_sample_mapping")
-    for key, values in example.items():
-        result[key] = [values[i] for i in sample_map]
+    return tokens
 
-    return result
 
 def main():
     logging.info("Loading gold and weak datasets...")
@@ -93,11 +106,8 @@ def main():
     eval_ds = Dataset.from_pandas(eval_df[["cleantext", "label"]])
 
     logging.info("Tokenizing datasets...")
-    train_ds = train_ds.map(tokenize, batched=True)
-    eval_ds = eval_ds.map(tokenize, batched=True)
-
-    logging.info(train_ds[0])
-    logging.info(eval_ds[0])
+    train_ds = train_ds.map(tokenize, batched=False)
+    eval_ds = eval_ds.map(tokenize, batched=False)
 
     logging.info(f"Loading model {MODEL_NAME}")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
@@ -106,7 +116,7 @@ def main():
         learning_rate=5e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
-        num_train_epochs=6,
+        num_train_epochs=10,
         label_names=["labels"],
         eval_strategy="epoch",
         save_strategy="epoch",
@@ -135,7 +145,7 @@ def main():
     trainer.train()
 
     metrics = trainer.evaluate()
-    logging.info(f"Final evaluation metrics: {metrics}")
+    logging.info("Final evaluation metrics:\n" + pformat(metrics))
 
     logging.info("Generating classification report...")
 
