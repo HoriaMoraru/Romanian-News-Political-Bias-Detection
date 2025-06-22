@@ -28,8 +28,6 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
-    logging.info("Logits shape:", logits.shape)
-    logging.info("Logits: ", logits)
     preds = np.argmax(logits, axis=-1)
     logging.info(f"Predictions: {preds}, Labels: {labels}")
     return {
@@ -40,7 +38,7 @@ def compute_metrics(eval_pred):
     }
 
 def tokenize(example):
-    tokens = tokenizer(example["maintext"], padding="max_length", truncation=True, max_length=MAX_LEN)
+    tokens = tokenizer(example["cleantext"], padding="max_length", truncation=True, max_length=MAX_LEN)
     tokens["labels"] = example["label"]
     return tokens
 
@@ -52,7 +50,7 @@ def main():
     logging.info(f"Gold samples: {len(gold_df)}, Weak samples before deduplication: {len(weak_df)}")
 
     gold_df = gold_df.rename(columns={"label": "label_text"})
-    weak_df = weak_df.rename(columns={"snorkel_label": "label_text", "cleantext": "maintext"})
+    weak_df = weak_df.rename(columns={"snorkel_label": "label_text"})
 
     gold_urls = set(gold_df["url"])
     weak_df = weak_df[~weak_df["url"].isin(gold_urls)]
@@ -81,8 +79,8 @@ def main():
 
     logging.info(f"Train size: {len(train_df)}, Eval size: {len(eval_df)}")
 
-    train_ds = Dataset.from_pandas(train_df[["maintext", "label"]])
-    eval_ds = Dataset.from_pandas(eval_df[["maintext", "label"]])
+    train_ds = Dataset.from_pandas(train_df[["cleantext", "label"]])
+    eval_ds = Dataset.from_pandas(eval_df[["cleantext", "label"]])
 
     logging.info("Tokenizing datasets...")
     train_ds = train_ds.map(tokenize, batched=False)
@@ -98,8 +96,7 @@ def main():
         label_names=["labels"],
         per_device_train_batch_size=8,
         per_device_eval_batch_size=8,
-        num_train_epochs=8,
-        learning_rate=2e-5,
+        num_train_epochs=10,
         warmup_steps=100,
         weight_decay=0.01,
         load_best_model_at_end=True,
