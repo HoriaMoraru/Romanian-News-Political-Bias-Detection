@@ -34,8 +34,8 @@ def compute_metrics(eval_pred):
 
 def tokenize(example):
     tokens = tokenizer(example["maintext"], padding="max_length", truncation=True, max_length=MAX_LEN)
-    tokens["labels"] = example["label"]
-    tokens["loss_weight"] = example["weight"]
+    tokens["label"] = example["label"]
+    tokens["weight"] = example["weight"]
     return tokens
 
 def main():
@@ -83,8 +83,8 @@ def main():
     for i in range(3):
         logging.info(f"Sample {i}: {train_ds[i]}")
 
-    train_ds.set_format("torch", columns=["input_ids", "attention_mask", "labels", "loss_weight"])
-    eval_ds.set_format("torch", columns=["input_ids", "attention_mask", "labels", "loss_weight"])
+    train_ds.set_format("torch", columns=["input_ids", "attention_mask", "label", "weight"])
+    eval_ds.set_format("torch", columns=["input_ids", "attention_mask", "label", "weight"])
 
     logging.info(f"Loading model {MODEL_NAME}")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)

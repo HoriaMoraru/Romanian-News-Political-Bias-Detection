@@ -3,6 +3,7 @@ import torch
 
 class WeightedLossTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
+        print("DEBUG input keys:", inputs.keys())
         labels = inputs.pop("labels")
         weights = inputs.pop("loss_weight")
 
