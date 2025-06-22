@@ -93,7 +93,8 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     sample = train_ds[0]
-    inputs = {k: torch.tensor(sample[k]) for k in ['input_ids', 'attention_mask']}
+    inputs = tokenizer(sample["maintext"], return_tensors="pt", padding="max_length", truncation=True, max_length=MAX_LEN)
+
     model.eval()
     with torch.no_grad():
         output = model(**inputs)
