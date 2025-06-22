@@ -5,7 +5,6 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from sklearn.model_selection import train_test_split
-from model.deeplearn.WeightedLossTrainer import WeightedLossTrainer
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -35,7 +34,6 @@ def compute_metrics(eval_pred):
 def tokenize(example):
     tokens = tokenizer(example["maintext"], padding="max_length", truncation=True, max_length=MAX_LEN)
     tokens["labels"] = example["label"]
-    tokens["sample_weight"] = example["weight"]
     return tokens
 
 def main():
@@ -52,9 +50,6 @@ def main():
     weak_df = weak_df[~weak_df["url"].isin(gold_urls)]
 
     logging.info(f"Weak samples after removing duplicates with gold: {len(weak_df)}")
-
-    gold_df["weight"] = 2.0
-    weak_df["weight"] = 1.0
 
     # combined_df = pd.concat([gold_df, weak_df], ignore_index=True)
     combined_df = weak_df
@@ -73,15 +68,12 @@ def main():
 
     logging.info(f"Train size: {len(train_df)}, Eval size: {len(eval_df)}")
 
-    train_ds = Dataset.from_pandas(train_df[["maintext", "label", "weight"]])
-    eval_ds = Dataset.from_pandas(eval_df[["maintext", "label", "weight"]])
+    train_ds = Dataset.from_pandas(train_df[["maintext", "label"]])
+    eval_ds = Dataset.from_pandas(eval_df[["maintext", "label"]])
 
     logging.info("Tokenizing datasets...")
     train_ds = train_ds.map(tokenize, batched=False)
     eval_ds = eval_ds.map(tokenize, batched=False)
-
-    for i in range(3):
-        logging.info(f"Sample {i}: {train_ds[i]}")
 
     logging.info(f"Loading model {MODEL_NAME}")
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
@@ -99,7 +91,7 @@ def main():
     )
 
     logging.info("Initializing Trainer...")
-    trainer = WeightedLossTrainer(
+    trainer = Trainer(
         model=model,
         args=args,
         train_dataset=train_ds,
