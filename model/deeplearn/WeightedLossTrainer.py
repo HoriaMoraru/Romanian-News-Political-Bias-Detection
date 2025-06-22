@@ -8,6 +8,7 @@ class WeightedLossTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False, **kwargs):
         logging.info("DEBUG input keys:", inputs.keys())
         labels = inputs.pop("labels")
+        logging.info("DEBUG Labels : ", labels)
         weights = inputs.pop("loss_weight")
 
         outputs = model(**inputs)
