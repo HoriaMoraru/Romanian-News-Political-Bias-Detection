@@ -4,10 +4,9 @@ import pandas as pd
 import numpy as np
 import wandb
 import os
-import torch
 from dotenv import load_dotenv
 from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, classification_report
 from sklearn.model_selection import train_test_split
 import logging
 
@@ -19,7 +18,7 @@ GOLD_LABELS = "dataset/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./xlmr-finetuned"
 
-MODEL_NAME = "xlm-roberta-base"
+MODEL_NAME = "xlm-roberta-large"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -93,11 +92,11 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        learning_rate=1e-5,
-        warmup_steps=500,
+        learning_rate=2e-5,
+        warmup_ratio=0.06,
         weight_decay=0.01,
         lr_scheduler_type="linear",
-        num_train_epochs=8,
+        num_train_epochs=5,
         label_names=["labels"],
         eval_strategy="epoch",
         save_strategy="epoch",
@@ -105,6 +104,7 @@ def main():
         per_device_eval_batch_size=8,
         load_best_model_at_end=True,
         metric_for_best_model="f1",
+        greater_is_better=True,
         logging_steps=50,
         logging_strategy="steps",
         report_to="wandb",
@@ -123,6 +123,18 @@ def main():
 
     logging.info("Starting training...")
     trainer.train()
+
+    metrics = trainer.evaluate()
+    logging.info(f"Final evaluation metrics: {metrics}")
+
+    logging.info("Generating classification report...")
+
+    raw_preds = trainer.predict(eval_ds)
+    preds = np.argmax(raw_preds.predictions, axis=1)
+    labels = raw_preds.label_ids
+
+    report = classification_report(labels, preds, target_names=le.classes_, digits=4)
+    logging.info(f"\n{report}")
 
     logging.info("Saving final model and tokenizer...")
     trainer.save_model(MODEL_OUTPUT_DIR)
