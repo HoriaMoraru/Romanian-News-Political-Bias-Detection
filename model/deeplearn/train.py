@@ -37,17 +37,21 @@ def compute_metrics(eval_pred):
     }
 
 def tokenize(example):
-    encodings = tokenizer(
+    result = tokenizer(
         example["cleantext"],
         padding="max_length",
         truncation=True,
         max_length=MAX_LEN,
         stride=128,
         return_overflowing_tokens=True,
-        return_offsets_mapping=False
     )
-    encodings["labels"] = [example["label"]] * len(encodings["input_ids"])
-    return encodings
+
+    result["labels"] = [example["label"]] * len(result["input_ids"])
+    return {
+        "input_ids": result["input_ids"],
+        "attention_mask": result["attention_mask"],
+        "labels": result["labels"]
+    }
 
 def main():
     logging.info("Loading gold and weak datasets...")
