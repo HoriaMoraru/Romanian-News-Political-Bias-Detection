@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 INPUT_DATASET = "dataset/romanian_political_articles_v2_snorkel.csv"
 LABEL_MATRIX   = "dataset/snorkel/label_matrix.csv"
 ARTICLE_LABELS = "dataset/snorkel/article_labels.csv"
-GOLD_LABELS   = "dataset/manual_labels.csv"
+GOLD_LABELS   = "manual_labeling/manual_labels.csv"
 
 # ───────────────────────────────────────────────────────────────────────────────
 # 1. LABEL ENUMERATIONS

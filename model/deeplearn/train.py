@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 load_dotenv("/app/.env")
 wandb.login(key=os.getenv("WANDB_API_KEY"))
 
-GOLD_LABELS = "dataset/manual_labels.csv"
+GOLD_LABELS = "manual_labeling/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
@@ -97,7 +97,7 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        learning_rate=5e-5,
+        learning_rate=2e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
         num_train_epochs=15,
@@ -124,7 +124,7 @@ def main():
         train_dataset=train_ds,
         eval_dataset=eval_ds,
         compute_metrics=compute_metrics,
-        callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=2)]
     )
 
     logging.info("Starting training...")
