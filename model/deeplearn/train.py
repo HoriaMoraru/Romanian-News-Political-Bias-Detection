@@ -21,7 +21,7 @@ GOLD_LABELS = "manual_labeling/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "microsoft/xtremedistil-l6-h384-uncased"
+MODEL_NAME = "microsoft/xtremedistil-l12-h384-uncased"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -96,7 +96,7 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        learning_rate=5e-6,
+        learning_rate=3e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
         num_train_epochs=12,
