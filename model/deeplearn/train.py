@@ -21,7 +21,7 @@ GOLD_LABELS = "manual_labeling/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "microsoft/xtremedistil-l12-h384-uncased"
+MODEL_NAME = "FacebookAI/xlm-roberta-base"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -99,7 +99,7 @@ def main():
         learning_rate=3e-5,
         lr_scheduler_type="linear",
         optim="adamw_torch",
-        num_train_epochs=12,
+        num_train_epochs=15,
         max_grad_norm=0.5,
         label_names=["labels"],
         eval_strategy="epoch",
