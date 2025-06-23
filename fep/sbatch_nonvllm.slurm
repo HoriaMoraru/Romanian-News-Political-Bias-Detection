@@ -11,12 +11,12 @@
 #SBATCH --error=logs2/train-%j.err
 
 apptainer exec --nv \
-  --bind /export/home/acs/stud/s/stefania.silivestru/models:/models \
+  --bind /export/home/acs/stud/s/stefania.silivestru/horia/RomanianNewsPoliticalBiasDetection/.env:/app/.env \
   fep/sandbox \
   bash -c '
     source /venv/bin/activate
 
     echo "[INFO] Running script..."
-    python3 labeling.py
+    python3 train.py
 '
 
