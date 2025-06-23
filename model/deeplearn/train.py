@@ -21,7 +21,7 @@ GOLD_LABELS = "manual_labeling/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "readerbench/RoBERT-small"
+MODEL_NAME = "microsoft/xtremedistil-l6-h384-uncased"
 MAX_LEN = 512
 NUM_LABELS = 2
 
@@ -31,7 +31,6 @@ tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
     preds = np.argmax(logits, axis=-1)
-    logging.info(f"Predictions: {preds}, Labels: {labels}")
     return {
         "accuracy": accuracy_score(labels, preds),
         "f1": f1_score(labels, preds),
@@ -97,7 +96,7 @@ def main():
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=NUM_LABELS)
 
     args = TrainingArguments(
-        learning_rate=1e-5,
+        learning_rate=5e-6,
         lr_scheduler_type="linear",
         optim="adamw_torch",
         num_train_epochs=12,
