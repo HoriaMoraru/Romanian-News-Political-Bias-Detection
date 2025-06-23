@@ -21,7 +21,7 @@ GOLD_LABELS = "manual_labeling/manual_labels.csv"
 WEAK_LABELS = "dataset/snorkel/article_labels.csv"
 MODEL_OUTPUT_DIR = "./bias-finetuned"
 
-MODEL_NAME = "FacebookAI/xlm-roberta-base"
+MODEL_NAME = "readerbench/RoBERT-base"
 MAX_LEN = 512
 NUM_LABELS = 2
 
