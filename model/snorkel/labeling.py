@@ -185,9 +185,6 @@ if __name__ == "__main__":
     merged = pd.merge(gold_df, snorkel_labels, on="url", how="inner")
 
     logging.info(f"Merged dataset size: {len(merged)}")
-    out = merged[["url", "label", "snorkel_label"]]
-
-    out.to_csv("dataset/snorkel/merged_labels.csv", index=False)
 
     le = LabelEncoder()
     y_true = le.fit_transform(merged["label"])
