@@ -10,13 +10,15 @@
 #SBATCH --output=logs2/train-%j.out
 #SBATCH --error=logs2/train-%j.err
 
+# Save the first command-line argument (the URL)
+URL="$1"
+
 apptainer exec --nv \
   --bind /export/home/acs/stud/s/stefania.silivestru/horia/RomanianNewsPoliticalBiasDetection/.env:/app/.env \
   fep/sandbox \
-  bash -c '
-    source /venv/bin/activate
+  bash -c "
+    source /demo_venv/bin/activate
 
-    echo "[INFO] Running script..."
-    python3 train.py
-'
-
+    echo '[INFO] Running script with URL: $URL'
+    python3 demo.py \"$URL\"
+  "
